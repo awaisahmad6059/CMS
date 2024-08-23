@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CMSPortalCUI"
+        tools:targetApi="31">
+        <activity
+            android:name=".StaffSide.StaffEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffSide.StaffAssignedDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffSide.StaffAssignedMeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffSide.StaffCompleteTaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffSide.StaffProfileDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.MaintananceDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AssignWorkerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AdminRequestSentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AdminRequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AdminChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AdminGeneralSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AdminSecuritySettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AdminEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.MaintananceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.CompleteTaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AdminProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.StaffActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.FeedbackRequestListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.UserManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffSide.StaffNotificationDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.MaintananceDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AddNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.MaintananceStaffDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.StaffProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserNotificationDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserFeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.RequestSentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserHelpAndSupportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserRequestDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserMaintanancerequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserCompleteFeddbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserRequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffSide.StaffDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSide.UserDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSide.AdminDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.AuthenticationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.WelcomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

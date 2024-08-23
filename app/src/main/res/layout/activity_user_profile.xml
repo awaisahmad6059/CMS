@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Back Arrow -->
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/rounded_corner_background"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back_button_desc"
+            android:layout_margin="8dp" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_photo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/title"
+            app:civ_border_width="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/account" />
+
+
+        <!-- Profile Photo -->
+
+        <!-- Edit Profile Photo Button -->
+        <Button
+            android:id="@+id/button_edit_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile Photo"
+            android:layout_below="@id/profile_photo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/ButtonWhite"
+            android:textColor="@android:color/black" />
+
+        <!-- Full Name Label -->
+        <TextView
+            android:id="@+id/label_full_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textStyle="bold"
+            android:layout_below="@id/button_edit_photo"
+            android:layout_marginTop="16dp" />
+
+        <!-- Full Name EditText -->
+        <EditText
+            android:id="@+id/edit_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:layout_below="@id/label_full_name"
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
+            android:background="@drawable/rounded_corner_background" />
+
+        <!-- Description Label -->
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textStyle="bold"
+            android:layout_below="@id/edit_full_name"
+            android:layout_marginTop="16dp" />
+
+        <!-- Description EditText -->
+        <EditText
+            android:id="@+id/editdescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:layout_below="@id/description"
+            android:layout_marginTop="8dp"
+            android:gravity="top"
+            android:padding="12dp"
+            android:minHeight="120dp"
+            android:background="@drawable/rounded_corner_background" />
+
+        <!-- Email Label -->
+        <TextView
+            android:id="@+id/label_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E mail"
+            android:textStyle="bold"
+            android:layout_below="@id/editdescription"
+            android:layout_marginTop="16dp" />
+
+        <!-- Email EditText -->
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E mail"
+            android:layout_below="@id/label_email"
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
+            android:background="@drawable/rounded_corner_background" />
+
+        <!-- Phone Label -->
+        <TextView
+            android:id="@+id/label_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textStyle="bold"
+            android:layout_below="@id/edit_email"
+            android:layout_marginTop="16dp" />
+
+        <!-- Phone EditText -->
+        <EditText
+            android:id="@+id/edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone"
+            android:layout_below="@id/label_phone"
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
+            android:background="@drawable/rounded_corner_background" />
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:layout_below="@id/edit_phone"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/ButtonBlue"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+</ScrollView>

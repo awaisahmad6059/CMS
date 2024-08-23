@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="statuses">
+        <item>All Statuses</item>
+        <item>Status 1</item>
+        <item>Status 2</item>
+        <item>Status 3</item>
+    </string-array>
+
+    <string-array name="priorities">
+        <item>All Priorities</item>
+        <item>Priority 1</item>
+        <item>Priority 2</item>
+        <item>Priority 3</item>
+    </string-array>
+
+    <string-array name="teams">
+        <item>All Teams</item>
+        <item>Team 1</item>
+        <item>Team 2</item>
+        <item>Team 3</item>
+    </string-array>
+
+    <string-array name="priority_array">
+        <item>Select</item>
+        <item>Urgent</item>
+        <item>Moderate</item>
+        <item>Common</item>
+    </string-array>
+    <string-array name="select_image">
+        <item>Select Category</item>
+        <item>Gallery</item>
+        <item>Camera</item>
+        <item>Files</item>
+    </string-array>
+    <string-array name="select_location">
+        <item>Select Location</item>
+        <item>A-Block</item>
+        <item>B-lock</item>
+        <item>C-Block</item>
+    </string-array>
+    <string-array name="user_type">
+        <item>Select Type </item>
+        <item>user</item>
+        <item>staff</item>
+    </string-array>
+</resources>

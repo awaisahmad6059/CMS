@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- Image -->
+    <ImageView
+        android:id="@+id/report_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/task"
+        android:background="@drawable/rounded_corner_background"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Text Views -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Report Name -->
+        <TextView
+            android:id="@+id/report_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monthly Requests"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Last Updated Days -->
+        <TextView
+            android:id="@+id/last_updated_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last 30 days"
+            android:textSize="16sp"
+            android:textColor="@color/grey" />
+
+    </LinearLayout>
+
+    <!-- Arrow -->
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/arrowa"
+        android:layout_marginStart="16dp" />
+
+</LinearLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corner_background"
+        android:src="@drawable/back"
+        android:contentDescription="Back" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/back_button"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="8dp"
+        android:text="Assign to a worker"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+    <!-- Select a worker row with arrow icon -->
+    <RelativeLayout
+        android:id="@+id/select_worker_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="32dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+
+        <!-- Select a worker -->
+        <TextView
+            android:id="@+id/select_worker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select a worker"
+            android:textAppearance="?attr/textAppearanceBody1" />
+
+        <!-- Arrow icon in Select a worker row -->
+        <ImageView
+            android:id="@+id/arrow_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/arrow"
+            android:contentDescription="Arrow" />
+    </RelativeLayout>
+
+    <!-- Add to Task -->
+    <TextView
+        android:id="@+id/add_to_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/select_worker_row"
+        android:layout_marginStart="16dp"
+        android:text="Add to Task"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:textColor="@color/colorPrimary" />
+
+    <!-- Set Priority Spinner -->
+    <Spinner
+        android:id="@+id/set_priority_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="0dp"
+        android:entries="@array/priority_array"
+        android:spinnerMode="dropdown" />
+
+    <!-- Button Container -->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <!-- Assign Button -->
+        <Button
+            android:id="@+id/assign_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/ButtonBlue"
+            android:text="Assign"
+            android:textColor="@android:color/white" />
+
+        <!-- Closed Button -->
+        <Button
+            android:id="@+id/closed_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/ButtonWhite"
+            android:text="Closed"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+</RelativeLayout>

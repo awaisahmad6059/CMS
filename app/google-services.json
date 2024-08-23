@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "387233661100",
+    "project_id": "cmsportalcui",
+    "storage_bucket": "cmsportalcui.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387233661100:android:09d04b2eb80d9a839bdf09",
+        "android_client_info": {
+          "package_name": "com.faa.cmsportalcui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnO0GAkhFecZB0aYLlt8BpW-ncaSRgMpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

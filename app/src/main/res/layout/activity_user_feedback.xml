@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Back Arrow -->
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/rounded_corner_background"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back_button_desc" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Feedback"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <!-- Satisfaction Question -->
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How satisfied are you with the service?"
+            android:textSize="22sp"
+            android:layout_below="@id/back_button"
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <!-- Rating Display -->
+        <TextView
+            android:id="@+id/rating_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:layout_below="@id/question"
+            android:layout_marginTop="16dp"
+            android:layout_alignStart="@id/back_button"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/black" />
+
+        <!-- Star Rating -->
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="0.5"
+            android:layout_toEndOf="@id/rating_number"
+            android:layout_marginStart="8dp"
+            android:layout_alignBottom="@id/rating_number"
+            android:layout_marginTop="16dp"
+            android:isIndicator="false"
+            android:background="@android:color/transparent" />
+
+        <!-- Review Count -->
+
+        <!-- Rating Distribution -->
+        <LinearLayout
+            android:id="@+id/rating_distribution"
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rating_bar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <!-- 5 Stars -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_5_star_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_5_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:max="100"
+                    android:progress="100"
+                    android:progressTint="@color/black" />
+
+                <TextView
+                    android:id="@+id/percentage_5_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- 4 Stars -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_4_star_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_4_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:max="100"
+                    android:progress="80"
+                    android:progressTint="@color/black" />
+
+                <TextView
+                    android:id="@+id/percentage_4_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- 3 Stars -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_3_star_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_3_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:max="100"
+                    android:progress="60"
+                    android:progressTint="@color/black" />
+
+                <TextView
+                    android:id="@+id/percentage_3_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- 2 Stars -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_2_star_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_2_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:max="100"
+                    android:progress="40"
+                    android:progressTint="@color/black" />
+
+                <TextView
+                    android:id="@+id/percentage_2_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- 1 Star -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_1_star_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_1_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:max="100"
+                    android:progress="20"
+                    android:progressTint="@color/black" />
+
+                <TextView
+                    android:id="@+id/percentage_1_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/label_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Review"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_below="@id/rating_distribution"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/black" />
+
+        <!-- Review EditText -->
+        <EditText
+            android:id="@+id/edit_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Write your review here"
+            android:layout_below="@id/label_review"
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
+            android:background="@drawable/rounded_corner_background"
+            android:gravity="top"
+            android:minHeight="120dp" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/button_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_below="@id/edit_review"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/ButtonBlue"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".StaffSide.StaffAssignedMeActivity">
+
+    <!-- Back Arrow -->
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corner_background"
+        android:contentDescription="@string/back_button_desc"
+        android:src="@drawable/back" />
+
+    <!-- Screen Label -->
+    <TextView
+        android:id="@+id/screenLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/back_button"
+        android:text="My Tasks"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <!-- Assigned to Me Label -->
+    <TextView
+        android:id="@+id/assignedToMeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/back_button"
+        android:layout_marginTop="14dp"
+        android:text="Assigned to me"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/assignedToMeLabel"
+        android:layout_marginTop="14dp" />
+
+</RelativeLayout>

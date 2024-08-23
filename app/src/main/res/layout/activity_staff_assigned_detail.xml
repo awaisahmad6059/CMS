@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Back Image Button -->
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/rounded_corner_background"
+            android:contentDescription="@string/back_button_desc"
+            android:src="@drawable/back" />
+
+        <!-- Screen Label -->
+        <TextView
+            android:id="@+id/screenLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="91dp"
+            android:layout_toEndOf="@+id/back_button"
+            android:text="Task Detail"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/titleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/back_button"
+            android:layout_marginTop="8dp"
+            android:text="Title"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleLabel"
+            android:background="@drawable/rounded_corner_background"
+            android:padding="10dp"
+            android:text="Title Content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/descriptionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleTextView"
+            android:layout_marginTop="20dp"
+            android:text="Description"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionLabel"
+            android:background="@drawable/rounded_corner_background"
+            android:padding="10dp"
+            android:text="Description Content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Room -->
+        <TextView
+            android:id="@+id/roomLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionTextView"
+            android:layout_marginTop="20dp"
+            android:text="Room"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/roomTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roomLabel"
+            android:background="@drawable/rounded_corner_background"
+            android:padding="10dp"
+            android:text="Room Content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Assigned By -->
+        <TextView
+            android:id="@+id/assignedByLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roomTextView"
+            android:layout_marginTop="20dp"
+            android:text="Assigned by"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/assignedByTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assignedByLabel"
+            android:background="@drawable/rounded_corner_background"
+            android:padding="10dp"
+            android:text="Assigned By Content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Location -->
+        <TextView
+            android:id="@+id/locationLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assignedByTextView"
+            android:layout_marginTop="20dp"
+            android:text="Location"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/locationLabel"
+            android:background="@drawable/rounded_corner_background"
+            android:padding="10dp"
+            android:text="Location Content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Picture -->
+        <TextView
+            android:id="@+id/pictureLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/locationTextView"
+            android:layout_marginTop="20dp"
+            android:text="Picture"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/pictureImageView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@id/pictureLabel"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image" />
+
+        <LinearLayout
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pictureImageView"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2"> <!-- Optional, helps distribute space evenly -->
+
+            <!-- Start Task Button -->
+            <Button
+                android:id="@+id/startTask"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/ButtonBlue"
+                android:text="Start Task"
+                android:textColor="@color/white" />
+
+            <!-- Cancel Button -->
+            <Button
+                android:id="@+id/completeTask"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/ButtonWhite"
+                android:text="CompleteTask"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/ButtonWhite"
+            android:text="Cancel"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/btn"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+
+</ScrollView>

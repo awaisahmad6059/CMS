@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Back Image Button -->
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_corner_background"
+        android:contentDescription="@string/back_button_desc"
+        android:src="@drawable/back" />
+    <!-- Screen Label -->
+    <TextView
+        android:id="@+id/screenLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_toEndOf="@id/back_button"
+        android:layout_toRightOf="@id/back_button"
+        android:text="Notifications"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Title Label -->
+    <TextView
+        android:id="@+id/titleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/screenLabel"
+        android:layout_marginTop="40dp"
+        android:text="Title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
+
+    <!-- Title Background -->
+    <TextView
+        android:id="@+id/titleBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="hghghh"
+        android:layout_below="@id/titleLabel"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corner_background" />
+
+    <!-- Details Label -->
+    <TextView
+        android:id="@+id/detailsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleBackground"
+        android:layout_marginTop="20dp"
+        android:text="Details"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
+
+    <!-- Details Background -->
+    <TextView
+        android:id="@+id/detailsBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="hghghh"
+        android:layout_below="@id/detailsLabel"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corner_background" />
+
+    <!-- Close Button -->
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detailsBackground"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Close"
+        android:backgroundTint="@color/ButtonWhite"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
+
+</RelativeLayout>

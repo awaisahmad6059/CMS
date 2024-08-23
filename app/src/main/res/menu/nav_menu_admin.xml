@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/profile"
+        android:title="Profile" />
+    <item
+        android:id="@+id/nav_notifications"
+        android:icon="@drawable/notifications"
+        android:title="Notifications" />
+    <item
+        android:id="@+id/nav_feedback"
+        android:icon="@drawable/feedback"
+        android:title="Feedback" />
+    <item
+        android:id="@+id/nav_signout"
+        android:icon="@drawable/logout"
+        android:title="Sign Out" />
+</menu>

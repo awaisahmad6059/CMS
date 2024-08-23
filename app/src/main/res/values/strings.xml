@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CMS Portal CUI</string>
+    <string name="cms_logo_desc">CMS Logo</string>
+    <string name="back_button_desc">Back Button</string>
+    <string name="search_button_desc">Search</string>
+    <string name="notification_button_desc">Notifications</string>
+    <string name="add_user">Add User</string>
+    <string name="menu_button_desc">Open Menu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+</resources>
+
