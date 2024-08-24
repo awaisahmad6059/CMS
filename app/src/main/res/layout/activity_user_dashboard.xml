@@ -217,9 +217,11 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="71dp"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        android:background="@drawable/bottombar_background"
         android:layout_gravity="bottom"
-        android:background="@color/white"
         app:menu="@menu/user_dashboard_nav"
         app:labelVisibilityMode="labeled" />
 

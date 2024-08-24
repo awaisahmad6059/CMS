@@ -16,16 +16,19 @@ class UserNotificationDetailActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private lateinit var descriptionTextView: TextView
+    private lateinit var titleTextView: TextView
     private lateinit var markAsReadButton: Button
     private lateinit var backButton: ImageButton
     private lateinit var userId: String
     private lateinit var notificationId: String
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_notification_detail)
 
         descriptionTextView = findViewById(R.id.description)
+        titleTextView = findViewById(R.id.title)
         markAsReadButton = findViewById(R.id.mark_as_read_button)
         backButton = findViewById(R.id.menu_button)
 
@@ -53,6 +56,7 @@ class UserNotificationDetailActivity : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 val notification = document.toObject(Notification::class.java)
                 descriptionTextView.text = notification?.description ?: "No details available"
+                titleTextView.text = notification?.title ?: "No title available"
             }
             .addOnFailureListener { e ->
                 // Handle error
