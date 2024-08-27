@@ -44,6 +44,7 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
         val emailTxt: TextView = findViewById(R.id.email)
         val availabilityRecyclerView: RecyclerView = findViewById(R.id.availabilityRecyclerView)
         val backButton: ImageButton = findViewById(R.id.back_button)
+        val cancelBtn: Button = findViewById(R.id.cancelButton)
         val saveAssignButton: Button = findViewById(R.id.saveAssignButton)
         val progressToast = Toast.makeText(this, "Creating subcollection...", Toast.LENGTH_SHORT)
 
@@ -116,6 +117,9 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
         }
 
         backButton.setOnClickListener {
+            finish()
+        }
+        cancelBtn.setOnClickListener {
             finish()
         }
 

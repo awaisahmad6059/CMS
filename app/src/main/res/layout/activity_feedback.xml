@@ -55,7 +55,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="12dp"
         android:layout_toEndOf="@+id/item_image"
-        android:text="ID #12345"
+        android:text=" "
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_toEndOf="@+id/item_image"
-        android:text="by @Awais .1d"
+        android:text=""
         android:textColor="@color/grey"
         android:textSize="14sp" />
 
@@ -79,7 +79,7 @@
         android:layout_marginTop="27dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="12dp"
-        android:text="This is a sample description of the item. This description can span multiple lines as needed."
+        android:text=""
         android:textSize="14sp" />
 
 

@@ -76,6 +76,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
+            android:inputType="textPersonName"
             android:padding="12dp"
             android:hint="Enter Name" />
         <TextView
@@ -93,6 +94,7 @@
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
             android:padding="12dp"
+            android:inputType="textEmailAddress"
             android:hint="Enter Email" />
         <!-- Experience Field -->
         <TextView
@@ -110,6 +112,7 @@
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
             android:padding="12dp"
+            android:inputType="text"
             android:hint="Enter Experience" />
         <TextView
             android:layout_width="match_parent"
@@ -126,6 +129,7 @@
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
             android:padding="12dp"
+            android:inputType="text"
             android:hint="Enter Position" />
 
         <!-- Specialization Field -->
@@ -144,6 +148,7 @@
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
             android:padding="12dp"
+            android:inputType="text"
             android:hint="Enter Specialization" />
 
         <!-- Phone Field -->
@@ -162,6 +167,7 @@
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
             android:padding="12dp"
+            android:inputType="phone"
             android:hint="Enter Phone Number" />
 
         <!-- Save Button -->

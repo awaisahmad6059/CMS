@@ -102,9 +102,7 @@ class MaintananceDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToMaintananceActivity() {
-        val intent = Intent(this, MaintananceActivity::class.java)
-        startActivity(intent)
-        finish() // Optionally close the current activity
+        finish()
     }
 
     private fun navigateToAssignWorkerActivity(

@@ -31,7 +31,7 @@
                 android:id="@+id/item_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ID #12345"
+                android:text=""
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
                 android:id="@+id/item_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="by @Awais .1d"
+                android:text=""
                 android:textSize="14sp"
                 android:textColor="@color/grey"
                 android:layout_marginTop="4dp" />
@@ -51,7 +51,7 @@
         android:id="@+id/item_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This is a sample description of the item. This description can span multiple lines as needed."
+        android:text=""
         android:textSize="14sp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp" />

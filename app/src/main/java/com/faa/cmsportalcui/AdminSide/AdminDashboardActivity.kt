@@ -61,7 +61,7 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
-        bottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView = findViewById(R.id.bottom_nav)
         totalUserTextView = findViewById(R.id.total_user_count)
         totalPendingRequestTextView = findViewById(R.id.total_pending_request_count)
         totalStaffCountTextView = findViewById(R.id.total_staff_count)

@@ -46,7 +46,8 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:text="hghghh"
+        android:text=""
+        android:padding="12dp"
         android:layout_below="@id/titleLabel"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_corner_background" />
@@ -70,7 +71,8 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:text="hghghh"
+        android:text=""
+        android:padding="12dp"
         android:layout_below="@id/detailsLabel"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_corner_background" />

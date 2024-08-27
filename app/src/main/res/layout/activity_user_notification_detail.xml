@@ -43,7 +43,9 @@
         android:textStyle="bold"
         android:textSize="22sp"
         android:textColor="@color/black"
+        android:background="@drawable/rounded_corner_background"
         android:text=""
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_button" />
@@ -58,6 +60,8 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:text=""
+        android:background="@drawable/rounded_corner_background"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />

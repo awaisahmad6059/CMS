@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_background"
                 android:hint="Title"
+                android:inputType="text"
                 android:padding="12dp" />
 
             <!-- Description -->
@@ -80,6 +81,7 @@
                 android:layout_height="150dp"
                 android:background="@drawable/rounded_corner_background"
                 android:hint="Description"
+                android:inputType="text"
                 android:padding="12dp" />
 
             <ImageView
