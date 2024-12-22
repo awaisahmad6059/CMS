@@ -15,7 +15,7 @@ import com.faa.cmsportalcui.UserSide.UserFeedbackActivity
 class UserCompleteTaskAdapter(
     private val context: Context,
     private val taskList: List<UserCompleteTask>,
-    private val userId: String // Pass the userId here
+    private val userId: String
 ) : RecyclerView.Adapter<UserCompleteTaskAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,11 +29,10 @@ class UserCompleteTaskAdapter(
         holder.title.text = task.title
         holder.date.text = "Submitted on ${task.currentDate}"
 
-        // Handle feedback button click
         holder.feedbackButton.setOnClickListener {
             val intent = Intent(context, UserFeedbackActivity::class.java)
-            intent.putExtra("userId", userId) // Pass the userId
-            intent.putExtra("taskId", task.taskId) // Pass the taskId
+            intent.putExtra("userId", userId)
+            intent.putExtra("taskId", task.taskId)
             context.startActivity(intent)
         }
     }

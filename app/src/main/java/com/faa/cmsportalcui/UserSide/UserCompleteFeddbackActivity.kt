@@ -25,7 +25,6 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_complete_feddback)
 
-        // Initialize Firestore and FirebaseAuth
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
@@ -35,7 +34,6 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
             return
         }
 
-        // Initialize RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
         if (currentUserId == null) {
@@ -44,15 +42,12 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
             return
         }
 
-        // Setup RecyclerView Adapter
         adapter = UserCompleteTaskAdapter(this, completeTaskList, currentUserId)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        // Fetch completed tasks
         fetchCompleteTasks(currentUserId)
 
-        // Set up back button
         findViewById<ImageButton>(R.id.back_button).setOnClickListener {
             finish()
         }
@@ -61,7 +56,6 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
     private fun fetchCompleteTasks(currentUserId: String) {
         Log.d("UserCompleteFeddback", "Fetching tasks for userId: $currentUserId")
 
-        // Query Firestore for tasks where the "userId" matches the current userId
         firestore.collection("completeTask")
             .whereEqualTo("userId", currentUserId)
             .get()
@@ -72,14 +66,12 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
                     Log.d("UserCompleteFeddback", "No completed tasks found for userId: $currentUserId")
                     Toast.makeText(this, "No completed tasks found", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Loop through the documents and add them to the list
                     for (document in documents) {
                         Log.d("UserCompleteFeddback", "Document ID: ${document.id}")
                         Log.d("UserCompleteFeddback", "Document Data: ${document.data}")
 
-                        // Convert document to UserCompleteTask object
                         val completeTask = document.toObject(UserCompleteTask::class.java).apply {
-                            taskId = document.id // Set the taskId to the Firestore document ID
+                            taskId = document.id
                         }
                         completeTaskList.add(completeTask)
                         Log.d("UserCompleteFeddback", "Fetched task: ${completeTask.title} with taskId: ${completeTask.taskId}")

@@ -24,17 +24,14 @@ class FeedbackActivity : AppCompatActivity() {
             finish()
         }
 
-        // Retrieve data from intent
         val itemId = intent.getStringExtra("id")
         val assignedBy = intent.getStringExtra("assignedBy")
         val review = intent.getStringExtra("review")
 
-        // Get references to TextViews
         val itemIdTextView = findViewById<TextView>(R.id.item_id)
         val assignedByTextView = findViewById<TextView>(R.id.item_user)
         val reviewTextView = findViewById<TextView>(R.id.item_description)
 
-        // Set the values to the respective TextViews
         itemIdTextView.text = itemId ?: "N/A"
         assignedByTextView.text = assignedBy ?: "N/A"
         reviewTextView.text = review ?: "No review provided."

@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso
 
 class UserDashboardActivity : AppCompatActivity() {
 
-    // Define variables here
     private lateinit var userName: TextView
     private lateinit var userDesc: TextView
     private lateinit var userProfileImage: ImageView
@@ -42,7 +41,6 @@ class UserDashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_dashboard)
 
-        // Initialize views
         userName = findViewById(R.id.user_name)
         userDesc = findViewById(R.id.user_desc)
         userProfileImage = findViewById(R.id.profile)
@@ -55,10 +53,8 @@ class UserDashboardActivity : AppCompatActivity() {
         completedTaskLayout = findViewById(R.id.completedtask)
         recyclerView = findViewById(R.id.recycler_view)
 
-        // Set up RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Get the user ID from the intent
         userId = intent.getStringExtra("user_id")
 
         if (userId != null) {
@@ -68,7 +64,6 @@ class UserDashboardActivity : AppCompatActivity() {
             Log.e("UserDashboardActivity", "User ID is null")
         }
 
-        // Set up bottom navigation and buttons
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> true
@@ -157,7 +152,7 @@ class UserDashboardActivity : AppCompatActivity() {
     private fun loadUserRequests(userId: String) {
         firestore.collection("users").document(userId).collection("requests")
             .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
-            .limit(2) // Limit the number of requests to the last 2
+            .limit(2)
             .get()
             .addOnSuccessListener { documents ->
                 val requests = mutableListOf<UserDashboardRequest>()
@@ -165,7 +160,6 @@ class UserDashboardActivity : AppCompatActivity() {
                     val title = document.getString("title") ?: ""
                     val timestampString = document.getString("timestamp") ?: ""
 
-                    // Add request with timestamp as string
                     requests.add(UserDashboardRequest(title, timestampString))
                 }
                 if (requests.isEmpty()) {
@@ -183,7 +177,6 @@ class UserDashboardActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        // Close all activities in the stack
         finishAffinity()
     }
 }

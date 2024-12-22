@@ -30,7 +30,6 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_staff_assigned_detail)
 
-        // Initialize views
         titleTextView = findViewById(R.id.titleTextView)
         descriptionTextView = findViewById(R.id.descriptionTextView)
         roomTextView = findViewById(R.id.roomTextView)
@@ -41,7 +40,6 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
 
         firestore = FirebaseFirestore.getInstance()
 
-        // Get the task details from the intent
         val id = intent.getStringExtra("id")
         val assignedTaskId = intent.getStringExtra("assignedTaskId")
         val title = intent.getStringExtra("title")
@@ -55,7 +53,6 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
         val adminId = intent.getStringExtra("adminId")
         staffId = intent.getStringExtra("staffId")
 
-        // Display task details
         titleTextView.text = title ?: "No Title"
         descriptionTextView.text = description ?: "No Description"
         roomTextView.text = roomNumber ?: "No Room Number"
@@ -68,11 +65,10 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
                 .placeholder(R.drawable.image)
                 .into(pictureImageView)
         } else {
-            pictureImageView.setImageResource(R.drawable.image) // Set placeholder image
+            pictureImageView.setImageResource(R.drawable.image)
         }
 
         completeTaskButton.setOnClickListener {
-            // Ensure that assignedTaskId is not null or empty
             if (!assignedTaskId.isNullOrEmpty()) {
                 val taskData = mutableMapOf<String, Any>(
                     "id" to id.orEmpty(),
@@ -89,7 +85,6 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
                     "currentTime" to getCurrentTime()
                 )
 
-                // Determine userType based on adminId or userId
                 val determinedUserType = when {
                     !adminId.isNullOrEmpty() -> {
                         taskData["adminId"] = adminId
@@ -102,43 +97,35 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
                     else -> "unknown"
                 }
 
-                // Set the determined userType
                 taskData["userType"] = determinedUserType
 
-                // Use assignedTaskId as the document ID for the completeTask collection
                 firestore.collection("completeTask").document(assignedTaskId)
                     .set(taskData)
                     .addOnSuccessListener {
-                        // Task added to completeTask collection successfully
-                        // Navigate to StaffCompleteTaskActivity
+
                         val intent = Intent(this, StaffCompleteTaskActivity::class.java)
-                        intent.putExtra("staffId", staffId) // Pass staffId
+                        intent.putExtra("staffId", staffId)
                         startActivity(intent)
-                        finish() // Optional: finish this activity to return to the previous one
+                        finish()
                     }
                     .addOnFailureListener { e ->
-                        // Handle failure to add the task to completeTask
                         e.printStackTrace()
                     }
             } else {
-                // Handle case where assignedTaskId is null or empty
-                // Show an error message or handle accordingly
+
             }
         }
 
-        // Set up back button
         findViewById<ImageButton>(R.id.back_button).setOnClickListener {
             finish()
         }
     }
 
-    // Helper function to get current date as a formatted string
     private fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date())
     }
 
-    // Helper function to get current time as a formatted string
     private fun getCurrentTime(): String {
         val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
         return timeFormat.format(Date())

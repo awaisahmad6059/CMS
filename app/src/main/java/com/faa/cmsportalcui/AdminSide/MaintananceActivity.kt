@@ -28,11 +28,9 @@ class MaintananceActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Initialize the adapter
         adapter = MaintenanceRequestAdapter(emptyList())
         recyclerView.adapter = adapter
 
-        // Setup real-time updates for maintenance requests
         setupRealTimeUpdates()
 
         val backButton: ImageButton = findViewById(R.id.back_button)
@@ -49,7 +47,7 @@ class MaintananceActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        requestsListener?.remove() // Remove the listener when activity is destroyed
+        requestsListener?.remove()
     }
 
     private fun setupRealTimeUpdates() {
@@ -81,7 +79,6 @@ class MaintananceActivity : AppCompatActivity() {
                         val userType = document.getString("userType") ?: "user"
                         val adminId = document.getString("adminId") ?: ""
 
-                        // Depending on the userType, fetch either user or admin data
                         val collectionPath = if (userType == "user") "users" else "admins"
                         val docId = if (userType == "user") userId else adminId
 
@@ -100,7 +97,6 @@ class MaintananceActivity : AppCompatActivity() {
                                     authorName, commentText, userType, adminId, userId
                                 )
 
-                                // Check if this request is in any staff's assignedTasks
                                 checkIfRequestAssignedToStaff(id, userType, adminId) { isAssigned ->
                                     if (!isAssigned) {
                                         requests.add(maintenanceRequest)
@@ -137,19 +133,18 @@ class MaintananceActivity : AppCompatActivity() {
                     firestore.collection("staff")
                         .document(staffDocument.id)
                         .collection("assignedTasks")
-                        .whereEqualTo("id", requestId) // Adjusted to check for the specific "id" field
+                        .whereEqualTo("id", requestId)
                         .get()
                         .addOnSuccessListener { assignedTasks ->
                             if (!assignedTasks.isEmpty) {
-                                // Log that this request is already assigned
                                 Log.d("CheckRequest", "Request $requestId is assigned to staff ${staffDocument.id}")
                                 callback(true)
-                                return@addOnSuccessListener // Exit early if found
+                                return@addOnSuccessListener
                             }
 
                             completedChecks++
                             if (completedChecks == staffCollection.size()) {
-                                callback(false) // Only callback false if it wasn't found in any
+                                callback(false)
                             }
                         }
                         .addOnFailureListener {

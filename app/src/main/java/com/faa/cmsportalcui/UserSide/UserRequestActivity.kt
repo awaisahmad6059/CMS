@@ -2,6 +2,7 @@ package com.faa.cmsportalcui.UserSide
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -32,6 +33,8 @@ class UserRequestActivity : AppCompatActivity() {
     private var isEditMode: Boolean = false
     private var userId: String? = null
     private var requestId: String? = null
+    private lateinit var progressDialog: ProgressDialog
+
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
     private val auth by lazy { FirebaseAuth.getInstance() }
@@ -60,6 +63,13 @@ class UserRequestActivity : AppCompatActivity() {
         submitButton = findViewById(R.id.submit_btn)
         cancelButton = findViewById(R.id.cancel_btn)
         backButton = findViewById(R.id.back_button)
+        progressDialog = ProgressDialog(this).apply {
+            setTitle("Uploading Request")
+            setMessage("Please wait...")
+            setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+            max = 100
+            setCancelable(false)
+        }
 
         buttonAddPhoto.setOnClickListener {
             if (!isEditMode) {
@@ -121,7 +131,7 @@ class UserRequestActivity : AppCompatActivity() {
             Toast.makeText(this, "Please fill out all fields and add a photo", Toast.LENGTH_SHORT).show()
             return
         }
-
+        progressDialog.show()
         val currentTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
         val request = hashMapOf(
@@ -131,7 +141,7 @@ class UserRequestActivity : AppCompatActivity() {
             "roomNumber" to roomNumber,
             "userId" to userId,
             "timestamp" to currentTime,
-            "photoUrl" to "", // Placeholder, will be updated after photo upload
+            "photoUrl" to "",
             "status" to "pending",
             "userType" to "user"
         )
@@ -144,6 +154,7 @@ class UserRequestActivity : AppCompatActivity() {
                     uploadPhoto(userId!!, customRequestId)
                 }
                 .addOnFailureListener { e ->
+                    progressDialog.dismiss()
                     Toast.makeText(this, "Failed to save request: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         }
@@ -191,14 +202,14 @@ class UserRequestActivity : AppCompatActivity() {
             "description" to description,
             "location" to location,
             "roomNumber" to roomNumber,
-            "userId" to userId.orEmpty(), // Handle nullability
+            "userId" to userId.orEmpty(),
             "timestamp" to currentTime
         )
 
         if (selectedImageUri != null) {
             uploadPhoto(userId!!, requestId!!, updatedRequest)
         } else {
-            updatedRequest["photoUrl"] = intent.getStringExtra("photoUrl").orEmpty() // Handle nullability
+            updatedRequest["photoUrl"] = intent.getStringExtra("photoUrl").orEmpty()
             updateRequestInFirestore(userId!!, requestId!!, updatedRequest)
         }
     }
@@ -233,16 +244,19 @@ class UserRequestActivity : AppCompatActivity() {
                                 .collection("requests").document(requestId)
                                 .update("photoUrl", photoUrl)
                                 .addOnSuccessListener {
+                                    progressDialog.dismiss()
                                     Toast.makeText(this, "Request saved successfully", Toast.LENGTH_SHORT).show()
                                     navigateToRequestSentActivity()
                                 }
                                 .addOnFailureListener { e ->
+                                    progressDialog.dismiss()
                                     Toast.makeText(this, "Failed to update photo URL: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
                         }
                     }
                 }
                 .addOnFailureListener { e ->
+                    progressDialog.dismiss()
                     Toast.makeText(this, "Failed to upload photo: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         }

@@ -2,6 +2,7 @@ package com.faa.cmsportalcui.AdminSide
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -29,16 +30,19 @@ class AdminRequestActivity : AppCompatActivity() {
     private lateinit var cancelButton: Button
     private lateinit var backButton: ImageButton
     private var selectedImageUri: Uri? = null
+    private lateinit var progressDialog: ProgressDialog
+
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
     private val storage by lazy { FirebaseStorage.getInstance() }
     private val auth by lazy { FirebaseAuth.getInstance() }
 
-    private val adminId = "lzcmCdafqJ6dg8vAYexS"  // Known admin ID
+    private val adminId = "lzcmCdafqJ6dg8vAYexS"
     private var adminName: String? = null
 
     private val GALLERY_REQUEST_CODE = 1001
     private val CAMERA_REQUEST_CODE = 1002
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,13 @@ class AdminRequestActivity : AppCompatActivity() {
         submitButton = findViewById(R.id.submit_btn)
         cancelButton = findViewById(R.id.cancel_btn)
         backButton = findViewById(R.id.back_button)
+        progressDialog = ProgressDialog(this).apply {
+            setTitle("Uploading Request")
+            setMessage("Please wait...")
+            setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+            max = 100
+            setCancelable(false)
+        }
 
         buttonAddPhoto.setOnClickListener {
             showPhotoOptionsDialog()
@@ -70,7 +81,6 @@ class AdminRequestActivity : AppCompatActivity() {
             showCancelDialog()
         }
 
-        // Fetch admin name
         fetchAdminName()
     }
 
@@ -101,10 +111,10 @@ class AdminRequestActivity : AppCompatActivity() {
             Toast.makeText(this, "Admin name is not available", Toast.LENGTH_SHORT).show()
             return
         }
+        progressDialog.show()
 
         val currentTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
-        // Generate Request ID and save request
         generateRequestId { requestId ->
             val request = hashMapOf(
                 "title" to title,
@@ -112,10 +122,10 @@ class AdminRequestActivity : AppCompatActivity() {
                 "location" to location,
                 "roomNumber" to roomNumber,
                 "timestamp" to currentTime,
-                "photoUrl" to "", // Placeholder, will be updated after photo upload
-                "adminId" to adminId, // Add adminId to the request
-                "userType" to "admin", // Add userType
-                "status" to "pending" // Add status field with initial value "pending"
+                "photoUrl" to "",
+                "adminId" to adminId,
+                "userType" to "admin",
+                "status" to "pending"
             )
 
             firestore.collection("admins").document(adminId).collection("requests").document(requestId).set(request)
@@ -124,12 +134,13 @@ class AdminRequestActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Failed to save request: ${e.message}", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
                 }
         }
     }
 
     private fun generateRequestId(callback: (String) -> Unit) {
-        val prefix = (adminName?.take(2) ?: "ad").uppercase()  // Take the first two letters of the admin's name, default to "ad" if null
+        val prefix = (adminName?.take(2) ?: "ad").uppercase()
 
         firestore.collection("admins").document(adminId)
             .collection("requests")
@@ -138,7 +149,6 @@ class AdminRequestActivity : AppCompatActivity() {
                 val existingRequestIds = result.documents.map { it.id }
                 val existingNumbers = existingRequestIds
                     .mapNotNull { id ->
-                        // Extract the number part from the ID after the prefix
                         id.removePrefix(prefix).toIntOrNull()
                     }
 
@@ -148,17 +158,15 @@ class AdminRequestActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 Log.e("AdminRequestActivity", "Error generating request ID", e)
-                // Handle error by defaulting to 'prefix' followed by a random number if fetching failed
                 val defaultRequestId = "$prefix${generateRandomNumber(emptyList())}"
                 callback(defaultRequestId)
             }
     }
 
-    // Function to generate a random number with 3 to 4 digits that is not in the existingNumbers list
     private fun generateRandomNumber(existingNumbers: List<Int>): Int {
         var randomNumber: Int
         do {
-            randomNumber = (100..9999).random()  // Generate a random number between 100 and 9999
+            randomNumber = (100..9999).random()
         } while (existingNumbers.contains(randomNumber))
         return randomNumber
     }
@@ -167,26 +175,31 @@ class AdminRequestActivity : AppCompatActivity() {
         val storageRef = storage.reference.child("requests/$adminId/$requestId.jpg")
 
         selectedImageUri?.let { uri ->
-            storageRef.putFile(uri)
-                .addOnSuccessListener {
-                    storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                        val photoUrl = downloadUri.toString()
-                        firestore.collection("admins").document(adminId)
-                            .collection("requests").document(requestId)
-                            .update("photoUrl", photoUrl)
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Request saved successfully", Toast.LENGTH_SHORT).show()
-                                navigateToRequestSentActivity()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this, "Failed to update photo URL: ${e.message}", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+            val uploadTask = storageRef.putFile(uri)
+
+            uploadTask.addOnProgressListener { snapshot ->
+                val progress = (100.0 * snapshot.bytesTransferred / snapshot.totalByteCount).toInt()
+                progressDialog.progress = progress
+            }
+
+            uploadTask.addOnSuccessListener {
+                storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                    val photoUrl = downloadUri.toString()
+                    firestore.collection("admins").document(adminId)
+                        .collection("requests").document(requestId)
+                        .update("photoUrl", photoUrl)
+                        .addOnSuccessListener {
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Request saved successfully", Toast.LENGTH_SHORT).show()
+                            navigateToRequestSentActivity()
+                        }
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed to upload photo: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
+            }.addOnFailureListener { e ->
+                progressDialog.dismiss()
+                Toast.makeText(this, "Failed to upload photo: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
+
     }
 
     private fun showPhotoOptionsDialog() {

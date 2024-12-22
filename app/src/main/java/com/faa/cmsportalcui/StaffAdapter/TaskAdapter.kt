@@ -27,7 +27,6 @@ class TaskAdapter(
 
     override fun getItemCount() = tasks.size
 
-    // Method to update the tasks list and notify the adapter
     fun updateTasks(newTasks: List<Task>) {
         tasks = newTasks
         notifyDataSetChanged()
@@ -39,7 +38,7 @@ class TaskAdapter(
 
         fun bind(task: Task) {
             taskTitle.text = task.title
-            taskDueTime.text = task.timestamp // Adjust according to your data type
+            taskDueTime.text = task.timestamp
         }
     }
 }

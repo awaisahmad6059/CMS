@@ -29,7 +29,6 @@ class CompletedTaskAdapter(private val tasks: List<CompletedTask>) :
         holder.timeTextView.text = task.currentTime
 
         val imageUrl = if (task.userId != null) {
-            // Fetch user image URL from Firestore
             getUserProfileImageUrl(task.userId) { url ->
                 Glide.with(holder.itemView.context)
                     .load(url)
@@ -37,7 +36,6 @@ class CompletedTaskAdapter(private val tasks: List<CompletedTask>) :
                     .into(holder.userImageView)
             }
         } else {
-            // Fetch admin image URL from Firestore
             getAdminProfileImageUrl("lzcmCdafqJ6dg8vAYexS") { url ->
                 Glide.with(holder.itemView.context)
                     .load(url)
@@ -58,7 +56,6 @@ class CompletedTaskAdapter(private val tasks: List<CompletedTask>) :
                 }
             }
             .addOnFailureListener {
-                // Handle the error
             }
     }
 
@@ -71,7 +68,6 @@ class CompletedTaskAdapter(private val tasks: List<CompletedTask>) :
                 }
             }
             .addOnFailureListener {
-                // Handle the error
             }
     }
 

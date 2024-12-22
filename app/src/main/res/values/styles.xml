@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="groupstylelight_blue_A700">
+        <item name="android:background">@drawable/rectangle_bg_light_blue_a700</item>
+    </style>
+<style name="groupStyleWhtie_A700cornerRadius">
+    <item name="android:background">@drawable/rectangle_bg_white_a700_radius_tl_50_tr_53</item>
+</style>
+</resources>

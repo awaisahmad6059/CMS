@@ -48,7 +48,6 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
         val saveAssignButton: Button = findViewById(R.id.saveAssignButton)
         val progressToast = Toast.makeText(this, "Creating subcollection...", Toast.LENGTH_SHORT)
 
-        // Retrieve data from Intent extras
         staffId = intent.getStringExtra("staffId")
         taskId = intent.getStringExtra("taskId")
         id = intent.getStringExtra("id")
@@ -88,7 +87,6 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
                 "timestamp" to timestamp
             )
 
-            // Add userId or adminId based on the request type
             when {
                 !userId.isNullOrEmpty() -> subcollectionData["adminId"] = userId
                 !adminId.isNullOrEmpty() -> subcollectionData["userId"] = adminId

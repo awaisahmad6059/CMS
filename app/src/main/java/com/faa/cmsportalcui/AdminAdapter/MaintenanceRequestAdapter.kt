@@ -43,10 +43,10 @@ class MaintenanceRequestAdapter(
             if (profileImageUrl.isNotEmpty()) {
                 Glide.with(itemView.context)
                     .load(profileImageUrl)
-                    .placeholder(R.drawable.account) // Default profile image placeholder
+                    .placeholder(R.drawable.account)
                     .into(profileImage)
             } else {
-                profileImage.setImageResource(R.drawable.account) // Default profile image placeholder
+                profileImage.setImageResource(R.drawable.account)
             }
 
             viewButton.setOnClickListener {
@@ -60,9 +60,9 @@ class MaintenanceRequestAdapter(
                     putExtra("photoUrl", request.imageUrl)
                     putExtra("authorname", request.authorName)
                     putExtra("commentText", request.commentText)
-                    putExtra("userType", request.userType) // Pass the userType to differentiate
-                    putExtra("adminId", request.adminId) // Pass adminId
-                    putExtra("userId", request.userId)   // Pass userId
+                    putExtra("userType", request.userType)
+                    putExtra("adminId", request.adminId)
+                    putExtra("userId", request.userId)
                 }
                 context.startActivity(intent)
             }

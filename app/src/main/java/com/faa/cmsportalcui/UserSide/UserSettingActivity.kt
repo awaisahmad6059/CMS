@@ -30,7 +30,6 @@ class UserSettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_setting)
 
-        // Initialize views
         logoutBtn = findViewById(R.id.button_logout)
         passwordSection = findViewById(R.id.password_section)
         notificationsSection = findViewById(R.id.notifications_section)
@@ -39,10 +38,8 @@ class UserSettingActivity : AppCompatActivity() {
         mobileNumberValue = findViewById(R.id.mobile_number_value)
         emailValue = findViewById(R.id.email_value)
 
-        // Retrieve and set user ID from intent
         userId = intent.getStringExtra("user_id")
 
-        // Fetch user data from Firestore
         loadUserData()
 
         val backButton: ImageButton = findViewById(R.id.back_button)
@@ -50,7 +47,6 @@ class UserSettingActivity : AppCompatActivity() {
             finish()
         }
 
-        // Set up button click listeners
         logoutBtn.setOnClickListener {
             startActivity(Intent(this@UserSettingActivity, WelcomeActivity::class.java))
             finishAffinity()
@@ -84,14 +80,12 @@ class UserSettingActivity : AppCompatActivity() {
                     val phone = document.getString("phone") ?: ""
                     val email = document.getString("email") ?: ""
 
-                    // Update UI with user data
                     nameValue.text = username
                     mobileNumberValue.text = phone
                     emailValue.text = email
                 }
             }
             .addOnFailureListener { e ->
-                // Handle error
             }
     }
 }

@@ -28,7 +28,6 @@ class UserChangePasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_change_password)
 
-        // Initialize views
         currentPasswordEditText = findViewById(R.id.current_password)
         newPasswordEditText = findViewById(R.id.new_password)
         reenterNewPasswordEditText = findViewById(R.id.reenter_new_password)
@@ -65,13 +64,11 @@ class UserChangePasswordActivity : AppCompatActivity() {
             return
         }
 
-        // Check current password and update password in Firestore
         userId?.let { id ->
             firestore.collection("users").document(id).get()
                 .addOnSuccessListener { document ->
                     val storedPassword = document.getString("password") ?: ""
                     if (storedPassword == currentPassword) {
-                        // Update password in Firestore
                         firestore.collection("users").document(id)
                             .update("password", newPassword)
                             .addOnSuccessListener {

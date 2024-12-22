@@ -28,13 +28,12 @@ class FeedbackRequestListActivity : AppCompatActivity() {
             finish()
         }
 
-        // Load completed tasks with review field
         loadCompletedTasksWithReview()
     }
 
     private fun loadCompletedTasksWithReview() {
         db.collection("completeTask")
-            .whereNotEqualTo("review", null) // Filter for completed tasks with a review
+            .whereNotEqualTo("review", null)
             .get()
             .addOnSuccessListener { result ->
                 feedbackList.clear()
@@ -44,7 +43,6 @@ class FeedbackRequestListActivity : AppCompatActivity() {
                 }
 
                 adapter = AdminFeedbackListAdapter(this, feedbackList) { selectedFeedback ->
-                    // Handle item click, e.g., navigate to a detailed view
                     Toast.makeText(this, "Selected: ${selectedFeedback.title}", Toast.LENGTH_SHORT).show()
                 }
 

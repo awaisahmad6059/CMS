@@ -39,7 +39,6 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        // Initialize views
         alreadyHaveAccount = findViewById(R.id.tv_sign_in)
         inputEmail = findViewById(R.id.et_email)
         inputPassword = findViewById(R.id.et_password)
@@ -52,7 +51,6 @@ class SignUpActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-        // Set listeners
         back_button.setOnClickListener {
             startActivity(Intent(this@SignUpActivity, AuthenticationActivity::class.java))
         }
@@ -90,14 +88,12 @@ class SignUpActivity : AppCompatActivity() {
             progressDialog.setCanceledOnTouchOutside(false)
             progressDialog.show()
 
-            // Firebase Authentication
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val firebaseUser = mAuth.currentUser
                     val userId = firebaseUser?.uid ?: ""
                     val staffId = if (selectedUserType == "staff") generateRandomStaffId() else ""
 
-                    // Data to save in Firestore
                     val userData = hashMapOf(
                         "email" to email,
                         "password" to password,
@@ -105,16 +101,14 @@ class SignUpActivity : AppCompatActivity() {
                         "userType" to selectedUserType
                     )
 
-                    // Save to Firestore based on user type
                     if (selectedUserType == "user") {
                         firestore.collection("users").document(userId)
                             .set(userData)
                             .addOnSuccessListener {
                                 progressDialog.dismiss()
                                 Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show()
-                                // Redirect to User Dashboard with user_id
                                 val intent = Intent(this@SignUpActivity, UserDashboardActivity::class.java)
-                                intent.putExtra("user_id", userId) // Pass the generated user ID
+                                intent.putExtra("user_id", userId)
                                 startActivity(intent)
                                 finish()
                             }
@@ -128,9 +122,8 @@ class SignUpActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                                 progressDialog.dismiss()
                                 Toast.makeText(this, "Staff registered successfully", Toast.LENGTH_SHORT).show()
-                                // Redirect to Staff Dashboard with staffId
                                 val intent = Intent(this@SignUpActivity, StaffDashboardActivity::class.java)
-                                intent.putExtra("staff_id", staffId) // Pass generated staffId
+                                intent.putExtra("staff_id", staffId)
                                 startActivity(intent)
                                 finish()
                             }
@@ -148,14 +141,9 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-
-    // Function to generate a random user ID
-
-
-    // Function to generate a random staff ID
     private fun generateRandomStaffId(): String {
         val prefix = "staff"
-        val randomNumber = (1000..9999).random() // Generates a random number between 1000 and 9999
+        val randomNumber = (1000..9999).random()
         return "$prefix$randomNumber"
     }
 

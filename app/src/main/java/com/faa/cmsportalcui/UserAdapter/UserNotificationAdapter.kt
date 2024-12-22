@@ -42,7 +42,7 @@ class UserNotificationAdapter(
                     val notification = notifications[position]
                     val intent = Intent(context, UserNotificationDetailActivity::class.java).apply {
                         putExtra("NOTIFICATION_ID", notification.id)
-                        putExtra("USER_ID", userId) // Pass user_id
+                        putExtra("USER_ID", userId)
                     }
                     context.startActivity(intent)
                 }
@@ -77,13 +77,12 @@ class UserNotificationAdapter(
         }
         holder.dateTextView.text = formattedDate
 
-        // Apply styles based on read status
         if (notification.isRead) {
             holder.titleTextView.setTypeface(null, Typeface.NORMAL)
-            holder.titleTextView.setTextColor(Color.BLACK) // Normal text color for read notifications
+            holder.titleTextView.setTextColor(Color.BLACK)
         } else {
             holder.titleTextView.setTypeface(null, Typeface.BOLD)
-            holder.titleTextView.setTextColor(Color.RED) // Red text color for unread notifications
+            holder.titleTextView.setTextColor(Color.RED)
         }
         holder.checkBox.isChecked = notification.isRead
     }
@@ -100,7 +99,7 @@ class UserNotificationAdapter(
             }
         }
         Handler(Looper.getMainLooper()).post {
-            notifyDataSetChanged() // Update the UI to remove bold styling and change color
+            notifyDataSetChanged()
         }
     }
 

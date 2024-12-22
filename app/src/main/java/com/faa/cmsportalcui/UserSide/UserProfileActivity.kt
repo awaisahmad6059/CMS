@@ -44,7 +44,7 @@ class UserProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-        userId = intent.getStringExtra("user_id")  // Retrieve user_id
+        userId = intent.getStringExtra("user_id")
 
         saveBtn = findViewById(R.id.button_save)
         editPhotoBtn = findViewById(R.id.button_edit_photo)
@@ -83,12 +83,11 @@ class UserProfileActivity : AppCompatActivity() {
         val desc = description.text.toString()
         val emailText = email.text.toString()
         val phoneText = phone.text.toString()
-        val userId = this.userId ?: return  // Use the userId passed in the intent
+        val userId = this.userId ?: return
 
         if (imageUri != null) {
             val ref = storage.reference.child("profile_images/$userId/${UUID.randomUUID()}")
 
-            // Compress the image
             val compressedImage = compressImage(imageUri!!)
 
             ref.putBytes(compressedImage)
@@ -101,7 +100,6 @@ class UserProfileActivity : AppCompatActivity() {
                     Toast.makeText(this, "Image Upload Failed: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {
-            // No new image selected, so retrieve the current image URL
             firestore.collection("users").document(userId).get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
@@ -117,16 +115,14 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun compressImage(uri: Uri): ByteArray {
         val bitmap: Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // For Android 9.0 (API level 28) and above
             val source = android.graphics.ImageDecoder.createSource(contentResolver, uri)
             android.graphics.ImageDecoder.decodeBitmap(source)
         } else {
-            // For devices below Android 9.0
             MediaStore.Images.Media.getBitmap(contentResolver, uri)
         }
 
         val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream) // Adjust quality as needed
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream)
         return outputStream.toByteArray()
     }
 
@@ -144,7 +140,7 @@ class UserProfileActivity : AppCompatActivity() {
                         "phone" to phone,
                         "profileImageUrl" to profileImageUrl,
                         "userType" to "user",
-                        "password" to existingPassword // Ensure password is not overwritten
+                        "password" to existingPassword
                     )
 
                     firestore.collection("users").document(userId)
@@ -174,9 +170,7 @@ class UserProfileActivity : AppCompatActivity() {
                     phone.setText(document.getString("phone"))
                     val profileImageUrl = document.getString("profileImageUrl")
                     if (profileImageUrl != null) {
-                        // Load image using a library like Picasso or Glide
-                        // Example with Picasso:
-                        // Picasso.get().load(profileImageUrl).into(profilePhoto)
+
                     }
                 }
             }
@@ -184,7 +178,7 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun navigateToDashboard(userId: String, name: String, desc: String, profileImageUrl: String?) {
         val intent = Intent(this, UserDashboardActivity::class.java)
-        intent.putExtra("user_id", userId)  // Pass userId to ensure the dashboard reflects the correct user
+        intent.putExtra("user_id", userId)
         intent.putExtra("userName", name)
         intent.putExtra("userDesc", desc)
         intent.putExtra("profileImageUrl", profileImageUrl)

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <!-- Horizontal dimensions -->
+    <dimen name="_14pxh">14.0dp</dimen>
+    <dimen name="_6pxh">6.0dp</dimen>
+    <dimen name="_16pxh">16.0dp</dimen>
+    <dimen name="_18pxh">18.0dp</dimen>
+    <dimen name="_12pxh">12.0dp</dimen>
+    <dimen name="_24pxh">24.0dp</dimen>
+    <dimen name="_17pxh">17.0dp</dimen>
+    <dimen name="_50pxh">50.0dp</dimen>
+    <dimen name="_52pxh">52.0dp</dimen>
+    <dimen name="_103pxh">103.0dp</dimen>
+    <dimen name="_105pxh">105.0dp</dimen>
+    <dimen name="_10pxh">10.0dp</dimen> <!-- New -->
+    <dimen name="_20pxh">20.0dp</dimen> <!-- New -->
+    <dimen name="_30pxh">30.0dp</dimen> <!-- New -->
+    <dimen name="_40pxh">40.0dp</dimen> <!-- New -->
+    <dimen name="_80pxh">80.0dp</dimen> <!-- New -->
+    <dimen name="_100pxh">100.0dp</dimen> <!-- New -->
+
+    <!-- Vertical dimensions -->
+    <dimen name="_1pxv">1.0dp</dimen>
+    <dimen name="_8pxv">8.0dp</dimen>
+    <dimen name="_95pxv">95.0dp</dimen>
+    <dimen name="_13pxv">13.0dp</dimen>
+    <dimen name="_24pxv">24.0dp</dimen>
+    <dimen name="_38pxv">38.0dp</dimen>
+    <dimen name="_56pxv">56.0dp</dimen>
+    <dimen name="_59pxv">59.0dp</dimen>
+    <dimen name="_526pxv">526.0dp</dimen>
+    <dimen name="_29pxv">29.0dp</dimen>
+    <dimen name="_16pxv">16.0dp</dimen>
+    <dimen name="_10pxv">10.0dp</dimen> <!-- New -->
+    <dimen name="_20pxv">20.0dp</dimen> <!-- New -->
+    <dimen name="_40pxv">40.0dp</dimen> <!-- New -->
+    <dimen name="_100pxv">100.0dp</dimen> <!-- New -->
+
+    <!-- Font sizes -->
+    <dimen name="font_small">12sp</dimen> <!-- New -->
+    <dimen name="font_medium">16sp</dimen> <!-- New -->
+    <dimen name="font_large">20sp</dimen> <!-- New -->
+    <dimen name="font_xlarge">24sp</dimen> <!-- New -->
+
+    <!-- Elevations -->
+    <dimen name="elevation_small">2dp</dimen> <!-- New -->
+    <dimen name="elevation_medium">4dp</dimen> <!-- New -->
+    <dimen name="elevation_large">6dp</dimen> <!-- New -->
+
+    <!-- Corners -->
+    <dimen name="corner_radius_small">8dp</dimen> <!-- New -->
+    <dimen name="corner_radius_medium">12dp</dimen> <!-- New -->
+    <dimen name="corner_radius_large">16dp</dimen> <!-- New -->
+</resources>

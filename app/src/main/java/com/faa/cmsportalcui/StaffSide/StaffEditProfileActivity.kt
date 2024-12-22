@@ -27,7 +27,6 @@ class StaffEditProfileActivity : AppCompatActivity() {
 
         staffId = intent.getStringExtra("staffId")
 
-        // Initialize views
         val profileImage = findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.profileImage)
         val nameEditText = findViewById<EditText>(R.id.nameEditText)
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
@@ -41,7 +40,6 @@ class StaffEditProfileActivity : AppCompatActivity() {
             finish()
         }
 
-        // Load existing staff data
         staffId?.let {
             db.collection("staff").document(it).get()
                 .addOnSuccessListener { document ->
@@ -56,7 +54,6 @@ class StaffEditProfileActivity : AppCompatActivity() {
                             val phone = data["phone"] as? String
                             val experience = data["experience"] as? String
 
-                            // Set existing data in views
                             profileImageUrl?.let {
                                 Picasso.get().load(it).into(profileImage)
                             }
@@ -76,13 +73,11 @@ class StaffEditProfileActivity : AppCompatActivity() {
                 }
         }
 
-        // Open gallery to select profile image
         editButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
-        // Save updated data
         saveButton.setOnClickListener {
             val name = nameEditText.text.toString()
             val email = emailEditText.text.toString()
@@ -92,7 +87,6 @@ class StaffEditProfileActivity : AppCompatActivity() {
             val experience = experienceEditText.text.toString()
 
             if (staffId != null) {
-                // Upload profile image if selected
                 profileImageUri?.let { uri ->
                     val profileImageRef = storage.child("staff/${staffId}/profile.jpg")
                     val uploadTask = profileImageRef.putFile(uri)
@@ -120,7 +114,6 @@ class StaffEditProfileActivity : AppCompatActivity() {
     }
 
     private fun saveToFirestore(name: String,email: String, position: String, specification: String, phone: String, experience: String, profileImageUrl: String?) {
-        // Check if the profileImageUrl is null, and if so, fetch the existing URL from Firestore
         if (profileImageUrl == null) {
             staffId?.let {
                 db.collection("staff").document(it).get()
@@ -135,7 +128,6 @@ class StaffEditProfileActivity : AppCompatActivity() {
                     }
             }
         } else {
-            // If a new image URL is provided, use it directly
             updateFirestore(name,email, position, specification, phone, experience, profileImageUrl)
         }
     }
@@ -155,7 +147,7 @@ class StaffEditProfileActivity : AppCompatActivity() {
             db.collection("staff").document(it).update(staffData)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
-                    finish()  // Close the activity and return to the previous screen
+                    finish()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Error updating profile", Toast.LENGTH_SHORT).show()

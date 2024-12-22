@@ -27,7 +27,6 @@ class NotificationAdapter(private val notifications: List<Notification>) :
         val notification = notifications[position]
         holder.notificationTitle.text = notification.title
 
-        // Set click listener for each item
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, StaffNotificationDetailActivity::class.java).apply {

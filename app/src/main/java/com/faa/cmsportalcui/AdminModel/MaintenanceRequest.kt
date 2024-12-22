@@ -10,6 +10,6 @@ data class MaintenanceRequest(
     val authorName: String,
     val commentText: String,
     val userType: String,
-    val adminId: String? = null, // Add this field
-    val userId: String? = null   // Add this field
+    val adminId: String? = null,
+    val userId: String? = null
 )

@@ -21,9 +21,8 @@ class StaffActivity : AppCompatActivity() {
     private val staffList = mutableListOf<Staff>()
     private val firestore = FirebaseFirestore.getInstance()
     private lateinit var backButton: ImageButton
-    private lateinit var progressBar: ProgressBar // Progress Bar
+    private lateinit var progressBar: ProgressBar
 
-    // Extra parameters
     private var id: String? = null
     private var description: String? = null
     private var commentText: String? = null
@@ -41,9 +40,8 @@ class StaffActivity : AppCompatActivity() {
         fabAddStaff = findViewById(R.id.fab_add_user)
         rvUsers = findViewById(R.id.rvUsers)
         backButton = findViewById(R.id.back_button)
-        progressBar = findViewById(R.id.progressBar) // Initialize Progress Bar
+        progressBar = findViewById(R.id.progressBar)
 
-        // Retrieve data from Intent
         id = intent.getStringExtra("id")
         description = intent.getStringExtra("title")
         commentText = intent.getStringExtra("description")
@@ -65,8 +63,8 @@ class StaffActivity : AppCompatActivity() {
             profileImageUrl,
             timestamp,
             progressBar,
-            userId,    // Pass userId
-            adminId    // Pass adminId
+            userId,
+            adminId
         )
 
         rvUsers.adapter = staffAdapter
@@ -103,6 +101,6 @@ class StaffActivity : AppCompatActivity() {
     private fun navigateToAdminDashboard() {
         val intent = Intent(this, AdminDashboardActivity::class.java)
         startActivity(intent)
-        finish() // Optionally close the current activity
+        finish()
     }
 }

@@ -24,13 +24,10 @@ class CompleteTaskActivity : AppCompatActivity() {
 
         firestore = FirebaseFirestore.getInstance()
 
-        // Initialize RecyclerView
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Fetch tasks and staff data
         fetchStaffNamesAndTasks()
-        // Set up back button click listener
         findViewById<ImageButton>(R.id.back_button).setOnClickListener {
             finish()
         }
@@ -48,7 +45,6 @@ class CompleteTaskActivity : AppCompatActivity() {
                 fetchCompleteTasks()
             }
             .addOnFailureListener { e ->
-                // Handle error
             }
     }
 
@@ -65,7 +61,6 @@ class CompleteTaskActivity : AppCompatActivity() {
                 recyclerView.adapter = adapter
             }
             .addOnFailureListener { e ->
-                // Handle error
             }
     }
 }

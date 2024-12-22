@@ -18,7 +18,7 @@ class StaffAssignedMeActivity : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var assignedMeAdapter: AssignedMeAdapter
     private val tasks = mutableListOf<AssignedMe>()
-    private val completedTaskIds = mutableSetOf<String>() // To hold IDs of completed tasks
+    private val completedTaskIds = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,26 +30,23 @@ class StaffAssignedMeActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         assignedMeAdapter = AssignedMeAdapter(tasks, { task ->
-            // Handle item click (for full item details or other actions)
         }, { task ->
-            // Handle detail button click
             val intent = Intent(this, StaffAssignedDetailActivity::class.java).apply {
-                putExtra("id", task.id) // Pass task ID
-                putExtra("assignedTaskId", task.assignedTaskId) // Pass assignedTaskId
+                putExtra("id", task.id)
+                putExtra("assignedTaskId", task.assignedTaskId)
                 putExtra("title", task.title)
                 putExtra("description", task.description)
-                putExtra("assignedBy", "Loading...") // Placeholder text while loading
+                putExtra("assignedBy", "Loading...")
                 putExtra("photoUrl", task.photoUrl)
                 putExtra("status", task.status)
                 putExtra("timestamp", task.timestamp)
                 putExtra("userId", task.userId)
                 putExtra("adminId", task.adminId)
                 putExtra("userType", task.userType)
-                putExtra("staffId", intent.getStringExtra("staffId")) // Pass staff ID
+                putExtra("staffId", intent.getStringExtra("staffId"))
             }
 
             if (task.adminId == "lzcmCdafqJ6dg8vAYexS") {
-                // Handle admin tasks
                 fetchRequestDetailsForAdmin(task.adminId, task.id) { location, roomNumber ->
                     intent.putExtra("location", location)
                     intent.putExtra("roomNumber", roomNumber)
@@ -59,7 +56,6 @@ class StaffAssignedMeActivity : AppCompatActivity() {
                     }
                 }
             } else if (task.userId != null && task.userId.isNotEmpty()) {
-                // Handle user tasks
                 fetchRequestDetailsForUser(task.userId, task.id) { location, roomNumber ->
                     intent.putExtra("location", location)
                     intent.putExtra("roomNumber", roomNumber)
@@ -69,14 +65,12 @@ class StaffAssignedMeActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                // Handle cases where neither adminId nor userId is present
                 startActivity(intent)
             }
         })
 
         recyclerView.adapter = assignedMeAdapter
 
-        // Fetch tasks from Firestore
         val staffId = intent.getStringExtra("staffId")
         if (staffId != null) {
             fetchCompletedTaskIds {
@@ -100,11 +94,11 @@ class StaffAssignedMeActivity : AppCompatActivity() {
                 for (document in result) {
                     completedTaskIds.add(document.id)
                 }
-                callback() // Invoke the callback to proceed with fetching assigned tasks
+                callback()
             }
             .addOnFailureListener { exception ->
                 Log.e("StaffAssignedMeActivity", "Error fetching completed tasks: ${exception.message}")
-                callback() // Invoke the callback to proceed even if fetching fails
+                callback()
             }
     }
 
@@ -117,8 +111,7 @@ class StaffAssignedMeActivity : AppCompatActivity() {
                 tasks.clear()
                 for (document in result) {
                     val task = document.toObject(AssignedMe::class.java)
-                    task.assignedTaskId = document.id // Set the assignedTaskId
-                    // Add only if the task is not completed
+                    task.assignedTaskId = document.id
                     if (!completedTaskIds.contains(task.assignedTaskId)) {
                         tasks.add(task)
                     }

@@ -35,7 +35,7 @@ class StaffDashboardActivity : AppCompatActivity() {
     private var staffId: String? = null
     private lateinit var taskAdapter: TaskAdapter
     private var tasksListener: ListenerRegistration? = null
-    private val completedTaskIds = mutableSetOf<String>() // To hold IDs of completed tasks
+    private val completedTaskIds = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,18 +51,16 @@ class StaffDashboardActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         mAuth = FirebaseAuth.getInstance()
 
-        // Get the staff ID from the intent
         staffId = intent.getStringExtra("staff_id")
 
         if (staffId != null) {
-            // Initialize the TaskAdapter
             taskAdapter = TaskAdapter(emptyList()) { task ->
                 val intent = Intent(this, StaffAssignedDetailActivity::class.java).apply {
                     putExtra("id", task.id)
                     putExtra("assignedTaskId", task.assignedTaskId)
                     putExtra("title", task.title)
                     putExtra("description", task.description)
-                    putExtra("assignedBy", "Loading...") // Will be updated later
+                    putExtra("assignedBy", "Loading...")
                     putExtra("photoUrl", task.photoUrl)
                     putExtra("status", task.status)
                     putExtra("timestamp", task.timestamp)
@@ -72,9 +70,7 @@ class StaffDashboardActivity : AppCompatActivity() {
                     putExtra("staffId", staffId)
                 }
 
-                // Determine if the task belongs to an admin or a user and fetch the appropriate details
                 if (task.adminId == "lzcmCdafqJ6dg8vAYexS") {
-                    // Handle admin tasks
                     fetchRequestDetailsForAdmin(task.adminId, task.id) { location, roomNumber ->
                         intent.putExtra("location", location)
                         intent.putExtra("roomNumber", roomNumber)
@@ -85,7 +81,6 @@ class StaffDashboardActivity : AppCompatActivity() {
                         }
                     }
                 } else if (task.userId != null && task.userId.isNotEmpty()) {
-                    // Handle user tasks
                     fetchRequestDetailsForUser(task.userId, task.id) { location, roomNumber ->
                         intent.putExtra("location", location)
                         intent.putExtra("roomNumber", roomNumber)
@@ -96,7 +91,7 @@ class StaffDashboardActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    startActivity(intent) // Start activity without additional location or roomNumber info
+                    startActivity(intent)
                 }
             }
 
@@ -104,7 +99,6 @@ class StaffDashboardActivity : AppCompatActivity() {
             assignedTasksRecyclerView.layoutManager = LinearLayoutManager(this)
             assignedTasksRecyclerView.adapter = taskAdapter
 
-            // Fetch data
             setupRealTimeStaffUpdates(staffId!!)
             fetchCompletedTaskIds {
                 setupRealTimeTaskUpdates(staffId!!)
@@ -174,29 +168,27 @@ class StaffDashboardActivity : AppCompatActivity() {
     }
 
     private fun fetchCompletedTaskIds(callback: () -> Unit) {
-        // Clear the previous listener if needed (optional step to avoid multiple listeners)
         completedTaskListener?.remove()
 
-        // Set up a real-time listener for the "completeTask" collection
         completedTaskListener = firestore.collection("completeTask")
             .addSnapshotListener { snapshots, e ->
                 if (e != null) {
                     Log.e("StaffDashboardActivity", "Error fetching real-time completed tasks", e)
-                    callback() // Proceed with setup even if there's an error
+                    callback()
                     return@addSnapshotListener
                 }
 
                 if (snapshots != null && !snapshots.isEmpty) {
-                    completedTaskIds.clear() // Clear the list before updating
+                    completedTaskIds.clear()
 
                     for (document in snapshots.documents) {
-                        completedTaskIds.add(document.id) // Add the completed task IDs
+                        completedTaskIds.add(document.id)
                     }
 
-                    callback() // Proceed with real-time task updates
+                    callback()
                 } else {
                     Log.d("StaffDashboardActivity", "No completed tasks found")
-                    callback() // Proceed even if no tasks are found
+                    callback()
                 }
             }
     }
@@ -216,15 +208,13 @@ class StaffDashboardActivity : AppCompatActivity() {
                     for (document in snapshot.documents) {
                         val task = document.toObject(Task::class.java)
                         if (task != null) {
-                            task.assignedTaskId = document.id // Set the assignedTaskId
+                            task.assignedTaskId = document.id
 
-                            // Add only if the task is not completed
                             if (!completedTaskIds.contains(task.assignedTaskId)) {
                                 taskList.add(task)
                             }
                         }
                     }
-                    // Update the adapter with the new list of tasks
                     taskAdapter.updateTasks(taskList)
                 }
             }
@@ -322,7 +312,6 @@ class StaffDashboardActivity : AppCompatActivity() {
                 Log.e("StaffDashboardActivity", "Error fetching notifications", e)
             }
         fun onBackPressed() {
-            // Close all activities in the stack
             finishAffinity()
         }
 

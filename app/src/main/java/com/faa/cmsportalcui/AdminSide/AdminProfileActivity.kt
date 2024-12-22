@@ -71,7 +71,7 @@ class AdminProfileActivity : AppCompatActivity() {
                     if (profileImageUrl != null && profileImageUrl.isNotEmpty()) {
                         Glide.with(this).load(profileImageUrl).into(profilePhoto)
                     } else {
-                        profilePhoto.setImageResource(R.drawable.account) // Placeholder image
+                        profilePhoto.setImageResource(R.drawable.account)
                     }
                 } else {
                     Toast.makeText(this, "No such document", Toast.LENGTH_SHORT).show()

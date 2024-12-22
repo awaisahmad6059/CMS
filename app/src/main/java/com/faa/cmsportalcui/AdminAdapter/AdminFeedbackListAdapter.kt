@@ -35,15 +35,12 @@ class AdminFeedbackListAdapter(
         holder.requestId.text = feedback.assignedTaskId
         holder.requestTitle.text = feedback.title
 
-        // Fetch staff profile image
         loadStaffProfileImage(feedback.staffId, holder.profileImage)
 
-        // Handle the view button click
         holder.viewButton.setOnClickListener {
-            // Pass the feedback details to FeedbackActivity
             val intent = Intent(context, FeedbackActivity::class.java).apply {
                 putExtra("id", feedback.id)
-                putExtra("assignedBy", feedback.assignedBy) // Assuming this field exists in AdminFeedbackList
+                putExtra("assignedBy", feedback.assignedBy)
                 putExtra("review", feedback.review)
             }
             context.startActivity(intent)
@@ -62,24 +59,21 @@ class AdminFeedbackListAdapter(
     }
 
     private fun loadStaffProfileImage(staffId: String, profileImageView: CircleImageView) {
-        // Get the staff's profile picture from Firestore
         db.collection("staff").document(staffId)
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    val imageUrl = document.getString("profileImageUrl") // Assuming profileImageUrl is the field name
+                    val imageUrl = document.getString("profileImageUrl")
                     if (!imageUrl.isNullOrEmpty()) {
-                        // Use Glide or any other image loading library to load the image into the CircleImageView
                         Glide.with(context)
                             .load(imageUrl)
-                            .placeholder(R.drawable.account) // Placeholder image
+                            .placeholder(R.drawable.account)
                             .into(profileImageView)
                     }
                 }
             }
             .addOnFailureListener { e ->
-                // Handle failure to load the profile image
-                profileImageView.setImageResource(R.drawable.account) // Fallback image
+                profileImageView.setImageResource(R.drawable.account)
             }
     }
 }

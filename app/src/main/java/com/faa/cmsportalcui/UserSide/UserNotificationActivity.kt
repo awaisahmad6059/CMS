@@ -32,7 +32,6 @@ class UserNotificationActivity : AppCompatActivity() {
         fetchNotifications { fetchedNotifications ->
             notifications = fetchedNotifications.toMutableList()
             adapter = UserNotificationAdapter(this, notifications, userId) { notification ->
-                // Optional: Handle notification removal callback if needed
             }
             recyclerView.adapter = adapter
         }
@@ -55,7 +54,7 @@ class UserNotificationActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { documents ->
                 val notifications = documents.mapNotNull { it.toObject(Notification::class.java) }
-                applyReadState(notifications, callback)  // Update logic to apply the read state
+                applyReadState(notifications, callback)
             }
             .addOnFailureListener { e ->
                 Log.e("UserNotificationActivity", "Error fetching notifications: ${e.message}", e)
@@ -70,7 +69,7 @@ class UserNotificationActivity : AppCompatActivity() {
                 notifications.forEach { notification ->
                     notification.isRead = notification.id in readNotificationIds
                 }
-                callback(notifications)  // Pass updated notifications with read state
+                callback(notifications)
             }
             .addOnFailureListener { e ->
                 Log.e("UserNotificationActivity", "Error fetching read notifications: ${e.message}", e)
@@ -83,6 +82,6 @@ class UserNotificationActivity : AppCompatActivity() {
             return
         }
 
-        adapter.markAllAsRead()  // Mark all as read and update UI
+        adapter.markAllAsRead()
     }
 }

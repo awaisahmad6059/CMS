@@ -20,23 +20,19 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
 
-        // Initialize views
         backButton = findViewById(R.id.back_button)
         loginBtn = findViewById(R.id.login_button)
         SignupBtn = findViewById(R.id.signup_button)
 
-        // Set up back button listener
         backButton.setOnClickListener {
             startActivity(Intent(this@AuthenticationActivity, WelcomeActivity::class.java))
             finishAffinity()
         }
 
-        // Set up login button listener
         loginBtn.setOnClickListener {
             startActivity(Intent(this@AuthenticationActivity, LoginActivity::class.java))
         }
 
-        // Set up signup button listener
         SignupBtn.setOnClickListener {
             startActivity(Intent(this@AuthenticationActivity, SignUpActivity::class.java))
         }

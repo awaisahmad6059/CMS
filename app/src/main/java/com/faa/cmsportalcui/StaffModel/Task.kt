@@ -2,7 +2,7 @@ package com.faa.cmsportalcui.StaffModel
 
 data class Task(
     val id: String = "",
-    var assignedTaskId: String = "", // Added this field
+    var assignedTaskId: String = "",
     val title: String = "",
     val description: String = "",
     val location: String = "",

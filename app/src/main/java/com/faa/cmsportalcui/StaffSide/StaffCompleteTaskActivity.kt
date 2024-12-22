@@ -36,23 +36,21 @@ class StaffCompleteTaskActivity : AppCompatActivity() {
 
         firestore = FirebaseFirestore.getInstance()
 
-        // Initialize RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         completedTaskAdapter = CompletedTaskAdapter(emptyList())
         recyclerView.adapter = completedTaskAdapter
 
-        // Setup real-time updates for completed tasks
         setupRealTimeTaskUpdates()
 
         addTask.setOnClickListener {
             startActivity(Intent(this@StaffCompleteTaskActivity, StaffAssignedMeActivity::class.java).apply {
-                putExtra("staffId", staffId) // Pass the staff ID
+                putExtra("staffId", staffId)
             })
         }
 
         backBtn.setOnClickListener {
             val intent = Intent(this, StaffDashboardActivity::class.java)
-            intent.putExtra("staff_id", staffId) // Pass the staff ID back
+            intent.putExtra("staff_id", staffId)
             finish()
         }
     }

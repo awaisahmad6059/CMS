@@ -34,10 +34,8 @@ class UserMaintanancerequestActivity : AppCompatActivity() {
         if (userId != null) {
             fetchMaintenanceRequests(userId!!)
         } else {
-            // Handle the error
         }
 
-        // Set click listener for back button
         val backButton: ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener {
             navigateToDashboardActivity()
@@ -56,7 +54,6 @@ class UserMaintanancerequestActivity : AppCompatActivity() {
                     return@addOnSuccessListener
                 }
 
-                // Collect request IDs and data
                 for (document in result) {
                     val id = document.id
                     requestIds.add(id)
@@ -73,7 +70,6 @@ class UserMaintanancerequestActivity : AppCompatActivity() {
 
                 Log.d("FirestoreDebug", "Requests fetched: ${requests.size}")
 
-                // Check if any requests are assigned to staff
                 checkIfRequestsAssignedToStaff(requestIds) { assignedRequests ->
                     val unassignedRequests = requests.filter { request ->
                         !assignedRequests.contains(request.id)
@@ -149,6 +145,6 @@ class UserMaintanancerequestActivity : AppCompatActivity() {
             putExtra("user_id", userId)
         }
         startActivity(intent)
-        finish() // Close the current activity so that it doesn't remain in the back stack
+        finish()
     }
 }

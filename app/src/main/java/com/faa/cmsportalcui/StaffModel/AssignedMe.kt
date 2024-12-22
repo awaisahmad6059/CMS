@@ -3,7 +3,7 @@ package com.faa.cmsportalcui.StaffModel
 
 data class AssignedMe(
     val id: String = "",
-    var assignedTaskId: String = "", // New field
+    var assignedTaskId: String = "",
     val title: String = "",
     val description: String = "",
     val location: String = "",

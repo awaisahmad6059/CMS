@@ -37,7 +37,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Initialize views
         createNewAccount = findViewById(R.id.tv_sign_up)
         inputEmail = findViewById(R.id.et_email)
         inputPassword = findViewById(R.id.et_password)
@@ -45,12 +44,10 @@ class LoginActivity : AppCompatActivity() {
         back_button = findViewById(R.id.back_button)
 
 
-        // Initialize Firebase and Progress Dialog
         mAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
         progressDialog = ProgressDialog(this)
 
-        // Set up login button listener
 
         btnLogin.setOnClickListener {
             val email = inputEmail.text.toString().trim()
@@ -67,7 +64,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this@LoginActivity, AuthenticationActivity::class.java))
         }
 
-        // Set up create new account listener
         createNewAccount.setOnClickListener {
             startActivity(Intent(this@LoginActivity, SignUpActivity::class.java))
 
@@ -78,24 +74,20 @@ class LoginActivity : AppCompatActivity() {
         progressDialog.setMessage("Logging in...")
         progressDialog.show()
 
-        // First check if the user is an admin
         firestore.collection("admins").document(adminId).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val adminEmail = document.getString("email")
                     val adminPassword = document.getString("password")
                     if (email == adminEmail && password == adminPassword) {
-                        // Admin matched
                         progressDialog.dismiss()
                         startActivity(Intent(this, AdminDashboardActivity::class.java))
                         finish()
                         return@addOnSuccessListener
                     } else {
-                        // Check for user and staff if not an admin
                         checkUserOrStaff(email, password)
                     }
                 } else {
-                    // Check for user and staff if not an admin
                     checkUserOrStaff(email, password)
                 }
             }
@@ -111,22 +103,19 @@ class LoginActivity : AppCompatActivity() {
                 if (querySnapshot.documents.isNotEmpty()) {
                     val user = querySnapshot.documents[0]
                     val userPassword = user.getString("password")
-                    val userId = user.id // Get the user ID of the logged-in user
+                    val userId = user.id
 
                     if (userPassword == password) {
-                        // Successful user login
                         progressDialog.dismiss()
                         val intent = Intent(this, UserDashboardActivity::class.java)
-                        intent.putExtra("user_id", userId) // Pass the user ID to the dashboard activity
+                        intent.putExtra("user_id", userId)
                         startActivity(intent)
                         finish()
                     } else {
-                        // Password mismatch or proceed to check staff
                         progressDialog.dismiss()
                         Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // No match in the users collection, check staff collection
                     checkStaff(email, password)
                 }
             }
@@ -137,7 +126,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkStaff(email: String, password: String) {
-        // Check the staff collection for the email and password match
         firestore.collection("staff").whereEqualTo("email", email).get()
             .addOnSuccessListener { staffSnapshot ->
                 if (!staffSnapshot.isEmpty) {
@@ -146,20 +134,17 @@ class LoginActivity : AppCompatActivity() {
                     val staffId = staff.id
 
                     if (staffPassword == password) {
-                        // Successful staff login
                         progressDialog.dismiss()
                         val intent = Intent(this, StaffDashboardActivity::class.java)
-                        intent.putExtra("staff_id", staffId) // Pass staff ID to the dashboard
+                        intent.putExtra("staff_id", staffId)
                         startActivity(intent)
                         finish()
                     } else {
-                        // Password mismatch or proceed with error message
                         progressDialog.dismiss()
                         Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT)
                             .show()
                     }
                 } else {
-                    // No match found in either collection
                     progressDialog.dismiss()
                     Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT).show()
                 }

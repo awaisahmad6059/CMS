@@ -33,7 +33,7 @@ class UserNotificationDetailActivity : AppCompatActivity() {
         backButton = findViewById(R.id.menu_button)
 
         notificationId = intent.getStringExtra("NOTIFICATION_ID") ?: ""
-        userId = intent.getStringExtra("USER_ID") ?: "" // Get user_id from intent
+        userId = intent.getStringExtra("USER_ID") ?: ""
 
         if (notificationId.isNotEmpty()) {
             fetchNotificationDetails(notificationId)
@@ -46,7 +46,7 @@ class UserNotificationDetailActivity : AppCompatActivity() {
         }
 
         backButton.setOnClickListener {
-            finish() // Return to the previous activity
+            finish()
         }
     }
 
@@ -59,7 +59,6 @@ class UserNotificationDetailActivity : AppCompatActivity() {
                 titleTextView.text = notification?.title ?: "No title available"
             }
             .addOnFailureListener { e ->
-                // Handle error
             }
     }
 
@@ -69,11 +68,9 @@ class UserNotificationDetailActivity : AppCompatActivity() {
         db.collection("users").document(userId).collection("read_notifications").document(notificationId)
             .set(mapOf("isRead" to true))
             .addOnSuccessListener {
-                // Handle success - update UI, mark as read
-                finish() // Close activity after marking as read
+                finish()
             }
             .addOnFailureListener { e ->
-                // Handle error
             }
     }
 }

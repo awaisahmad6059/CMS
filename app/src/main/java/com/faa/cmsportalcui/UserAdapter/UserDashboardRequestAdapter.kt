@@ -29,7 +29,6 @@ class UserDashboardRequestAdapter(private val requests: List<UserDashboardReques
         val request = requests[position]
         holder.title.text = request.title
 
-        // Convert timestamp string to Date
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val formattedDate = try {
             val date = dateFormat.parse(request.timestamp)

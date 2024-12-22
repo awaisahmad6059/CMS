@@ -25,7 +25,6 @@ class UserManagementActivity : AppCompatActivity() {
         userAdapter = UserAdapter(users)
         binding.rvUsers.adapter = userAdapter
 
-        // Initialize the back button and set its click listener
         val backButton: ImageView = binding.backButton
         backButton.setOnClickListener {
             startActivity(Intent(this, AdminDashboardActivity::class.java))
@@ -39,7 +38,7 @@ class UserManagementActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         db.collection("users").get()
             .addOnSuccessListener { result: QuerySnapshot ->
-                users.clear() // Clear existing data
+                users.clear()
                 for (document in result) {
                     val username = document.getString("username") ?: ""
                     val userType = document.getString("userType") ?: ""
@@ -50,7 +49,6 @@ class UserManagementActivity : AppCompatActivity() {
                 userAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
-                // Handle failure
             }
     }
 }

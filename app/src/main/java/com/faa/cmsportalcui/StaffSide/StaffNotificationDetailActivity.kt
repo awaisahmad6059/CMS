@@ -22,15 +22,12 @@ class StaffNotificationDetailActivity : AppCompatActivity() {
         closeButton = findViewById(R.id.closeButton)
         backBtn = findViewById(R.id.back_button)
 
-        // Retrieve title and description from Intent
         val title = intent.getStringExtra("title")
         val description = intent.getStringExtra("description")
 
-        // Set title and description
         titleBackground.text = title ?: "No Title"
         detailsBackground.text = description ?: "No Description"
 
-        // Set up close button action
         closeButton.setOnClickListener {
             finish()
         }

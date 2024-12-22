@@ -34,7 +34,6 @@ class NotificationAdapter(private val context: Context, private var notification
         holder.titleTextView.text = notification.title
         holder.messageTextView.text = notification.description
 
-        // Edit button functionality
         holder.editButton.setOnClickListener {
             val intent = Intent(context, AddNotificationActivity::class.java)
             intent.putExtra("notificationId", notification.id)

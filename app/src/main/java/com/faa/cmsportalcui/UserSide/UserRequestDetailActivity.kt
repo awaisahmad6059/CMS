@@ -21,8 +21,7 @@ class UserRequestDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_request_detail)
 
-        // Retrieve data from intent extras
-        userId = intent.getStringExtra("user_id")  // Retrieve user_id
+        userId = intent.getStringExtra("user_id")
         val id = intent.getStringExtra("id") ?: ""
         val title = intent.getStringExtra("title") ?: ""
         val description = intent.getStringExtra("description") ?: ""
@@ -31,7 +30,6 @@ class UserRequestDetailActivity : AppCompatActivity() {
         val photoUrl = intent.getStringExtra("photoUrl") ?: ""
         val date = intent.getStringExtra("date") ?: ""
 
-        // Initialize views
         val idValue: TextView = findViewById(R.id.id_value)
         val titleValue: TextView = findViewById(R.id.title_value)
         val descriptionValue: TextView = findViewById(R.id.description_value)
@@ -42,21 +40,18 @@ class UserRequestDetailActivity : AppCompatActivity() {
         val backButton: ImageButton = findViewById(R.id.back_button)
         val editButton: Button = findViewById(R.id.edit_request_button)
 
-        // Set data to views
         idValue.text = id
         titleValue.text = title
         descriptionValue.text = description
         locationValue.text = location
         roomValue.text = room
 
-        // Load photo using Picasso
         if (photoUrl.isNotEmpty()) {
             Picasso.get().load(photoUrl).into(photoImage)
         } else {
-            photoImage.setImageResource(R.drawable.image) // Placeholder image
+            photoImage.setImageResource(R.drawable.image)
         }
 
-        // Set click listeners
         cancelButton.setOnClickListener {
             navigateBackToRequestActivity()
         }
@@ -77,7 +72,7 @@ class UserRequestDetailActivity : AppCompatActivity() {
 
     private fun navigateBackToRequestActivity() {
         val intent = Intent(this, UserMaintanancerequestActivity::class.java)
-        intent.putExtra("user_id", userId)  // Pass user_id
+        intent.putExtra("user_id", userId)
         startActivity(intent)
         finish()
     }
@@ -91,7 +86,7 @@ class UserRequestDetailActivity : AppCompatActivity() {
             putExtra("roomNumber", room)
             putExtra("photoUrl", photoUrl)
             putExtra("isEditMode", true)
-            putExtra("user_id", userId)  // Pass user_id
+            putExtra("user_id", userId)
         }
         startActivity(intent)
         finish()

@@ -30,9 +30,9 @@ class StaffAdapter(
     private val photoUrl: String?,
     private val profileImageUrl: String?,
     private val timestamp: String?,
-    private val progressBar: ProgressBar, // Progress Bar
-    private val adminId: String?, // Admin ID
-    private val userId: String? // User ID
+    private val progressBar: ProgressBar,
+    private val adminId: String?,
+    private val userId: String?
 ) : RecyclerView.Adapter<StaffAdapter.StaffViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StaffViewHolder {
@@ -43,7 +43,6 @@ class StaffAdapter(
     override fun onBindViewHolder(holder: StaffViewHolder, position: Int) {
         val staff = staffList[position]
 
-        // Set staff details in the view holder
         holder.tvName.text = staff.name
         holder.staffEmail.text = staff.email
         Glide.with(holder.itemView.context)
@@ -51,25 +50,22 @@ class StaffAdapter(
             .placeholder(R.drawable.account)
             .into(holder.ivProfileImage)
 
-        // Handle item click
         holder.itemView.setOnClickListener {
-            // Start MaintananceStaffDetailsActivity with necessary data
             val intent = Intent(holder.itemView.context, MaintananceStaffDetailsActivity::class.java).apply {
                 putExtra("staffId", staff.id)
-                putExtra("taskId", generateRandomNumericId()) // Pass a random task ID
+                putExtra("taskId", generateRandomNumericId())
                 putExtra("id", id)
-                putExtra("title", description) // Replace with actual title if available
-                putExtra("description", commentText) // Replace with actual description if available
-                putExtra("photoUrl", photoUrl) // Replace with actual photo URL if available
-                putExtra("profileImageUrl", profileImageUrl) // Use staff's profile image URL
-                putExtra("timestamp", timestamp) // Example timestamp
-                putExtra("adminId", adminId) // Pass Admin ID
-                putExtra("userId", userId) // Pass User ID
+                putExtra("title", description)
+                putExtra("description", commentText)
+                putExtra("photoUrl", photoUrl)
+                putExtra("profileImageUrl", profileImageUrl)
+                putExtra("timestamp", timestamp)
+                putExtra("adminId", adminId)
+                putExtra("userId", userId)
             }
             holder.itemView.context.startActivity(intent)
         }
 
-        // Handle edit button click
         holder.editButton.setOnClickListener {
             val intent = Intent(holder.itemView.context, StaffProfileActivity::class.java).apply {
                 putExtra("staffId", staff.id)
@@ -77,7 +73,6 @@ class StaffAdapter(
             holder.itemView.context.startActivity(intent)
         }
 
-        // Handle long click for delete confirmation
         holder.itemView.setOnLongClickListener {
             showDeleteConfirmationDialog(staff.id, position)
             true
@@ -129,10 +124,8 @@ class StaffAdapter(
             "timestamp" to timestamp
         )
 
-        // Show progress bar
         progressBar.visibility = View.VISIBLE
 
-        // Generate a random numeric ID for the subcollection
         val randomId = generateRandomNumericId()
         firestore.collection("staff").document(staffId)
             .collection("assignedTasks")
@@ -140,24 +133,18 @@ class StaffAdapter(
             .set(subcollectionData)
             .addOnSuccessListener {
                 Log.d("StaffAdapter", "Subcollection document successfully created!")
-                // Hide progress bar
                 progressBar.visibility = View.GONE
-                // Show success toast
                 Toast.makeText(context, "Request assigned successfully", Toast.LENGTH_SHORT).show()
-                // Navigate to AdminDashboardActivity
                 val intent = Intent(context, AdminDashboardActivity::class.java)
                 context.startActivity(intent)
             }
             .addOnFailureListener { e ->
                 Log.w("StaffAdapter", "Error creating subcollection document", e)
-                // Hide progress bar
                 progressBar.visibility = View.GONE
-                // Show error toast
                 Toast.makeText(context, "Failed to assign request", Toast.LENGTH_SHORT).show()
             }
     }
 
-    // Function to generate a random numeric ID
     private fun generateRandomNumericId(): String {
         return Random.nextInt(10000, 99999).toString()
     }

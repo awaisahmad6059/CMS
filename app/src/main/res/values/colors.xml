@@ -16,5 +16,6 @@
     <color name="SkyDarkBlue">#77B0AA</color>
     <color name="DarkBlue">#23262F</color>
     <color name="ButtonBlue">#2784E6</color>
+    <color name="light_blue_A700">#007aff</color>
     <color name="ButtonWhite">#E8EEF2</color>
 </resources>

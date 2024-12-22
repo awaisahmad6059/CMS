@@ -13,7 +13,7 @@ import com.faa.cmsportalcui.UserSide.UserRequestDetailActivity
 
 class UserMaintenanceRequestAdapter(
     private val requests: List<UserMaintenanceRequest>,
-    private val userId: String // Accept userId here
+    private val userId: String
 ) : RecyclerView.Adapter<UserMaintenanceRequestAdapter.RequestViewHolder>() {
 
     inner class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,7 +41,7 @@ class UserMaintenanceRequestAdapter(
                 putExtra("roomNumber", request.room)
                 putExtra("photoUrl", request.photoUrl)
                 putExtra("date", request.date)
-                putExtra("user_id", userId) // Pass userId here
+                putExtra("user_id", userId)
             }
             holder.itemView.context.startActivity(intent)
         }

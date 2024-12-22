@@ -39,7 +39,7 @@ class StaffProfileActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
     private var selectedImageUri: Uri? = null
-    private var staffId: String? = null  // This will hold the ID if updating existing staff
+    private var staffId: String? = null
 
     private val imagePickerLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -56,12 +56,11 @@ class StaffProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_staff_profile)
 
-        // Initialize all views
         nameEditText = findViewById(R.id.name)
         jobTitleEditText = findViewById(R.id.job_title)
         locationEditText = findViewById(R.id.location)
         phoneEditText = findViewById(R.id.phone)
-        selectImageButton = findViewById(R.id.select_image_button)  // Adjust ID to match your layout
+        selectImageButton = findViewById(R.id.select_image_button)
         editButton = findViewById(R.id.edit_button)
         cancelButton = findViewById(R.id.cancel_button)
         mondayCheckBox = findViewById(R.id.mondayCheckBox)
@@ -72,11 +71,9 @@ class StaffProfileActivity : AppCompatActivity() {
         saturdayCheckBox = findViewById(R.id.saturdayCheckBox)
         sundayCheckBox = findViewById(R.id.sundayCheckBox)
 
-        // Check if we're updating an existing staff member
         staffId = intent.getStringExtra("staffId")
 
         if (staffId != null) {
-            // Load existing staff details if staffId is provided
             loadStaffDetails(staffId!!)
         }
 
@@ -104,7 +101,6 @@ class StaffProfileActivity : AppCompatActivity() {
                         locationEditText.setText(staff.location)
                         phoneEditText.setText(staff.phone)
 
-                        // Set checkboxes based on availability
                         mondayCheckBox.isChecked = staff.availability.containsKey("monday")
                         tuesdayCheckBox.isChecked = staff.availability.containsKey("tuesday")
                         wednesdayCheckBox.isChecked = staff.availability.containsKey("wednesday")
@@ -132,11 +128,10 @@ class StaffProfileActivity : AppCompatActivity() {
     }
 
     private fun saveStaffDetails() {
-        // Generate new Staff ID based on the number of existing staff documents
         db.collection("staff").get().addOnSuccessListener { documents ->
             val staffCount = documents.size() + 1
-            val randomNum = (100..999).random()  // Generate a random 3-digit number
-            val staffId = "staff${staffCount}$randomNum"  // e.g., staff11, staff22, etc.
+            val randomNum = (100..999).random()
+            val staffId = "staff${staffCount}$randomNum"
 
             val staffName = nameEditText.text.toString()
             val staffEmail = generateEmailFromName(staffName)
@@ -152,7 +147,6 @@ class StaffProfileActivity : AppCompatActivity() {
                 "availability" to getAvailability()
             )
 
-            // Save image to Firebase Storage if selected
             selectedImageUri?.let { uri ->
                 val ref = storage.reference.child("profile_images/${UUID.randomUUID()}")
                 ref.putFile(uri).addOnSuccessListener { taskSnapshot ->
@@ -173,7 +167,7 @@ class StaffProfileActivity : AppCompatActivity() {
 
     private fun generateEmailFromName(name: String): String {
         val formattedName = name.trim().lowercase(Locale.getDefault()).replace("\\s+".toRegex(), "")
-        val randomNum = (100..999).random()  // Generate a random 3-digit number
+        val randomNum = (100..999).random()
         return "$formattedName$randomNum@cuisahiwal.com"
     }
 
@@ -202,8 +196,7 @@ class StaffProfileActivity : AppCompatActivity() {
         staffRef.set(staff)
             .addOnSuccessListener {
                 Log.d("StaffProfileActivity", "DocumentSnapshot successfully written!")
-                // Optionally, navigate to another activity or update the UI
-                finish()  // Close the activity
+                finish()
             }
             .addOnFailureListener { e ->
                 Log.w("StaffProfileActivity", "Error writing document", e)
@@ -216,8 +209,7 @@ class StaffProfileActivity : AppCompatActivity() {
             .setMessage("Are you sure you want to cancel?")
             .setPositiveButton("Yes") { dialog, _ ->
                 dialog.dismiss()
-                // Navigate back or handle cancel action
-                finish() // Example: close the activity
+                finish()
             }
             .setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.faa.cmsportalcui.Authentication.WelcomeActivity
 import com.faa.cmsportalcui.R
 import com.google.firebase.firestore.FirebaseFirestore
-import com.squareup.picasso.Picasso  // For image loading
+import com.squareup.picasso.Picasso
 
 class StaffProfileDetailActivity : AppCompatActivity() {
     private var staffId: String? = null
@@ -23,7 +23,6 @@ class StaffProfileDetailActivity : AppCompatActivity() {
 
         staffId = intent.getStringExtra("staffId")
 
-        // Initialize views
         logoutBtn = findViewById(R.id.logoutButton)
 
         val profileImage = findViewById<ImageView>(R.id.profileImage)
@@ -38,13 +37,11 @@ class StaffProfileDetailActivity : AppCompatActivity() {
             finish()
         }
 
-        // Handle Edit Button click
         editButton.setOnClickListener {
             val intent = Intent(this, StaffEditProfileActivity::class.java)
             intent.putExtra("staffId", staffId)
             startActivity(intent)
         }
-        // Set up button click listeners
         logoutBtn.setOnClickListener {
             startActivity(Intent(this@StaffProfileDetailActivity, WelcomeActivity::class.java))
             finishAffinity()
@@ -67,7 +64,6 @@ class StaffProfileDetailActivity : AppCompatActivity() {
                             val email = data["email"] as? String
                             val phone = data["phone"] as? String
 
-                            // Update views
                             findViewById<TextView>(R.id.workerName).text = name ?: "N/A"
                             findViewById<TextView>(R.id.workerPosition).text = position ?: "N/A"
                             findViewById<TextView>(R.id.specificationText).text = specification ?: "N/A"
@@ -75,13 +71,11 @@ class StaffProfileDetailActivity : AppCompatActivity() {
                             findViewById<TextView>(R.id.experienceText).text = experience ?: "N/A"
                             findViewById<TextView>(R.id.phoneText).text = phone ?: "N/A"
 
-                            // Load profile image
                             val profileImage = findViewById<ImageView>(R.id.profileImage)
                             profileImageUrl?.let { url ->
-                                // Invalidate the cache for the URL and load the image
                                 Picasso.get().invalidate(url)
                                 Picasso.get().load(url)
-                                    .error(R.drawable.account)  // Add a placeholder in case the URL is invalid
+                                    .error(R.drawable.account)
                                     .into(profileImage)
                             } ?: profileImage.setImageResource(R.drawable.account)
                         }
