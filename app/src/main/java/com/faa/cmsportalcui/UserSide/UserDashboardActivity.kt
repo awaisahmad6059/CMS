@@ -42,12 +42,12 @@ class UserDashboardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_dashboard)
 
         userName = findViewById(R.id.user_name)
-        userDesc = findViewById(R.id.user_desc)
+//        userDesc = findViewById(R.id.user_desc)
         userProfileImage = findViewById(R.id.profile)
         bottomNavigationView = findViewById(R.id.bottom_navigation)
-        requestButton = findViewById(R.id.request)
-        notificationButton = findViewById(R.id.notification_arrow)
-        completeTaskButton = findViewById(R.id.completetask)
+//        requestButton = findViewById(R.id.request)
+//        notificationButton = findViewById(R.id.notification_arrow)
+//        completeTaskButton = findViewById(R.id.completetask)
         requestMaintenanceLayout = findViewById(R.id.requestmaintanace)
         notificationLayout = findViewById(R.id.notification)
         completedTaskLayout = findViewById(R.id.completedtask)
@@ -89,23 +89,23 @@ class UserDashboardActivity : AppCompatActivity() {
             }
         }
 
-        requestButton.setOnClickListener {
-            startActivity(Intent(this@UserDashboardActivity, UserRequestActivity::class.java).apply {
-                putExtra("user_id", userId)
-            })
-        }
-
-        notificationButton.setOnClickListener {
-            startActivity(Intent(this@UserDashboardActivity, UserNotificationActivity::class.java).apply {
-                putExtra("user_id", userId)
-            })
-        }
-
-        completeTaskButton.setOnClickListener {
-            startActivity(Intent(this@UserDashboardActivity, UserCompleteFeddbackActivity::class.java).apply {
-                putExtra("user_id", userId)
-            })
-        }
+//        requestButton.setOnClickListener {
+//            startActivity(Intent(this@UserDashboardActivity, UserRequestActivity::class.java).apply {
+//                putExtra("user_id", userId)
+//            })
+//        }
+//
+//        notificationButton.setOnClickListener {
+//            startActivity(Intent(this@UserDashboardActivity, UserNotificationActivity::class.java).apply {
+//                putExtra("user_id", userId)
+//            })
+//        }
+//
+//        completeTaskButton.setOnClickListener {
+//            startActivity(Intent(this@UserDashboardActivity, UserCompleteFeddbackActivity::class.java).apply {
+//                putExtra("user_id", userId)
+//            })
+//        }
 
         requestMaintenanceLayout.setOnClickListener {
             startActivity(Intent(this@UserDashboardActivity, UserRequestActivity::class.java).apply {
@@ -132,11 +132,11 @@ class UserDashboardActivity : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 if (document != null) {
                     val name = document.getString("username")
-                    val desc = document.getString("description")
+//                    val desc = document.getString("description")
                     val profileImageUrl = document.getString("profileImageUrl")
 
                     userName.text = name
-                    userDesc.text = desc
+//                    userDesc.text = desc
                     if (profileImageUrl != null) {
                         Picasso.get().load(profileImageUrl).into(userProfileImage)
                     }
