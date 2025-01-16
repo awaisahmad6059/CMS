@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".User.RequestSentActivity">
+    android:background="@drawable/bluebackground"
+    tools:context=".UserSide.RequestSentActivity">
 
     <!-- Back button -->
     <ImageButton
@@ -27,6 +27,7 @@
         android:layout_marginTop="24dp"
         android:text="Maintenance request"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -40,7 +41,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:contentDescription="Maintenance Image"
-        android:src="@drawable/detail"
+        android:src="@drawable/requestsent"
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +56,7 @@
         android:textSize="18sp"
         android:textAlignment="center"
         android:gravity="center"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

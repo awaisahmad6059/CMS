@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bluebackground"
     android:padding="16dp">
 
     <RelativeLayout
@@ -27,6 +28,7 @@
             android:text="Profile"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="18dp" />
 
@@ -63,6 +65,7 @@
             android:layout_height="wrap_content"
             android:text="Full Name"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_below="@id/button_edit_photo"
             android:layout_marginTop="16dp" />
 
@@ -85,6 +88,7 @@
             android:layout_height="wrap_content"
             android:text="Description"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_below="@id/edit_full_name"
             android:layout_marginTop="16dp" />
 
@@ -109,6 +113,7 @@
             android:layout_height="wrap_content"
             android:text="E mail"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_below="@id/editdescription"
             android:layout_marginTop="16dp" />
 
@@ -130,6 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Phone"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_below="@id/edit_email"
             android:layout_marginTop="16dp" />
