@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.faa.cmsportalcui.Authentication.WelcomeActivity
 import com.faa.cmsportalcui.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,9 +27,9 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
     private lateinit var navView: NavigationView
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var toggle: ActionBarDrawerToggle
-    private lateinit var totalUserTextView: TextView
+//    private lateinit var totalUserTextView: TextView
     private lateinit var totalPendingRequestTextView: TextView
-    private lateinit var totalStaffCountTextView: TextView
+//    private lateinit var totalStaffCountTextView: TextView
     private lateinit var totalCompleteTaskTextView: TextView
 
     @SuppressLint("MissingInflatedId")
@@ -46,25 +47,25 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
             startActivity(Intent(this@AdminDashboardActivity, MaintananceActivity::class.java))
         }
 
-        findViewById<LinearLayout>(R.id.totaluser).setOnClickListener {
-            startActivity(Intent(this@AdminDashboardActivity, UserManagementActivity::class.java))
-        }
+//        findViewById<LinearLayout>(R.id.totaluser).setOnClickListener {
+//            startActivity(Intent(this@AdminDashboardActivity, UserManagementActivity::class.java))
+//        }
         findViewById<LinearLayout>(R.id.pendingrequest).setOnClickListener {
             startActivity(Intent(this@AdminDashboardActivity, MaintananceActivity::class.java))
         }
         findViewById<LinearLayout>(R.id.completetask).setOnClickListener {
             startActivity(Intent(this@AdminDashboardActivity, CompleteTaskActivity::class.java))
         }
-        findViewById<LinearLayout>(R.id.activeworker).setOnClickListener {
-            startActivity(Intent(this@AdminDashboardActivity, StaffActivity::class.java))
-        }
+//        findViewById<LinearLayout>(R.id.activeworker).setOnClickListener {
+//            startActivity(Intent(this@AdminDashboardActivity, StaffActivity::class.java))
+//        }
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         bottomNavigationView = findViewById(R.id.bottom_nav)
-        totalUserTextView = findViewById(R.id.total_user_count)
+//        totalUserTextView = findViewById(R.id.total_user_count)
         totalPendingRequestTextView = findViewById(R.id.total_pending_request_count)
-        totalStaffCountTextView = findViewById(R.id.total_staff_count)
+//        totalStaffCountTextView = findViewById(R.id.total_staff_count)
         totalCompleteTaskTextView = findViewById(R.id.totalcompletetask)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -80,9 +81,10 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        fetchTotalUserCount()
+        fetchAdminDetails()
+//        fetchTotalUserCount()
         fetchTotalRequestCount()
-        fetchTotalStaffCount()
+//        fetchTotalStaffCount()
         fetchTotalCompleteTask()
     }
 
@@ -133,17 +135,52 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-
-    private fun fetchTotalUserCount() {
+    private fun fetchAdminDetails() {
         val db = FirebaseFirestore.getInstance()
-        db.collection("users").get()
-            .addOnSuccessListener { result ->
-                val totalUsers = result.size()
-                totalUserTextView.text = totalUsers.toString()
-            }
-            .addOnFailureListener { exception ->
+        val adminId = "lzcmCdafqJ6dg8vAYexS" // Replace with the actual admin ID
+
+        // Add a snapshot listener for real-time updates
+        db.collection("admins")
+            .document(adminId)
+            .addSnapshotListener { document, error ->
+                if (error != null) {
+                    // Handle error
+                    error.printStackTrace()
+                    findViewById<TextView>(R.id.user_name).text = "Admin"
+                    return@addSnapshotListener
+                }
+
+                if (document != null && document.exists()) {
+                    // Get the name and profile image URL
+                    val name = document.getString("name")
+                    val profileImageUrl = document.getString("profileImageUrl")
+
+                    // Update the UI
+                    findViewById<TextView>(R.id.user_name).text = name ?: "Admin"
+
+                    // Load the profile image using Glide
+                    if (!profileImageUrl.isNullOrEmpty()) {
+                        Glide.with(this)
+                            .load(profileImageUrl)
+                            .into(findViewById(R.id.profile))
+                    }
+                } else {
+                    // Handle the case where the document does not exist
+                    findViewById<TextView>(R.id.user_name).text = "Admin"
+                }
             }
     }
+
+//    private fun fetchTotalUserCount() {
+//        val db = FirebaseFirestore.getInstance()
+//        db.collection("users").get()
+//            .addOnSuccessListener { result ->
+//                val totalUsers = result.size()
+//                totalUserTextView.text = totalUsers.toString()
+//            }
+//            .addOnFailureListener { exception ->
+//            }
+//    }
     private fun fetchTotalCompleteTask() {
         val db = FirebaseFirestore.getInstance()
         db.collection("completeTask").get()
@@ -230,15 +267,15 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
             }
     }
 
-    private fun fetchTotalStaffCount() {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("staff").get()
-            .addOnSuccessListener { result ->
-                val totalStaff = result.size()
-                totalStaffCountTextView.text = totalStaff.toString()
-            }
-            .addOnFailureListener { exception ->
-            }
-    }
+//    private fun fetchTotalStaffCount() {
+//        val db = FirebaseFirestore.getInstance()
+//        db.collection("staff").get()
+//            .addOnSuccessListener { result ->
+//                val totalStaff = result.size()
+//                totalStaffCountTextView.text = totalStaff.toString()
+//            }
+//            .addOnFailureListener { exception ->
+//            }
+//    }
 
 }

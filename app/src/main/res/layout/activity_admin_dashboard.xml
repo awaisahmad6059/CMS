@@ -6,199 +6,278 @@
     android:layout_height="match_parent"
     tools:context=".AdminSide.AdminDashboardActivity">
 
-    <LinearLayout
+    <!-- Main Content -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/white">
 
+        <!-- Top Bar -->
+        <RelativeLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:background="@color/blue"
+            android:padding="16dp">
+
+            <ImageButton
+                android:id="@+id/menu_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="16dp"
+                android:background="@drawable/rounded_corner_background"
+                android:contentDescription="@string/menu_button_desc"
+                android:src="@drawable/drawayer" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dashboard"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <!-- User Image (Circle Image View) -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/account"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp" />
+
+                <!-- User Name -->
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Farhan Riaz"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- ScrollView for Scrollable Content -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:layout_below="@id/topBar"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Back Button and Dashboard Title Row -->
+                <!-- Curved Section -->
+                <RelativeLayout
+                    android:id="@+id/curvedSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/curved_background"
+                    android:padding="16dp"
+                    android:layout_marginTop="-10dp">
+
+                </RelativeLayout>
+
+                <!-- Completed Tasks and Notifications Boxes -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
-                    <ImageButton
-                        android:id="@+id/menu_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_margin="16dp"
-                        android:background="@drawable/rounded_corner_background"
-                        android:contentDescription="@string/menu_button_desc"
-                        android:src="@drawable/drawayer" />
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
 
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginStart="16dp"
-                        android:text="Dashboard"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <!-- Stats Grid -->
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="2"
-                    android:layout_marginBottom="16dp">
-
-                    <!-- Total Users -->
-                    <LinearLayout
-                        android:id="@+id/totaluser"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_stat_card"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:layout_columnWeight="1"
-                        android:layout_gravity="fill">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Users"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/total_user_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center_horizontal" />
-                    </LinearLayout>
-
-                    <!-- Pending Requests -->
                     <LinearLayout
                         android:id="@+id/pendingrequest"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_stat_card"
+                        android:layout_height="120dp"
+                        android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@color/white"
+                        android:elevation="4dp"
                         android:padding="16dp"
-                        android:layout_columnWeight="1"
-                        android:layout_gravity="fill">
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pending Requests"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
+                            android:text="New\nRequests"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_marginTop="8dp" />
                         <TextView
                             android:id="@+id/total_pending_request_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:textSize="24sp"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
-                            android:layout_gravity="center_horizontal" />
+                            android:layout_marginTop="8dp" />
                     </LinearLayout>
 
-                    <!-- Completed Tasks -->
+                    <!-- Notifications Box -->
                     <LinearLayout
-                        android:id="@+id/completetask"
+                        android:id="@+id/pauserequests"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_stat_card"
+                        android:layout_height="120dp"
+                        android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@color/white"
+                        android:elevation="4dp"
                         android:padding="16dp"
-                        android:layout_columnWeight="1"
-                        android:layout_gravity="fill">
+                        android:layout_marginStart="8dp"
+                        android:gravity="center">
 
+                        <!-- Icon for Notifications -->
+
+                        <!-- Text for Notifications -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Completed Tasks"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/totalcompletetask"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textSize="24sp"
+                            android:text="Pause\nRequests"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
-                            android:layout_gravity="center_horizontal" />
-                    </LinearLayout>
-
-                    <!-- Active Workers -->
-                    <LinearLayout
-                        android:id="@+id/activeworker"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_stat_card"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:layout_columnWeight="1"
-                        android:layout_gravity="fill">
-
+                            android:layout_marginTop="8dp" />
                         <TextView
+                            android:id="@+id/total_pause_request_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Active Workers"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/total_staff_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textSize="24sp"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
-                            android:layout_gravity="center_horizontal" />
+                            android:layout_marginTop="8dp" />
                     </LinearLayout>
-                </GridLayout>
+                </LinearLayout>
 
-                <!-- Recent Activities -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Recent Activities"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp" />
-
-                <!-- Activities List -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_activities"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Action Buttons -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/resolvecomplain"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:elevation="4dp"
+                        android:padding="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Resolve\nComplaint"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/total_resolve_compalin_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Box 2 -->
+                    <LinearLayout
+                        android:id="@+id/equipments"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:elevation="4dp"
+                        android:padding="16dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Equipments\n Requested"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/total_equipments_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/completetask"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:elevation="4dp"
+                    android:padding="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:gravity="center">
 
+                    <!-- Text for Bottom Box -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Complete Tasks"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/totalcompletetask"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <!-- Two Buttons Below the Bottom Box -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center">
+
+                    <!-- Add Staff Button -->
                     <Button
                         android:id="@+id/btn_add_staff"
                         android:layout_width="0dp"
@@ -221,32 +300,23 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:padding="16dp" />
+                    <!-- Assign Task Button -->
                 </LinearLayout>
-
-                <!-- View Reports -->
-                <TextView
-                    android:id="@+id/tv_view_reports"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View Reports"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp" />
             </LinearLayout>
         </ScrollView>
 
-        <!-- Bottom Navigation -->
+        <!-- Bottom Navigation Bar -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
             android:layout_height="71dp"
             app:itemIconTint="@color/black"
             app:itemTextColor="@color/black"
-            android:background="@drawable/bottombar_background"
-            android:layout_gravity="bottom"
-            app:menu="@menu/bottom_nav_menu"/>
-    </LinearLayout>
+            android:background="@color/blue"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/bottom_nav_menu"
+            app:labelVisibilityMode="labeled" />
+    </RelativeLayout>
 
     <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
@@ -255,4 +325,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/nav_menu_admin" />
+
 </androidx.drawerlayout.widget.DrawerLayout>
