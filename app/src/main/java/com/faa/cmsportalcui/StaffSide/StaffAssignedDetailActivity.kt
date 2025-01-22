@@ -2,6 +2,7 @@ package com.faa.cmsportalcui.StaffSide
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -22,6 +23,7 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
     private lateinit var locationTextView: TextView
     private lateinit var pictureImageView: ImageView
     private lateinit var completeTaskButton: Button
+    private lateinit var pauseTaskButton: Button
 
     private lateinit var firestore: FirebaseFirestore
     private var staffId: String? = null
@@ -30,6 +32,7 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_staff_assigned_detail)
 
+        // Initialize views
         titleTextView = findViewById(R.id.titleTextView)
         descriptionTextView = findViewById(R.id.descriptionTextView)
         roomTextView = findViewById(R.id.roomTextView)
@@ -37,9 +40,11 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
         locationTextView = findViewById(R.id.locationTextView)
         pictureImageView = findViewById(R.id.pictureImageView)
         completeTaskButton = findViewById(R.id.completeTask)
+        pauseTaskButton = findViewById(R.id.pauseTask)
 
         firestore = FirebaseFirestore.getInstance()
 
+        // Retrieve data from the intent
         val id = intent.getStringExtra("id")
         val assignedTaskId = intent.getStringExtra("assignedTaskId")
         val title = intent.getStringExtra("title")
@@ -53,12 +58,19 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
         val adminId = intent.getStringExtra("adminId")
         staffId = intent.getStringExtra("staffId")
 
+        // Debugging: Log retrieved data
+        Log.d("StaffAssignedDetailActivity", "staffId: $staffId")
+        Log.d("StaffAssignedDetailActivity", "title: $title")
+        Log.d("StaffAssignedDetailActivity", "description: $description")
+
+        // Set data to views
         titleTextView.text = title ?: "No Title"
         descriptionTextView.text = description ?: "No Description"
         roomTextView.text = roomNumber ?: "No Room Number"
         assignedByTextView.text = assignedBy ?: "Unknown"
         locationTextView.text = location ?: "No Location"
 
+        // Load image using Glide
         if (photoUrl != null && photoUrl.isNotEmpty()) {
             Glide.with(this)
                 .load(photoUrl)
@@ -68,6 +80,7 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
             pictureImageView.setImageResource(R.drawable.image)
         }
 
+        // Complete Task Button Click Listener
         completeTaskButton.setOnClickListener {
             if (!assignedTaskId.isNullOrEmpty()) {
                 val taskData = mutableMapOf<String, Any>(
@@ -102,20 +115,37 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
                 firestore.collection("completeTask").document(assignedTaskId)
                     .set(taskData)
                     .addOnSuccessListener {
-
                         val intent = Intent(this, StaffCompleteTaskActivity::class.java)
                         intent.putExtra("staffId", staffId)
                         startActivity(intent)
                         finish()
                     }
                     .addOnFailureListener { e ->
-                        e.printStackTrace()
+                        Log.e("StaffAssignedDetailActivity", "Error completing task", e)
                     }
-            } else {
-
             }
         }
 
+        // Pause Task Button Click Listener
+        pauseTaskButton.setOnClickListener {
+            val intent = Intent(this, StaffPauseTaskActivity::class.java).apply {
+                putExtra("id", id)
+                putExtra("assignedTaskId", assignedTaskId)
+                putExtra("title", title)
+                putExtra("description", description)
+                putExtra("roomNumber", roomNumber)
+                putExtra("assignedBy", assignedBy)
+                putExtra("location", location)
+                putExtra("photoUrl", photoUrl)
+                putExtra("timestamp", timestamp)
+                putExtra("userId", userId)
+                putExtra("adminId", adminId)
+                putExtra("staffId", staffId) // Pass staffId here
+            }
+            startActivity(intent)
+        }
+
+        // Back Button Click Listener
         findViewById<ImageButton>(R.id.back_button).setOnClickListener {
             finish()
         }

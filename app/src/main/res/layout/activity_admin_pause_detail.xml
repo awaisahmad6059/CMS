@@ -62,7 +62,7 @@
         android:paddingBottom="8dp"/>
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/commentLabel"
@@ -78,14 +78,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/submitButton"
+        android:id="@+id/closeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Close"
         android:textSize="18sp"
-        android:backgroundTint="@color/ButtonWhite"
-        android:textColor="@color/black"
-        android:layout_below="@id/description"
+        android:backgroundTint="@color/ButtonBlue"
+        android:textColor="@color/white"
+        android:layout_below="@id/comment"
         android:layout_marginTop="16dp"/>
     <Button
         android:id="@+id/markasButton"
@@ -93,9 +93,9 @@
         android:layout_height="wrap_content"
         android:text="Mark As Done"
         android:textSize="18sp"
-        android:backgroundTint="@color/blue"
-        android:textColor="@android:color/white"
-        android:layout_below="@id/submitButton"
+        android:backgroundTint="@color/ButtonWhite"
+        android:textColor="@color/black"
+        android:layout_below="@id/closeButton"
         android:layout_marginTop="16dp"/>
 
 </RelativeLayout>

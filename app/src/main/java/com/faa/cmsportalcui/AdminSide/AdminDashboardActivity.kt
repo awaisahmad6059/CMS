@@ -4,6 +4,7 @@ package com.faa.cmsportalcui.AdminSide
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageButton
@@ -31,6 +32,7 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
     private lateinit var totalPendingRequestTextView: TextView
 //    private lateinit var totalStaffCountTextView: TextView
     private lateinit var totalCompleteTaskTextView: TextView
+    private lateinit var totalpausetask: TextView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +55,9 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
         findViewById<LinearLayout>(R.id.pendingrequest).setOnClickListener {
             startActivity(Intent(this@AdminDashboardActivity, MaintananceActivity::class.java))
         }
+        findViewById<LinearLayout>(R.id.pauserequests).setOnClickListener {
+            startActivity(Intent(this@AdminDashboardActivity, AdminPauseTaskListActivity::class.java))
+        }
         findViewById<LinearLayout>(R.id.completetask).setOnClickListener {
             startActivity(Intent(this@AdminDashboardActivity, CompleteTaskActivity::class.java))
         }
@@ -67,6 +72,7 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
         totalPendingRequestTextView = findViewById(R.id.total_pending_request_count)
 //        totalStaffCountTextView = findViewById(R.id.total_staff_count)
         totalCompleteTaskTextView = findViewById(R.id.totalcompletetask)
+        totalpausetask = findViewById(R.id.total_pause_request_count)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
@@ -86,6 +92,7 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
         fetchTotalRequestCount()
 //        fetchTotalStaffCount()
         fetchTotalCompleteTask()
+        fetchTotalPauseTaskCount()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -137,35 +144,29 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
     }
     private fun fetchAdminDetails() {
         val db = FirebaseFirestore.getInstance()
-        val adminId = "lzcmCdafqJ6dg8vAYexS" // Replace with the actual admin ID
+        val adminId = "lzcmCdafqJ6dg8vAYexS"
 
-        // Add a snapshot listener for real-time updates
         db.collection("admins")
             .document(adminId)
             .addSnapshotListener { document, error ->
                 if (error != null) {
-                    // Handle error
                     error.printStackTrace()
                     findViewById<TextView>(R.id.user_name).text = "Admin"
                     return@addSnapshotListener
                 }
 
                 if (document != null && document.exists()) {
-                    // Get the name and profile image URL
                     val name = document.getString("name")
                     val profileImageUrl = document.getString("profileImageUrl")
 
-                    // Update the UI
                     findViewById<TextView>(R.id.user_name).text = name ?: "Admin"
 
-                    // Load the profile image using Glide
                     if (!profileImageUrl.isNullOrEmpty()) {
                         Glide.with(this)
                             .load(profileImageUrl)
                             .into(findViewById(R.id.profile))
                     }
                 } else {
-                    // Handle the case where the document does not exist
                     findViewById<TextView>(R.id.user_name).text = "Admin"
                 }
             }
@@ -278,4 +279,20 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
 //            }
 //    }
 
+    private fun fetchTotalPauseTaskCount() {
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("pauseTask")
+            .addSnapshotListener { snapshot, exception ->
+                if (exception != null) {
+                    Log.e("fetchTotalPauseTaskCount", "Error fetching pause tasks", exception)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    val totalpausetaskCount = snapshot.size()
+                    totalpausetask.text = totalpausetaskCount.toString()
+                }
+            }
+    }
 }

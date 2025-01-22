@@ -17,6 +17,9 @@
         android:theme="@style/Theme.CMSPortalCUI"
         tools:targetApi="31">
         <activity
+            android:name=".StaffSide.StaffPauseSentActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminSide.AdminPauseDetailActivity"
             android:exported="false" />
         <activity
@@ -39,9 +42,6 @@
             android:exported="false" />
         <activity
             android:name=".StaffSide.StaffProfileDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminSide.MaintananceDetailActivity"
             android:exported="false" />
         <activity
             android:name=".AdminSide.MaintananceDetailActivity"

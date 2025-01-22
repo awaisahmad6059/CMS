@@ -195,28 +195,62 @@ class StaffDashboardActivity : AppCompatActivity() {
 
 
     private fun setupRealTimeTaskUpdates(staffId: String) {
-        tasksListener = firestore.collection("staff").document(staffId)
-            .collection("assignedTasks")
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Log.e("StaffDashboardActivity", "Error fetching assigned tasks", e)
-                    return@addSnapshotListener
+        // Fetch paused tasks for the current staff member
+        firestore.collection("pauseTask")
+            .whereEqualTo("staffId", staffId) // Filter by staffId
+            .get()
+            .addOnSuccessListener { pausedTasksSnapshot ->
+                val pausedTaskIds = mutableSetOf<String>()
+                for (document in pausedTasksSnapshot) {
+                    pausedTaskIds.add(document.id) // Collect paused task IDs
                 }
 
-                if (snapshot != null) {
-                    val taskList = mutableListOf<Task>()
-                    for (document in snapshot.documents) {
-                        val task = document.toObject(Task::class.java)
-                        if (task != null) {
-                            task.assignedTaskId = document.id
-
-                            if (!completedTaskIds.contains(task.assignedTaskId)) {
-                                taskList.add(task)
-                            }
+                // Fetch completed tasks for the staff member
+                firestore.collection("completeTask")
+                    .whereEqualTo("staffId", staffId) // Filter by staffId
+                    .get()
+                    .addOnSuccessListener { completedTasksSnapshot ->
+                        val completedTaskIds = mutableSetOf<String>()
+                        for (document in completedTasksSnapshot) {
+                            completedTaskIds.add(document.id) // Collect completed task IDs
                         }
+
+                        // Combine paused and completed task IDs
+                        val filteredTaskIds = pausedTaskIds + completedTaskIds
+
+                        // Fetch assigned tasks for the staff member
+                        tasksListener = firestore.collection("staff")
+                            .document(staffId)
+                            .collection("assignedTasks")
+                            .addSnapshotListener { snapshot, e ->
+                                if (e != null) {
+                                    Log.e("StaffDashboardActivity", "Error fetching assigned tasks", e)
+                                    return@addSnapshotListener
+                                }
+
+                                if (snapshot != null) {
+                                    val taskList = mutableListOf<Task>()
+                                    for (document in snapshot.documents) {
+                                        val task = document.toObject(Task::class.java)
+                                        if (task != null) {
+                                            task.assignedTaskId = document.id
+
+                                            // Exclude tasks that are in the pausedTask or completeTask collections
+                                            if (!filteredTaskIds.contains(task.assignedTaskId)) {
+                                                taskList.add(task)
+                                            }
+                                        }
+                                    }
+                                    taskAdapter.updateTasks(taskList) // Update the adapter with filtered tasks
+                                }
+                            }
                     }
-                    taskAdapter.updateTasks(taskList)
-                }
+                    .addOnFailureListener { e ->
+                        Log.e("StaffDashboardActivity", "Error fetching completed tasks", e)
+                    }
+            }
+            .addOnFailureListener { e ->
+                Log.e("StaffDashboardActivity", "Error fetching paused tasks", e)
             }
     }
 

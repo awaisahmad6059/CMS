@@ -61,7 +61,7 @@
         android:paddingBottom="8dp"/>
 
     <EditText
-        android:id="@+id/notificationDescription"
+        android:id="@+id/commentDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Comment"
@@ -82,7 +82,7 @@
         android:textSize="18sp"
         android:backgroundTint="@color/blue"
         android:textColor="@android:color/white"
-        android:layout_below="@id/notificationDescription"
+        android:layout_below="@id/commentDescription"
         android:layout_marginTop="16dp"/>
 
 </RelativeLayout>
