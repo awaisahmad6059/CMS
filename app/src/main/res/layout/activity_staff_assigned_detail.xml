@@ -168,7 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_below="@id/pictureLabel"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/image" />
 
@@ -179,9 +179,8 @@
             android:layout_below="@+id/pictureImageView"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            android:weightSum="2"> <!-- Optional, helps distribute space evenly -->
+            android:weightSum="2">
 
-            <!-- Start Task Button -->
             <Button
                 android:id="@+id/startTask"
                 android:layout_width="0dp"
@@ -192,7 +191,6 @@
                 android:text="Start Task"
                 android:textColor="@color/white" />
 
-            <!-- Cancel Button -->
             <Button
                 android:id="@+id/completeTask"
                 android:layout_width="0dp"
@@ -203,13 +201,24 @@
                 android:textColor="@color/black" />
         </LinearLayout>
         <Button
+            android:id="@+id/pauseTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/ButtonBlue"
+            android:text="Pause Task"
+            android:layout_below="@+id/btn"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white" />
+
+        <Button
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/ButtonWhite"
             android:text="Cancel"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/btn"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/pauseTask"
             android:textColor="@color/black" />
     </RelativeLayout>
 

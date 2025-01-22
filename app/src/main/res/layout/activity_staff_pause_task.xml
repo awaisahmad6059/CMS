@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corner_background"
+        android:contentDescription="@string/back_button_desc"
+        android:src="@drawable/back" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="71dp"
+        android:layout_toEndOf="@+id/back_button"
+        android:paddingBottom="16dp"
+        android:text="Pause Task"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/reqIdLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/back_button"
+        android:layout_marginTop="18dp"
+        android:paddingBottom="8dp"
+        android:text="Req ID"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/reqIdText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="233"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/reqIdLabel"
+        android:paddingBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/commentLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comment"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/reqIdText"
+        android:paddingBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/notificationDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Comment"
+        android:textColor="@color/black"
+        android:layout_below="@id/commentLabel"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_corner_background"
+        android:inputType="textMultiLine"
+        android:minLines="10"
+        android:gravity="top"
+        android:imeOptions="actionDone" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="18sp"
+        android:backgroundTint="@color/blue"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/notificationDescription"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
