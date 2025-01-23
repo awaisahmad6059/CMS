@@ -175,7 +175,7 @@
                     android:layout_marginEnd="16dp">
 
                     <LinearLayout
-                        android:id="@+id/resolvecomplain"
+                        android:id="@+id/completetask"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_weight="1"
@@ -189,12 +189,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Resolve\nComplaint"
+                            android:text="Complete \nTasks"
                             android:textSize="18sp"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
                         <TextView
-                            android:id="@+id/total_resolve_compalin_count"
+                            android:id="@+id/totalcompletetask"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -235,47 +235,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/completetask"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:orientation="vertical"
-                    android:background="@color/white"
-                    android:elevation="4dp"
-                    android:padding="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center">
-
-                    <!-- Text for Bottom Box -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Complete Tasks"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/totalcompletetask"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-
-                <!-- Two Buttons Below the Bottom Box -->
-                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="56dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:gravity="center">
 
-                    <!-- Add Staff Button -->
                     <Button
                         android:id="@+id/btn_add_staff"
                         android:layout_width="0dp"
