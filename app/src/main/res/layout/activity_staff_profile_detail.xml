@@ -4,10 +4,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+    android:background="@drawable/bluebackground"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:padding="16dp">
 
-        <!-- Back Arrow and Screen Label -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -30,11 +30,11 @@
                 android:layout_height="wrap_content"
                 android:text="Profile Worker"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginStart="56dp" />
         </LinearLayout>
 
-        <!-- Profile Image -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
             android:layout_width="120dp"
@@ -45,18 +45,17 @@
         android:scaleType="centerCrop"
         app:civ_border_width="2dp" />
 
-        <!-- Worker Name -->
         <TextView
             android:id="@+id/workerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:layout_gravity="center"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
 
-        <!-- Worker Position -->
         <TextView
             android:id="@+id/workerPosition"
             android:layout_width="wrap_content"
@@ -67,7 +66,6 @@
             android:textColor="@color/black"
             android:layout_marginTop="8dp" />
 
-        <!-- Specification -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +96,6 @@
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        <!-- Email -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,7 +119,6 @@
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        <!-- Experience -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -146,7 +142,6 @@
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        <!-- Phone -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -170,7 +165,6 @@
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        <!-- Edit Button -->
         <Button
             android:id="@+id/editButton"
             android:layout_width="match_parent"
@@ -181,7 +175,6 @@
             android:textColor="@color/white"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Logout Button -->
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"

@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/bluebackground"
     tools:context=".AdminSide.AdminRequestSentActivity">
 
-    <!-- Back button -->
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="48dp"
@@ -19,13 +18,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Title -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Maintenance request"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,20 +32,18 @@
         app:layout_constraintStart_toEndOf="@id/back_button"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Image -->
     <ImageView
         android:id="@+id/image"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:contentDescription="Maintenance Image"
-        android:src="@drawable/detail"
+        android:src="@drawable/requestsent"
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1.2" />
 
-    <!-- Success Message -->
     <TextView
         android:id="@+id/successMessage"
         android:layout_width="wrap_content"
@@ -54,13 +51,13 @@
         android:text="Your maintenance request\nsent successfully"
         android:textSize="18sp"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- OK Button -->
     <Button
         android:id="@+id/okButton"
         android:layout_width="match_parent"

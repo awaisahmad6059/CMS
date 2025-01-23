@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@drawable/bluebackground"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
@@ -9,7 +10,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Back Image Button -->
         <ImageButton
             android:id="@+id/back_button"
             android:layout_width="48dp"
@@ -18,7 +18,6 @@
             android:contentDescription="@string/back_button_desc"
             android:src="@drawable/back" />
 
-        <!-- Screen Label -->
         <TextView
             android:id="@+id/screenLabel"
             android:layout_width="wrap_content"
@@ -31,7 +30,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/titleLabel"
             android:layout_width="match_parent"
@@ -55,7 +53,6 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp"/>
 
-        <!-- Description -->
         <TextView
             android:id="@+id/descriptionLabel"
             android:layout_width="match_parent"
@@ -79,7 +76,6 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp"/>
 
-        <!-- Room -->
         <TextView
             android:id="@+id/roomLabel"
             android:layout_width="match_parent"
@@ -103,7 +99,6 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp"/>
 
-        <!-- Assigned By -->
         <TextView
             android:id="@+id/assignedByLabel"
             android:layout_width="match_parent"
@@ -127,7 +122,6 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp"/>
 
-        <!-- Location -->
         <TextView
             android:id="@+id/locationLabel"
             android:layout_width="match_parent"
@@ -151,7 +145,6 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp"/>
 
-        <!-- Picture -->
         <TextView
             android:id="@+id/pictureLabel"
             android:layout_width="match_parent"

@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bluebackground"
     android:padding="16dp"
     tools:context=".StaffSide.StaffAssignedMeActivity">
 
-    <!-- Back Arrow -->
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="48dp"
@@ -18,12 +18,12 @@
         android:contentDescription="@string/back_button_desc"
         android:src="@drawable/back" />
 
-    <!-- Screen Label -->
     <TextView
         android:id="@+id/screenLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
+        android:textColor="@color/black"
         android:layout_marginTop="12dp"
         android:layout_toEndOf="@+id/back_button"
         android:text="My Tasks"

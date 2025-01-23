@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bluebackground"
     tools:context=".StaffSide.StaffCompleteTaskActivity">
 
-    <!-- Back Button -->
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="48dp"
@@ -21,11 +21,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Screen Label -->
     <TextView
         android:id="@+id/screenLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:layout_marginStart="50dp"
         android:layout_marginTop="12dp"
         android:text="Completed Tasks"

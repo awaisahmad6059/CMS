@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@drawable/bluebackground"
     tools:context=".AdminSide.StaffProfileActivity">
 
     <ScrollView
@@ -39,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Full Name"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp" />
@@ -50,6 +52,7 @@
                 android:hint="Full Name"
                 android:layout_marginTop="8dp"
                 android:padding="12dp"
+                android:textColor="@color/black"
                 android:inputType="textPersonName"
                 android:background="@drawable/rounded_corner_background"
                 android:textSize="20sp"
@@ -62,6 +65,7 @@
                 android:text="Job Title"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
             <EditText
@@ -69,6 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Job Title"
+                android:textColor="@color/black"
                 android:layout_marginTop="8dp"
                 android:padding="12dp"
                 android:inputType="text"
@@ -80,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="Location"
                 android:textSize="16sp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp" />
 
@@ -90,6 +96,7 @@
                 android:hint="Location"
                 android:layout_marginTop="8dp"
                 android:padding="12dp"
+                android:textColor="@color/black"
                 android:inputType="text"
                 android:background="@drawable/rounded_corner_background"
                 android:textSize="16sp"
@@ -101,6 +108,7 @@
                 android:text="Phone"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
             <EditText
@@ -109,6 +117,7 @@
                 android:layout_height="48dp"
                 android:hint="Phone"
                 android:inputType="phone"
+                android:textColor="@color/black"
                 android:layout_marginTop="8dp"
                 android:padding="12dp"
                 android:background="@drawable/rounded_corner_background"
@@ -119,10 +128,10 @@
                 android:layout_height="wrap_content"
                 android:text="Availability"
                 android:textSize="16sp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp" />
 
-            <!-- Monday Availability -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -139,6 +148,7 @@
                     <TextView
                         android:id="@+id/mondayLabel"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:text="Monday" />
 
@@ -150,8 +160,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Repeat similar blocks for other days (Tuesday to Sunday) -->
-            <!-- Tuesday Availability -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -168,6 +176,7 @@
                     <TextView
                         android:id="@+id/tuesdayLabel"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:text="Tuesday" />
 
@@ -179,8 +188,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Add similar LinearLayouts for Wednesday, Thursday, Friday, Saturday, and Sunday -->
-            <!-- Wednesday Availability -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -197,6 +204,7 @@
                     <TextView
                         android:id="@+id/wednesdayLabel"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:text="Wednesday" />
 
@@ -208,7 +216,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Thursday Availability -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -226,6 +233,7 @@
                         android:id="@+id/thursdayLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="Thursday" />
 
                 </LinearLayout>
@@ -236,7 +244,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Friday Availability -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -253,6 +260,7 @@
                     <TextView
                         android:id="@+id/fridayLabel"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:text="Friday" />
 
@@ -264,7 +272,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Saturday Availability -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -281,6 +288,7 @@
                     <TextView
                         android:id="@+id/saturdayLabel"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:text="Saturday" />
 
@@ -292,7 +300,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Sunday Availability -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -308,6 +315,7 @@
 
                     <TextView
                         android:id="@+id/sundayLabel"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sunday" />
@@ -325,7 +333,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="32dp">
 
-                <!-- Save Button -->
                 <Button
                     android:id="@+id/edit_button"
                     android:layout_width="0dp"
@@ -336,7 +343,6 @@
                     android:textSize="18sp"
                     android:textColor="@color/white" />
 
-                <!-- Cancel Button -->
                 <Button
                     android:id="@+id/cancel_button"
                     android:layout_width="0dp"

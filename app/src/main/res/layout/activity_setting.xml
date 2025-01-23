@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@drawable/bluebackground"
     android:layout_height="match_parent">
 
-    <!-- Header Section -->
     <LinearLayout
         android:id="@+id/header_section"
         android:layout_width="0dp"
@@ -17,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp">
 
-        <!-- Back Arrow -->
         <ImageButton
             android:id="@+id/back_button"
             android:layout_width="48dp"
@@ -26,7 +25,6 @@
             android:src="@drawable/back"
             android:contentDescription="@string/back_button_desc" />
 
-        <!-- System Settings Text -->
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,12 +32,12 @@
             android:text="System Settings"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:gravity="center"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp" />
     </LinearLayout>
 
-    <!-- Setting List Section -->
     <LinearLayout
         android:id="@+id/setting_list_section"
         android:layout_width="0dp"
@@ -52,7 +50,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp">
 
-        <!-- General Setting -->
         <LinearLayout
             android:id="@+id/admin_general_setting"
             android:layout_width="match_parent"
@@ -71,12 +68,11 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/arrowa"
+                android:src="@drawable/arrow"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp" />
         </LinearLayout>
 
-        <!-- Security Setting -->
         <LinearLayout
             android:id="@+id/admin_security_setting"
             android:layout_width="match_parent"
@@ -95,12 +91,11 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/arrowa"
+                android:src="@drawable/arrow"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp" />
         </LinearLayout>
 
-        <!-- Integration Setting -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bluebackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
@@ -11,7 +12,6 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Back Arrow and Screen Title -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,11 +36,11 @@
                 android:layout_height="wrap_content"
                 android:text="Worker Details"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginStart="56dp" />
         </LinearLayout>
 
-        <!-- Profile Image -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
             android:layout_width="120dp"
@@ -51,7 +51,6 @@
         app:civ_border_width="2dp"
         app:civ_border_color="@color/black" />
 
-        <!-- Edit Button -->
         <Button
             android:id="@+id/editButton"
             android:layout_width="wrap_content"
@@ -61,11 +60,11 @@
             android:backgroundTint="@color/ButtonWhite"
             android:textColor="@color/black"/>
 
-        <!-- Name Field -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="24dp" />
@@ -78,11 +77,13 @@
             android:layout_marginTop="8dp"
             android:inputType="textPersonName"
             android:padding="12dp"
+            android:textColor="@color/black"
             android:hint="Enter Name" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="24dp" />
@@ -93,15 +94,16 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
+            android:textColor="@color/black"
             android:padding="12dp"
             android:inputType="textEmailAddress"
             android:hint="Enter Email" />
-        <!-- Experience Field -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Experience"
             android:textSize="16sp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
 
@@ -112,12 +114,14 @@
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
             android:padding="12dp"
+            android:textColor="@color/black"
             android:inputType="text"
             android:hint="Enter Experience" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Position"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -126,18 +130,19 @@
             android:id="@+id/positionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
             android:padding="12dp"
             android:inputType="text"
             android:hint="Enter Position" />
 
-        <!-- Specialization Field -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Specialization"
             android:textSize="16sp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
 
@@ -147,15 +152,16 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
+            android:textColor="@color/black"
             android:padding="12dp"
             android:inputType="text"
             android:hint="Enter Specialization" />
 
-        <!-- Phone Field -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Phone"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -167,10 +173,10 @@
             android:background="@drawable/rounded_corner_background"
             android:layout_marginTop="8dp"
             android:padding="12dp"
+            android:textColor="@color/black"
             android:inputType="phone"
             android:hint="Enter Phone Number" />
 
-        <!-- Save Button -->
         <Button
             android:id="@+id/saveButton"
             android:layout_width="match_parent"

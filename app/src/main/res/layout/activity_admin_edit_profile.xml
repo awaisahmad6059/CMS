@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bluebackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
@@ -19,12 +20,12 @@
             android:contentDescription="@string/back_button_desc"
             android:layout_margin="8dp" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Profile"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
@@ -56,45 +57,45 @@
             android:backgroundTint="@color/ButtonWhite"
             android:textColor="@android:color/black" />
 
-        <!-- Full Name Label -->
         <TextView
             android:id="@+id/label_full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Full Name"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_below="@id/button_edit_photo"
             android:layout_marginTop="16dp" />
 
-        <!-- Full Name EditText -->
         <EditText
             android:id="@+id/edit_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
+            android:textColor="@color/black"
             android:inputType="textPersonName"
             android:layout_below="@id/label_full_name"
             android:layout_marginTop="8dp"
             android:padding="12dp"
             android:background="@drawable/rounded_corner_background" />
 
-        <!-- Description Label -->
         <TextView
             android:id="@+id/experience"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Experience"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_below="@id/edit_full_name"
             android:layout_marginTop="16dp" />
 
-        <!-- Description EditText -->
         <EditText
             android:id="@+id/editexperience"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Experience"
             android:inputType="text"
+            android:textColor="@color/black"
             android:layout_below="@id/experience"
             android:layout_marginTop="8dp"
             android:gravity="top"
@@ -106,11 +107,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Speciality"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_below="@id/editexperience"
             android:layout_marginTop="16dp" />
 
-        <!-- Description EditText -->
         <EditText
             android:id="@+id/editspeciality"
             android:layout_width="match_parent"
@@ -119,46 +120,47 @@
             android:layout_below="@id/speciality"
             android:layout_marginTop="8dp"
             android:gravity="top"
+            android:textColor="@color/black"
             android:inputType="text"
             android:padding="12dp"
             android:background="@drawable/rounded_corner_background" />
 
-        <!-- Email Label -->
         <TextView
             android:id="@+id/label_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="E mail"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_below="@id/editspeciality"
             android:layout_marginTop="16dp" />
 
-        <!-- Email EditText -->
         <EditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E mail"
+            android:textColor="@color/black"
             android:inputType="textEmailAddress"
             android:layout_below="@id/label_email"
             android:layout_marginTop="8dp"
             android:padding="12dp"
             android:background="@drawable/rounded_corner_background" />
 
-        <!-- Phone Label -->
         <TextView
             android:id="@+id/label_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Phone"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_below="@id/edit_email"
             android:layout_marginTop="16dp" />
 
-        <!-- Phone EditText -->
         <EditText
             android:id="@+id/edit_phone"
             android:layout_width="match_parent"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:hint="Phone"
             android:inputType="phone"

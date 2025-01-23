@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bluebackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
@@ -10,7 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Back Button -->
         <ImageButton
             android:id="@+id/back_button"
             android:layout_width="48dp"
@@ -32,8 +32,6 @@
             android:layout_gravity="center_horizontal" />/>
 
 
-
-        <!-- Name -->
         <TextView
             android:id="@+id/nameText"
             android:layout_width="wrap_content"
@@ -41,57 +39,56 @@
             android:text=""
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="4dp" />
 
-        <!-- Position and Experience -->
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="2dp" />
 
-        <!-- Specialization -->
         <TextView
             android:id="@+id/specializationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp" />
 
-        <!-- Availability -->
         <TextView
             android:id="@+id/availabilityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Availability"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
-        <!-- RecyclerView for Availability -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/availabilityRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp" />
 
-        <!-- Task Details -->
         <TextView
             android:id="@+id/taskDetailsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Task Details"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
-        <!-- Plumbing Issue -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,14 +106,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Plumbing Issue"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/plumbingDescription"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:text="Description: Leaking faucet"
-                    android:textColor="@android:color/darker_gray" />
+                    android:text="Description: Leaking faucet" />
             </LinearLayout>
 
             <TextView
@@ -124,11 +122,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Details"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/black"
                 android:gravity="end" />
         </LinearLayout>
 
-        <!-- Location -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -146,6 +143,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Location"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -153,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Kitchen"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <TextView
@@ -161,11 +159,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Details"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/black"
                 android:gravity="end" />
         </LinearLayout>
 
-        <!-- Notes -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -183,14 +180,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Notes"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/notesDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Please finish the task by this Friday"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@color/black"
+                    android:text="Please finish the task by this Friday" />
             </LinearLayout>
 
             <TextView
@@ -198,11 +196,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/black"
                 android:gravity="end" />
         </LinearLayout>
 
-        <!-- Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

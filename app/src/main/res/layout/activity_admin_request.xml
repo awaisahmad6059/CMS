@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bluebackground"
     tools:context=".AdminSide.AdminRequestActivity">
 
-    <!-- Toolbar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="68dp"
@@ -44,7 +44,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Title -->
             <TextView
                 android:id="@+id/label_title"
                 android:layout_width="match_parent"
@@ -122,15 +121,13 @@
                 android:id="@+id/label_add_photo_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tap to add a photo of the issue"
+                android:text="Tap to camera icon to add a photo of the issue"
                 android:textColor="@color/grey"
                 android:textSize="14sp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="8dp" />
 
-            <!-- Category -->
 
-            <!-- Location -->
             <TextView
                 android:id="@+id/label_location"
                 android:layout_width="match_parent"
@@ -148,7 +145,6 @@
                 android:padding="12dp"
                 android:entries="@array/select_location" />
 
-            <!-- Room Number -->
             <TextView
                 android:id="@+id/label_room_number"
                 android:layout_width="match_parent"

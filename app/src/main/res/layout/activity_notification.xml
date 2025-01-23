@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@drawable/bluebackground"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -11,6 +12,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            android:background="#63AEFF"
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="@color/white">
 
@@ -35,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:text="Notification Management"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/back_button"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +54,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="16dp"
+            android:background="#63AEFF"
             android:paddingBottom="16dp">
 
             <EditText
@@ -72,6 +76,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="16dp"
+            android:background="#63AEFF"
             android:paddingBottom="16dp">
 
             <Button

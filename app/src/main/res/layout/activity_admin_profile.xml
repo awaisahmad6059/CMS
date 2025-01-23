@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bluebackground"
     tools:context=".AdminSide.AdminProfileActivity">
 
-    <!-- Back button -->
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="48dp"
@@ -20,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Profile picture -->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_photo"
         android:layout_width="100dp"
@@ -35,19 +34,18 @@
 
 
 
-    <!-- Name -->
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text=""
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_photo" />
 
-    <!-- Experience -->
     <TextView
         android:id="@+id/experience"
         android:layout_width="wrap_content"
@@ -55,22 +53,20 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="Experience: "
-        android:textColor="@color/grey"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name" />
 
-    <!-- Specialty -->
     <TextView
         android:id="@+id/specialty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Specialty:"
-        android:textColor="@color/grey"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/experience" />
 
-    <!-- Contact Information Header -->
     <TextView
         android:id="@+id/contactInfoHeader"
         android:layout_width="wrap_content"
@@ -79,11 +75,11 @@
         android:layout_marginTop="16dp"
         android:text="Contact Information"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/specialty" />
 
-    <!-- Email and Call buttons -->
     <LinearLayout
         android:id="@+id/contactButtons"
         android:layout_width="0dp"
@@ -96,12 +92,10 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <!-- Email Row -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Email address -->
             <TextView
                 android:id="@+id/email"
                 android:layout_width="0dp"
@@ -115,7 +109,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0" />
 
-            <!-- Email button -->
             <Button
                 android:id="@+id/emailButton"
                 android:layout_width="wrap_content"
@@ -128,13 +121,11 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Phone Row -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
 
-            <!-- Phone number -->
             <TextView
                 android:id="@+id/phoneNumber"
                 android:layout_width="0dp"
@@ -148,7 +139,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0" />
 
-            <!-- Call button -->
             <Button
                 android:id="@+id/callButton"
                 android:layout_width="wrap_content"

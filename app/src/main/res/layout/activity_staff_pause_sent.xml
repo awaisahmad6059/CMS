@@ -7,8 +7,6 @@
     android:background="@drawable/bluebackground"
     tools:context=".UserSide.RequestSentActivity">
 
-    <!-- Back button -->
-
 
     <ImageView
         android:id="@+id/image"
@@ -22,8 +20,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Success Message -->
-
-    <!-- OK Button -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
