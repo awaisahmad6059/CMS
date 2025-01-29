@@ -79,19 +79,24 @@ class UserSettingActivity : AppCompatActivity() {
 
     private fun loadUserData() {
         val userId = this.userId ?: return
+
+        // Get the authenticated user's email
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: "No email found"
+
         firestore.collection("users").document(userId).get()
             .addOnSuccessListener { document ->
                 if (document != null) {
                     val username = document.getString("username") ?: ""
                     val phone = document.getString("phone") ?: ""
-                    val email = document.getString("email") ?: ""
 
                     nameValue.text = username
                     mobileNumberValue.text = phone
-                    emailValue.text = email
+                    emailValue.text = userEmail // Display the email fetched from FirebaseAuth
                 }
             }
             .addOnFailureListener { e ->
+                // Handle failure (optional)
             }
     }
+
 }

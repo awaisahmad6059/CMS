@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.faa.cmsportalcui.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AdminProfileActivity : AppCompatActivity() {
@@ -58,14 +59,18 @@ class AdminProfileActivity : AppCompatActivity() {
         emailText: TextView,
         phoneNumberText: TextView
     ) {
+        val adminEmail = FirebaseAuth.getInstance().currentUser?.email ?: "No email found"
+
         db.collection("admins").document(adminId).get()
             .addOnSuccessListener { document ->
                 if (document != null) {
                     nameText.text = document.getString("name") ?: "null"
                     experienceText.text = "Experience: ${document.getString("experience") ?: "null"}"
                     specialtyText.text = "Specialty: ${document.getString("specialty") ?: "null"}"
-                    emailText.text = document.getString("email") ?: "null"
+//                    emailText.text = document.getString("email") ?: "null"
                     phoneNumberText.text = document.getString("phoneNumber") ?: "null"
+                    emailText.text = adminEmail
+
 
                     val profileImageUrl = document.getString("profileImageUrl")
                     if (profileImageUrl != null && profileImageUrl.isNotEmpty()) {
