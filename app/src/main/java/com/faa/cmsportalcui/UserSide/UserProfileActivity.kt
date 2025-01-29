@@ -30,7 +30,8 @@ class UserProfileActivity : AppCompatActivity() {
     private lateinit var profilePhoto: ImageView
     private lateinit var fullName: EditText
     private lateinit var description: EditText
-    private lateinit var email: EditText
+    // Commented out the email and phone fields
+    // private lateinit var email: EditText
     private lateinit var phone: EditText
 
     private val PICK_IMAGE_REQUEST = 1
@@ -51,7 +52,8 @@ class UserProfileActivity : AppCompatActivity() {
         profilePhoto = findViewById(R.id.profile_photo)
         fullName = findViewById(R.id.edit_full_name)
         description = findViewById(R.id.editdescription)
-        email = findViewById(R.id.edit_email)
+        // Commented out email field initialization
+        // email = findViewById(R.id.edit_email)
         phone = findViewById(R.id.edit_phone)
 
         editPhotoBtn.setOnClickListener {
@@ -81,7 +83,8 @@ class UserProfileActivity : AppCompatActivity() {
     private fun saveUserProfile() {
         val name = fullName.text.toString()
         val desc = description.text.toString()
-        val emailText = email.text.toString()
+        // Commented out email variable
+        // val emailText = email.text.toString()
         val phoneText = phone.text.toString()
         val userId = this.userId ?: return
 
@@ -93,7 +96,8 @@ class UserProfileActivity : AppCompatActivity() {
             ref.putBytes(compressedImage)
                 .addOnSuccessListener { taskSnapshot ->
                     ref.downloadUrl.addOnSuccessListener { uri ->
-                        updateUserDetails(userId, name, desc, emailText, phoneText, uri.toString())
+                        // Commented out email parameter
+                        updateUserDetails(userId, name, desc, "", phoneText, uri.toString())
                     }
                 }
                 .addOnFailureListener { e ->
@@ -104,7 +108,8 @@ class UserProfileActivity : AppCompatActivity() {
                 .addOnSuccessListener { document ->
                     if (document != null) {
                         val currentImageUrl = document.getString("profileImageUrl")
-                        updateUserDetails(userId, name, desc, emailText, phoneText, currentImageUrl)
+                        // Commented out email parameter
+                        updateUserDetails(userId, name, desc, "", phoneText, currentImageUrl)
                     }
                 }
                 .addOnFailureListener { e ->
@@ -126,7 +131,6 @@ class UserProfileActivity : AppCompatActivity() {
         return outputStream.toByteArray()
     }
 
-
     private fun updateUserDetails(userId: String, name: String, desc: String, email: String, phone: String, profileImageUrl: String?) {
         firestore.collection("users").document(userId).get()
             .addOnSuccessListener { document ->
@@ -136,7 +140,8 @@ class UserProfileActivity : AppCompatActivity() {
                     val user = hashMapOf(
                         "username" to name,
                         "description" to desc,
-                        "email" to email,
+                        // Commented out email field
+                        // "email" to email,
                         "phone" to phone,
                         "profileImageUrl" to profileImageUrl,
                         "userType" to "user",
@@ -166,7 +171,8 @@ class UserProfileActivity : AppCompatActivity() {
                 if (document != null) {
                     fullName.setText(document.getString("username"))
                     description.setText(document.getString("description"))
-                    email.setText(document.getString("email"))
+                    // Commented out email field
+                    // email.setText(document.getString("email"))
                     phone.setText(document.getString("phone"))
                     val profileImageUrl = document.getString("profileImageUrl")
                     if (profileImageUrl != null) {

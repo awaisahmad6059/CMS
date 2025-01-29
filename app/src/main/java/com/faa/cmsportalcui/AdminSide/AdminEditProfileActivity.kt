@@ -25,7 +25,7 @@ class AdminEditProfileActivity : AppCompatActivity() {
     private lateinit var editFullName: EditText
     private lateinit var editExperience: EditText
     private lateinit var editSpeciality: EditText
-    private lateinit var editEmail: EditText
+//    private lateinit var editEmail: EditText
     private lateinit var editPhone: EditText
     private lateinit var buttonSave: Button
 
@@ -39,7 +39,7 @@ class AdminEditProfileActivity : AppCompatActivity() {
         editFullName = findViewById(R.id.edit_full_name)
         editExperience = findViewById(R.id.editexperience)
         editSpeciality = findViewById(R.id.editspeciality)
-        editEmail = findViewById(R.id.edit_email)
+//        editEmail = findViewById(R.id.edit_email)
         editPhone = findViewById(R.id.edit_phone)
         buttonSave = findViewById(R.id.button_save)
 
@@ -70,7 +70,7 @@ class AdminEditProfileActivity : AppCompatActivity() {
                     editFullName.setText(document.getString("name") ?: "")
                     editExperience.setText(document.getString("experience") ?: "")
                     editSpeciality.setText(document.getString("specialty") ?: "")
-                    editEmail.setText(document.getString("email") ?: "")
+//                    editEmail.setText(document.getString("email") ?: "")
                     editPhone.setText(document.getString("phoneNumber") ?: "")
 
                     val profileImageUrl = document.getString("profileImageUrl")
@@ -97,7 +97,7 @@ class AdminEditProfileActivity : AppCompatActivity() {
             "name" to editFullName.text.toString(),
             "experience" to editExperience.text.toString(),
             "specialty" to editSpeciality.text.toString(),
-            "email" to editEmail.text.toString(),
+//            "email" to editEmail.text.toString(),
             "phoneNumber" to editPhone.text.toString()
         )
 

@@ -10,14 +10,19 @@ import com.faa.cmsportalcui.AdminModel.Admin
 import com.faa.cmsportalcui.R
 import com.google.firebase.firestore.FirebaseFirestore
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.EmailAuthProvider
+
 class AdminChangePasswordActivity : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var mAuth: FirebaseAuth  // Firebase Authentication instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_change_password)
 
         firestore = FirebaseFirestore.getInstance()
+        mAuth = FirebaseAuth.getInstance()  // Initialize FirebaseAuth
 
         val backButton: ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener {
@@ -53,13 +58,32 @@ class AdminChangePasswordActivity : AppCompatActivity() {
                 if (document.exists()) {
                     val admin = document.toObject(Admin::class.java)
                     if (admin?.password == currentPassword) {
-                        document.reference.update("password", newPassword)
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT).show()
-                                finish()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this, "Error updating password: ${e.message}", Toast.LENGTH_SHORT).show()
+                        // Reauthenticate user before updating password in Firebase Authentication
+                        val user = mAuth.currentUser
+                        val credential = EmailAuthProvider.getCredential(user?.email ?: "", currentPassword)
+
+                        user?.reauthenticate(credential)
+                            ?.addOnCompleteListener { reAuthTask ->
+                                if (reAuthTask.isSuccessful) {
+                                    // Reauthentication successful, now update the password
+                                    document.reference.update("password", newPassword)
+                                        .addOnSuccessListener {
+                                            // Update password in Firebase Authentication
+                                            user.updatePassword(newPassword)
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(this, "Password updated successfully in both Firestore and Firebase Authentication", Toast.LENGTH_SHORT).show()
+                                                    finish()
+                                                }
+                                                .addOnFailureListener { e ->
+                                                    Toast.makeText(this, "Error updating password in Firebase Authentication: ${e.message}", Toast.LENGTH_SHORT).show()
+                                                }
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Toast.makeText(this, "Error updating password in Firestore: ${e.message}", Toast.LENGTH_SHORT).show()
+                                        }
+                                } else {
+                                    Toast.makeText(this, "Reauthentication failed. Please try again.", Toast.LENGTH_SHORT).show()
+                                }
                             }
                     } else {
                         Toast.makeText(this, "Current password is incorrect", Toast.LENGTH_SHORT).show()
@@ -72,5 +96,4 @@ class AdminChangePasswordActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error fetching admin data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
 }

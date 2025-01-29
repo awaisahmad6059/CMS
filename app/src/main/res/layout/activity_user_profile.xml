@@ -107,27 +107,27 @@
             android:background="@drawable/rounded_corner_background" />
 
         <!-- Email Label -->
-        <TextView
-            android:id="@+id/label_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E mail"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_below="@id/editdescription"
-            android:layout_marginTop="16dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/label_email"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="E mail"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:layout_below="@id/editdescription"-->
+<!--            android:layout_marginTop="16dp" />-->
 
         <!-- Email EditText -->
-        <EditText
-            android:id="@+id/edit_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="E mail"
-            android:inputType="textEmailAddress"
-            android:layout_below="@id/label_email"
-            android:layout_marginTop="8dp"
-            android:padding="12dp"
-            android:background="@drawable/rounded_corner_background" />
+<!--        <EditText-->
+<!--            android:id="@+id/edit_email"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="E mail"-->
+<!--            android:inputType="textEmailAddress"-->
+<!--            android:layout_below="@id/label_email"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:padding="12dp"-->
+<!--            android:background="@drawable/rounded_corner_background" />-->
 
         <!-- Phone Label -->
         <TextView
@@ -137,7 +137,7 @@
             android:text="Phone"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_below="@id/edit_email"
+            android:layout_below="@id/editdescription"
             android:layout_marginTop="16dp" />
 
         <!-- Phone EditText -->

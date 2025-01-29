@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Switch
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.faa.cmsportalcui.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserChangePasswordActivity : AppCompatActivity() {
@@ -43,6 +42,7 @@ class UserChangePasswordActivity : AppCompatActivity() {
         cancelButton.setOnClickListener {
             finish()
         }
+
         val backButton: ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener {
             finish()
@@ -69,15 +69,37 @@ class UserChangePasswordActivity : AppCompatActivity() {
                 .addOnSuccessListener { document ->
                     val storedPassword = document.getString("password") ?: ""
                     if (storedPassword == currentPassword) {
-                        firestore.collection("users").document(id)
-                            .update("password", newPassword)
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT).show()
-                                finish()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this, "Failed to update password: ${e.message}", Toast.LENGTH_SHORT).show()
-                            }
+                        // Reauthenticate user first
+                        val user = auth.currentUser
+                        user?.let { firebaseUser ->
+                            val credential = EmailAuthProvider.getCredential(firebaseUser.email ?: "", currentPassword)
+
+                            firebaseUser.reauthenticate(credential)
+                                .addOnCompleteListener { reAuthTask ->
+                                    if (reAuthTask.isSuccessful) {
+                                        // Update password in Firestore
+                                        firestore.collection("users").document(id)
+                                            .update("password", newPassword)
+                                            .addOnSuccessListener {
+                                                // Update password in Firebase Authentication
+                                                firebaseUser.updatePassword(newPassword)
+                                                    .addOnCompleteListener { updatePasswordTask ->
+                                                        if (updatePasswordTask.isSuccessful) {
+                                                            Toast.makeText(this, "Password updated successfully in both Firestore and Firebase Authentication", Toast.LENGTH_SHORT).show()
+                                                            finish()
+                                                        } else {
+                                                            Toast.makeText(this, "Failed to update password in Firebase Authentication: ${updatePasswordTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                                                        }
+                                                    }
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Toast.makeText(this, "Failed to update password in Firestore: ${e.message}", Toast.LENGTH_SHORT).show()
+                                            }
+                                    } else {
+                                        Toast.makeText(this, "Reauthentication failed. Please try again.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                        }
                     } else {
                         Toast.makeText(this, "Current password is incorrect", Toast.LENGTH_SHORT).show()
                     }

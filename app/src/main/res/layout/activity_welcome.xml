@@ -33,17 +33,5 @@
 
     <!-- Subtitle -->
 
-    <Button
-        android:id="@+id/get_Started"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Get Started"
-        android:textStyle="bold"
-        android:layout_marginTop="80dp"
-        android:textSize="16sp"
-        android:backgroundTint="@color/ButtonBlue"
-        android:textColor="@color/white"
-        android:drawableEnd="@drawable/arrowwhite"
-    android:drawablePadding="8dp" />
 
 </LinearLayout>
