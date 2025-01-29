@@ -37,7 +37,7 @@ class AdminRequestActivity : AppCompatActivity() {
     private val storage by lazy { FirebaseStorage.getInstance() }
     private val auth by lazy { FirebaseAuth.getInstance() }
 
-    private val adminId = "lzcmCdafqJ6dg8vAYexS"
+    private val adminId = "PLT9zgmym2RwqCQbQ4WG3WeDY2d2"
     private var adminName: String? = null
 
     private val GALLERY_REQUEST_CODE = 1001

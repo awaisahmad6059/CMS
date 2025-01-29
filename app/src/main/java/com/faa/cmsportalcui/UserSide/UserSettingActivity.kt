@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.faa.cmsportalcui.Authentication.LoginActivity
 import com.faa.cmsportalcui.Authentication.WelcomeActivity
 import com.faa.cmsportalcui.R
 import com.google.firebase.auth.FirebaseAuth
@@ -48,8 +49,13 @@ class UserSettingActivity : AppCompatActivity() {
         }
 
         logoutBtn.setOnClickListener {
-            startActivity(Intent(this@UserSettingActivity, WelcomeActivity::class.java))
-            finishAffinity()
+            val mAuth = FirebaseAuth.getInstance()
+            mAuth.signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+
         }
 
         passwordSection.setOnClickListener {

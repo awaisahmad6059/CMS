@@ -30,7 +30,7 @@ class AdminProfileActivity : AppCompatActivity() {
         val phoneNumberText: TextView = findViewById(R.id.phoneNumber)
         val editButton: Button = findViewById(R.id.button_edit)
 
-        adminId = "lzcmCdafqJ6dg8vAYexS"
+        adminId = "PLT9zgmym2RwqCQbQ4WG3WeDY2d2"
 
         if (adminId != null) {
             loadAdminDetails(adminId!!, profilePhoto, nameText, experienceText, specialtyText, emailText, phoneNumberText)

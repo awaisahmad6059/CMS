@@ -44,7 +44,7 @@ class AdminChangePasswordActivity : AppCompatActivity() {
     }
 
     private fun updatePassword(currentPassword: String, newPassword: String) {
-        val adminId = "lzcmCdafqJ6dg8vAYexS"
+        val adminId = "PLT9zgmym2RwqCQbQ4WG3WeDY2d2"
 
         firestore.collection("admins")
             .document(adminId)

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Back Button -->
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="48dp"

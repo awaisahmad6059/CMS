@@ -15,10 +15,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
+import com.faa.cmsportalcui.Authentication.LoginActivity
 import com.faa.cmsportalcui.Authentication.WelcomeActivity
 import com.faa.cmsportalcui.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -123,8 +125,12 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
                 startActivity(Intent(this, FeedbackRequestListActivity::class.java))
             }
             R.id.nav_signout -> {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finishAffinity()
+                val mAuth = FirebaseAuth.getInstance()
+                mAuth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
             }
             R.id.home -> {
                 startActivity(Intent(this, AdminDashboardActivity::class.java))
@@ -144,7 +150,7 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
     }
     private fun fetchAdminDetails() {
         val db = FirebaseFirestore.getInstance()
-        val adminId = "lzcmCdafqJ6dg8vAYexS"
+        val adminId = "PLT9zgmym2RwqCQbQ4WG3WeDY2d2"
 
         db.collection("admins")
             .document(adminId)

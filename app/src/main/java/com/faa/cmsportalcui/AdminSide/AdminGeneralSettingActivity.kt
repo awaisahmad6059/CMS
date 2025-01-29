@@ -13,7 +13,7 @@ class AdminGeneralSettingActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
 
-    private val adminId = "lzcmCdafqJ6dg8vAYexS"
+    private val adminId = "PLT9zgmym2RwqCQbQ4WG3WeDY2d2"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

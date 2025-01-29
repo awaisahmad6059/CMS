@@ -8,10 +8,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.faa.cmsportalcui.AdminSide.AdminDashboardActivity
 import com.faa.cmsportalcui.R
 import com.faa.cmsportalcui.StaffSide.StaffDashboardActivity
@@ -22,32 +19,28 @@ import com.google.firebase.firestore.FirebaseFirestore
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var inputEmail: EditText
-    private lateinit var createNewAccount: TextView
     private lateinit var inputPassword: EditText
     private lateinit var btnLogin: Button
+    private lateinit var createNewAccount: TextView
+    private lateinit var backButton: ImageView
     private lateinit var progressDialog: ProgressDialog
+
     private lateinit var mAuth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
-    private lateinit var back_button: ImageView
-
-
-    private val adminId = "lzcmCdafqJ6dg8vAYexS"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        createNewAccount = findViewById(R.id.tv_sign_up)
         inputEmail = findViewById(R.id.et_email)
         inputPassword = findViewById(R.id.et_password)
         btnLogin = findViewById(R.id.btn_sign_in)
-        back_button = findViewById(R.id.back_button)
-
+        createNewAccount = findViewById(R.id.tv_sign_up)
+        backButton = findViewById(R.id.back_button)
 
         mAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
         progressDialog = ProgressDialog(this)
-
 
         btnLogin.setOnClickListener {
             val email = inputEmail.text.toString().trim()
@@ -60,13 +53,27 @@ class LoginActivity : AppCompatActivity() {
                 loginUser(email, password)
             }
         }
-        back_button.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, AuthenticationActivity::class.java))
+
+        backButton.setOnClickListener {
+            startActivity(Intent(this, AuthenticationActivity::class.java))
+            finish()
         }
 
         createNewAccount.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, SignUpActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
+            finish()
+        }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        checkUserSession()
+    }
+
+    private fun checkUserSession() {
+        val currentUser = mAuth.currentUser
+        if (currentUser != null) {
+            redirectToDashboard(currentUser.uid, currentUser.email ?: "")
         }
     }
 
@@ -74,87 +81,71 @@ class LoginActivity : AppCompatActivity() {
         progressDialog.setMessage("Logging in...")
         progressDialog.show()
 
-        firestore.collection("admins").document(adminId).get()
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                progressDialog.dismiss()
+                if (task.isSuccessful) {
+                    val currentUser = mAuth.currentUser
+                    if (currentUser != null) {
+                        redirectToDashboard(currentUser.uid, email)
+                    }
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Login failed: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+    }
+
+    private fun redirectToDashboard(userId: String, email: String) {
+        firestore.collection("admins").document(userId).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    val adminEmail = document.getString("email")
-                    val adminPassword = document.getString("password")
-                    if (email == adminEmail && password == adminPassword) {
-                        progressDialog.dismiss()
-                        startActivity(Intent(this, AdminDashboardActivity::class.java))
-                        finish()
-                        return@addOnSuccessListener
-                    } else {
-                        checkUserOrStaff(email, password)
-                    }
+                    navigateToDashboard(AdminDashboardActivity::class.java, userId, "admin_id")
                 } else {
-                    checkUserOrStaff(email, password)
+                    checkUserOrStaff(userId, email)
                 }
             }
-            .addOnFailureListener { e ->
-                progressDialog.dismiss()
-                Toast.makeText(this, "Failed to login: ${e.message}", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener {
+                Toast.makeText(this, "Error fetching user data", Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun checkUserOrStaff(email: String, password: String) {
-        firestore.collection("users").whereEqualTo("email", email).get()
+    private fun checkUserOrStaff(userId: String, email: String) {
+        firestore.collection("users").document(userId).get()
+            .addOnSuccessListener { userDoc ->
+                if (userDoc.exists()) {
+                    navigateToDashboard(UserDashboardActivity::class.java, userId, "user_id")
+                } else {
+                    checkStaffByEmail(email)
+                }
+            }
+    }
+
+    private fun checkStaffByEmail(email: String) {
+        firestore.collection("staff")
+            .whereEqualTo("email", email)
+            .get()
             .addOnSuccessListener { querySnapshot ->
-                if (querySnapshot.documents.isNotEmpty()) {
-                    val user = querySnapshot.documents[0]
-                    val userPassword = user.getString("password")
-                    val userId = user.id
-
-                    if (userPassword == password) {
-                        progressDialog.dismiss()
-                        val intent = Intent(this, UserDashboardActivity::class.java)
-                        intent.putExtra("user_id", userId)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        progressDialog.dismiss()
-                        Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT).show()
-                    }
+                if (!querySnapshot.isEmpty) {
+                    val staffDoc = querySnapshot.documents[0]
+                    val staffId = staffDoc.id // Staff ID is stored as document ID
+                    navigateToDashboard(StaffDashboardActivity::class.java, staffId, "staff_id")
                 } else {
-                    checkStaff(email, password)
+                    Toast.makeText(this, "User not found in any role", Toast.LENGTH_SHORT).show()
                 }
             }
-            .addOnFailureListener { e ->
-                progressDialog.dismiss()
-                Toast.makeText(this, "Failed to login: ${e.message}", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener {
+                Toast.makeText(this, "Error fetching staff data", Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun checkStaff(email: String, password: String) {
-        firestore.collection("staff").whereEqualTo("email", email).get()
-            .addOnSuccessListener { staffSnapshot ->
-                if (!staffSnapshot.isEmpty) {
-                    val staff = staffSnapshot.documents[0]
-                    val staffPassword = staff.getString("password")
-                    val staffId = staff.id
-
-                    if (staffPassword == password) {
-                        progressDialog.dismiss()
-                        val intent = Intent(this, StaffDashboardActivity::class.java)
-                        intent.putExtra("staff_id", staffId)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        progressDialog.dismiss()
-                        Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                } else {
-                    progressDialog.dismiss()
-                    Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .addOnFailureListener { e ->
-                progressDialog.dismiss()
-                Toast.makeText(this, "Failed to login: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-
-
+    private fun navigateToDashboard(activityClass: Class<*>, userId: String, key: String) {
+        val intent = Intent(this, activityClass)
+        intent.putExtra(key, userId)
+        startActivity(intent)
+        finish()
     }
-
 }

@@ -45,7 +45,7 @@
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Farhan Riaz"
+                android:text=""
                 android:layout_marginBottom="50dp"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/topBar"
         android:background="@drawable/curved_background"
+        android:elevation="6dp"
         android:padding="16dp"
         android:layout_marginTop="-40dp">
 
@@ -74,8 +75,8 @@
                 android:layout_height="120dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="@color/white"
-                android:elevation="4dp"
+                android:background="@drawable/border"
+                android:elevation="6dp"
                 android:padding="16dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center">
@@ -104,8 +105,8 @@
                 android:layout_height="120dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="@color/white"
-                android:elevation="4dp"
+                android:background="@drawable/border"
+                android:elevation="6dp"
                 android:padding="16dp"
                 android:layout_marginStart="8dp"
                 android:gravity="center">
@@ -136,8 +137,8 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="vertical"
-        android:background="@color/white"
-        android:elevation="4dp"
+        android:background="@drawable/border"
+        android:elevation="6dp"
         android:padding="16dp"
         android:layout_below="@id/curvedSection"
         android:layout_marginTop="16dp"

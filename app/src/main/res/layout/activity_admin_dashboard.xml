@@ -56,18 +56,16 @@
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="2dp" />
 
-                <!-- User Name -->
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Farhan Riaz"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>
         </RelativeLayout>
 
-        <!-- ScrollView for Scrollable Content -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -105,8 +103,8 @@
                         android:layout_height="120dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:background="@color/white"
-                        android:elevation="4dp"
+                        android:background="@drawable/border"
+                        android:elevation="6dp"
                         android:padding="16dp"
                         android:layout_marginEnd="8dp"
                         android:gravity="center">
@@ -137,8 +135,8 @@
                         android:layout_height="120dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:background="@color/white"
-                        android:elevation="4dp"
+                        android:background="@drawable/border"
+                        android:elevation="6dp"
                         android:padding="16dp"
                         android:layout_marginStart="8dp"
                         android:gravity="center">
@@ -180,8 +178,8 @@
                         android:layout_height="120dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:background="@color/white"
-                        android:elevation="4dp"
+                        android:background="@drawable/border"
+                        android:elevation="6dp"
                         android:padding="16dp"
                         android:layout_marginEnd="8dp"
                         android:gravity="center">
@@ -203,15 +201,14 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Box 2 -->
                     <LinearLayout
                         android:id="@+id/equipments"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:background="@color/white"
-                        android:elevation="4dp"
+                        android:background="@drawable/border"
+                        android:elevation="6dp"
                         android:padding="16dp"
                         android:layout_marginStart="8dp"
                         android:gravity="center">
