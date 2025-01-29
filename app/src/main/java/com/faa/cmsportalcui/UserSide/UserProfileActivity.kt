@@ -152,7 +152,7 @@ class UserProfileActivity : AppCompatActivity() {
                         .set(user)
                         .addOnSuccessListener {
                             Toast.makeText(this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show()
-                            navigateToDashboard(userId, name, desc, profileImageUrl)
+                            navigateToDashboard(userId, name, desc,phone, profileImageUrl)
                         }
                         .addOnFailureListener { e ->
                             Toast.makeText(this, "Error updating profile: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -182,11 +182,12 @@ class UserProfileActivity : AppCompatActivity() {
             }
     }
 
-    private fun navigateToDashboard(userId: String, name: String, desc: String, profileImageUrl: String?) {
+    private fun navigateToDashboard(userId: String, name: String, desc: String,phone: String, profileImageUrl: String?) {
         val intent = Intent(this, UserDashboardActivity::class.java)
         intent.putExtra("user_id", userId)
         intent.putExtra("userName", name)
         intent.putExtra("userDesc", desc)
+        intent.putExtra("phone", phone)
         intent.putExtra("profileImageUrl", profileImageUrl)
         startActivity(intent)
         finish()
