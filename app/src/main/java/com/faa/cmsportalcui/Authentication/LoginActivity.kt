@@ -42,8 +42,6 @@ class LoginActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         progressDialog = ProgressDialog(this)
 
-        // Check if the user is already logged in
-        checkUserSession()
 
         btnLogin.setOnClickListener {
             val email = inputEmail.text.toString().trim()
@@ -73,13 +71,7 @@ class LoginActivity : AppCompatActivity() {
         // Already checked in onCreate
     }
 
-    private fun checkUserSession() {
-        val currentUser = mAuth.currentUser
-        if (currentUser != null) {
-            // User is logged in, so redirect immediately without further checks
-            redirectToDashboard(currentUser.uid, currentUser.email ?: "")
-        }
-    }
+
 
     private fun loginUser(email: String, password: String) {
         progressDialog.setMessage("Logging in...")

@@ -70,7 +70,7 @@ class StaffDashboardActivity : AppCompatActivity() {
                     putExtra("staffId", staffId)
                 }
 
-                if (task.adminId == "lzcmCdafqJ6dg8vAYexS") {
+                if (task.adminId == "PLT9zgmym2RwqCQbQ4WG3WeDY2d2") {
                     fetchRequestDetailsForAdmin(task.adminId, task.id) { location, roomNumber ->
                         intent.putExtra("location", location)
                         intent.putExtra("roomNumber", roomNumber)
