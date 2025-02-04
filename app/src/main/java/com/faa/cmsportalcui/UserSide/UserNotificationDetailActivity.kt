@@ -3,10 +3,12 @@ package com.faa.cmsportalcui.UserSide
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.faa.cmsportalcui.R
 import com.faa.cmsportalcui.UserModel.Notification
@@ -42,8 +44,15 @@ class UserNotificationDetailActivity : AppCompatActivity() {
         markAsReadButton.setOnClickListener {
             if (notificationId.isNotEmpty()) {
                 markNotificationAsRead(notificationId)
+
+                markAsReadButton.setBackgroundColor(Color.BLACK)
+                markAsReadButton.text = "Marked as Read"
+                markAsReadButton.isEnabled = false
+                finish()
+
             }
         }
+
 
         backButton.setOnClickListener {
             finish()
@@ -65,12 +74,17 @@ class UserNotificationDetailActivity : AppCompatActivity() {
     private fun markNotificationAsRead(notificationId: String) {
         if (userId.isEmpty()) return
 
-        db.collection("users").document(userId).collection("read_notifications").document(notificationId)
+        db.collection("users").document(userId)
+            .collection("read_notifications").document(notificationId)
             .set(mapOf("isRead" to true))
             .addOnSuccessListener {
-                finish()
+                markAsReadButton.setBackgroundColor(Color.BLACK)
+                markAsReadButton.text = "Marked as Read"
+                markAsReadButton.isEnabled = false
             }
             .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to mark as read", Toast.LENGTH_SHORT).show()
             }
     }
+
 }

@@ -9,7 +9,6 @@
     android:background="@drawable/bluebackground"
     tools:context=".UserSide.UserCompleteFeddbackActivity">
 
-    <!-- Back Button and Title -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,9 +37,7 @@
             android:layout_marginStart="50dp" />
     </LinearLayout>
 
-    <!-- Search Bar -->
 
-    <!-- Filter Buttons -->
     <EditText
         android:id="@+id/searchView"
         android:layout_width="match_parent"
@@ -50,30 +47,7 @@
         android:drawableStart="@drawable/search_ic"
         android:hint="Search requests" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="16dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/ButtonWhite"
-            android:textColor="@color/black"
-            android:text="Filter by status" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Filter by date"
-            android:backgroundTint="@color/ButtonWhite"
-            android:textColor="@color/black"
-            android:layout_marginStart="16dp" />
-    </LinearLayout>
-
-    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

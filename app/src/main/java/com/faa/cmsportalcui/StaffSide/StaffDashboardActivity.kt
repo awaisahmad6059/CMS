@@ -195,30 +195,26 @@ class StaffDashboardActivity : AppCompatActivity() {
 
 
     private fun setupRealTimeTaskUpdates(staffId: String) {
-        // Fetch paused tasks for the current staff member
         firestore.collection("pauseTask")
-            .whereEqualTo("staffId", staffId) // Filter by staffId
+            .whereEqualTo("staffId", staffId)
             .get()
             .addOnSuccessListener { pausedTasksSnapshot ->
                 val pausedTaskIds = mutableSetOf<String>()
                 for (document in pausedTasksSnapshot) {
-                    pausedTaskIds.add(document.id) // Collect paused task IDs
+                    pausedTaskIds.add(document.id)
                 }
 
-                // Fetch completed tasks for the staff member
                 firestore.collection("completeTask")
-                    .whereEqualTo("staffId", staffId) // Filter by staffId
+                    .whereEqualTo("staffId", staffId)
                     .get()
                     .addOnSuccessListener { completedTasksSnapshot ->
                         val completedTaskIds = mutableSetOf<String>()
                         for (document in completedTasksSnapshot) {
-                            completedTaskIds.add(document.id) // Collect completed task IDs
+                            completedTaskIds.add(document.id)
                         }
 
-                        // Combine paused and completed task IDs
                         val filteredTaskIds = pausedTaskIds + completedTaskIds
 
-                        // Fetch assigned tasks for the staff member
                         tasksListener = firestore.collection("staff")
                             .document(staffId)
                             .collection("assignedTasks")
@@ -235,13 +231,12 @@ class StaffDashboardActivity : AppCompatActivity() {
                                         if (task != null) {
                                             task.assignedTaskId = document.id
 
-                                            // Exclude tasks that are in the pausedTask or completeTask collections
                                             if (!filteredTaskIds.contains(task.assignedTaskId)) {
                                                 taskList.add(task)
                                             }
                                         }
                                     }
-                                    taskAdapter.updateTasks(taskList) // Update the adapter with filtered tasks
+                                    taskAdapter.updateTasks(taskList)
                                 }
                             }
                     }

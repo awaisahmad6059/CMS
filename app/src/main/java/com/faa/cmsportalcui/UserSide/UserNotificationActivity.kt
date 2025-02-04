@@ -29,12 +29,12 @@ class UserNotificationActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        fetchNotifications { fetchedNotifications ->
-            notifications = fetchedNotifications.toMutableList()
-            adapter = UserNotificationAdapter(this, notifications, userId) { notification ->
-            }
-            recyclerView.adapter = adapter
-        }
+        fetchNotifications()
+
+        notifications = mutableListOf()
+        adapter = UserNotificationAdapter(this, notifications, userId) { notification -> }
+        recyclerView.adapter = adapter
+
 
         backButton.setOnClickListener {
             finish()
@@ -49,32 +49,42 @@ class UserNotificationActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchNotifications(callback: (List<Notification>) -> Unit) {
+    private fun fetchNotifications() {
         db.collection("notifications")
-            .get()
-            .addOnSuccessListener { documents ->
-                val notifications = documents.mapNotNull { it.toObject(Notification::class.java) }
-                applyReadState(notifications, callback)
-            }
-            .addOnFailureListener { e ->
-                Log.e("UserNotificationActivity", "Error fetching notifications: ${e.message}", e)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.e("UserNotificationActivity", "Error fetching notifications: ${e.message}", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    val fetchedNotifications = snapshot.documents.mapNotNull { doc ->
+                        doc.toObject(Notification::class.java)?.apply { id = doc.id }
+                    }
+
+                    applyReadState(fetchedNotifications)
+                }
             }
     }
 
-    private fun applyReadState(notifications: List<Notification>, callback: (List<Notification>) -> Unit) {
+    private fun applyReadState(fetchedNotifications: List<Notification>) {
         db.collection("users").document(userId).collection("read_notifications")
             .get()
             .addOnSuccessListener { readDocuments ->
                 val readNotificationIds = readDocuments.map { it.id }
-                notifications.forEach { notification ->
+                fetchedNotifications.forEach { notification ->
                     notification.isRead = notification.id in readNotificationIds
                 }
-                callback(notifications)
+
+                notifications.clear()
+                notifications.addAll(fetchedNotifications)
+                adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
                 Log.e("UserNotificationActivity", "Error fetching read notifications: ${e.message}", e)
             }
     }
+
 
     private fun markAllNotificationsRead() {
         if (notifications.isEmpty()) {

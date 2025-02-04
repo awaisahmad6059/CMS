@@ -8,10 +8,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.exoplayer.image.ImageDecoder
@@ -33,6 +35,8 @@ class UserProfileActivity : AppCompatActivity() {
     // Commented out the email and phone fields
     // private lateinit var email: EditText
     private lateinit var phone: EditText
+    private lateinit var progressBar: ProgressBar
+
 
     private val PICK_IMAGE_REQUEST = 1
     private var imageUri: Uri? = null
@@ -48,6 +52,7 @@ class UserProfileActivity : AppCompatActivity() {
         userId = intent.getStringExtra("user_id")
 
         saveBtn = findViewById(R.id.button_save)
+        progressBar = findViewById(R.id.progressBar)
         editPhotoBtn = findViewById(R.id.button_edit_photo)
         profilePhoto = findViewById(R.id.profile_photo)
         fullName = findViewById(R.id.edit_full_name)
@@ -88,6 +93,9 @@ class UserProfileActivity : AppCompatActivity() {
         val phoneText = phone.text.toString()
         val userId = this.userId ?: return
 
+        progressBar.visibility = View.VISIBLE
+
+
         if (imageUri != null) {
             val ref = storage.reference.child("profile_images/$userId/${UUID.randomUUID()}")
 
@@ -101,6 +109,7 @@ class UserProfileActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { e ->
+                    progressBar.visibility = View.GONE
                     Toast.makeText(this, "Image Upload Failed: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {
@@ -113,6 +122,7 @@ class UserProfileActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { e ->
+                    progressBar.visibility = View.GONE
                     Toast.makeText(this, "Failed to retrieve current profile image: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         }
@@ -151,13 +161,17 @@ class UserProfileActivity : AppCompatActivity() {
                     firestore.collection("users").document(userId)
                         .set(user)
                         .addOnSuccessListener {
+
                             Toast.makeText(this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show()
+                            progressBar.visibility = View.GONE
                             navigateToDashboard(userId, name, desc,phone, profileImageUrl)
                         }
                         .addOnFailureListener { e ->
+                            progressBar.visibility = View.GONE
                             Toast.makeText(this, "Error updating profile: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                 } else {
+                    progressBar.visibility = View.GONE
                     Toast.makeText(this, "Error retrieving user data", Toast.LENGTH_SHORT).show()
                 }
             }

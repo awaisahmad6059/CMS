@@ -1,7 +1,10 @@
 package com.faa.cmsportalcui.UserSide
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +23,7 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     private val completeTaskList = mutableListOf<UserCompleteTask>()
+    private val filteredTaskList = mutableListOf<UserCompleteTask>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +46,7 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
             return
         }
 
-        adapter = UserCompleteTaskAdapter(this, completeTaskList, currentUserId)
+        adapter = UserCompleteTaskAdapter(this, filteredTaskList, currentUserId)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
@@ -51,11 +55,20 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.back_button).setOnClickListener {
             finish()
         }
+
+        val searchView = findViewById<EditText>(R.id.searchView)
+        searchView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                filterTasks(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
     private fun fetchCompleteTasks(currentUserId: String) {
-        Log.d("UserCompleteFeddback", "Fetching tasks for userId: $currentUserId")
-
         firestore.collection("completeTask")
             .whereEqualTo("userId", currentUserId)
             .get()
@@ -63,26 +76,36 @@ class UserCompleteFeddbackActivity : AppCompatActivity() {
                 completeTaskList.clear()
 
                 if (documents.isEmpty) {
-                    Log.d("UserCompleteFeddback", "No completed tasks found for userId: $currentUserId")
                     Toast.makeText(this, "No completed tasks found", Toast.LENGTH_SHORT).show()
                 } else {
                     for (document in documents) {
-                        Log.d("UserCompleteFeddback", "Document ID: ${document.id}")
-                        Log.d("UserCompleteFeddback", "Document Data: ${document.data}")
-
                         val completeTask = document.toObject(UserCompleteTask::class.java).apply {
                             taskId = document.id
                         }
                         completeTaskList.add(completeTask)
-                        Log.d("UserCompleteFeddback", "Fetched task: ${completeTask.title} with taskId: ${completeTask.taskId}")
                     }
+
+                    filteredTaskList.addAll(completeTaskList) // Copy all tasks to filtered list initially
                     adapter.notifyDataSetChanged()
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("UserCompleteFeddback", "Failed to fetch tasks", e)
                 Toast.makeText(this, "Failed to fetch tasks", Toast.LENGTH_SHORT).show()
             }
     }
 
+    private fun filterTasks(query: String) {
+        filteredTaskList.clear()
+
+        if (query.isEmpty()) {
+            filteredTaskList.addAll(completeTaskList)
+        } else {
+            val lowerCaseQuery = query.lowercase()
+            completeTaskList.filterTo(filteredTaskList) { task ->
+                task.title.lowercase().contains(lowerCaseQuery)
+            }
+        }
+
+        adapter.notifyDataSetChanged() // Notify adapter that data has changed
+    }
 }

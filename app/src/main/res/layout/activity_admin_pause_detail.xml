@@ -39,6 +39,7 @@
         android:layout_marginTop="18dp"
         android:paddingBottom="8dp"
         android:text="Req ID"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -47,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="233"
+        android:background="@drawable/bg_stat_card"
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:layout_below="@id/reqIdLabel"
@@ -57,7 +59,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pause Detail"
+        android:textStyle="bold"
         android:textSize="18sp"
+        android:paddingTop="7dp"
         android:textColor="@color/black"
         android:layout_below="@id/reqIdText"
         android:paddingBottom="8dp"/>
@@ -67,11 +71,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/commentLabel"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/rounded_corner_background"
-        android:padding="12dp"
+        android:background="@drawable/bg_stat_card"
         android:text=""
         android:textColor="@color/black"
         android:textSize="18sp"

@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.faa.cmsportalcui.R
@@ -32,7 +33,6 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_staff_assigned_detail)
 
-        // Initialize views
         titleTextView = findViewById(R.id.titleTextView)
         descriptionTextView = findViewById(R.id.descriptionTextView)
         roomTextView = findViewById(R.id.roomTextView)
@@ -44,7 +44,6 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
 
         firestore = FirebaseFirestore.getInstance()
 
-        // Retrieve data from the intent
         val id = intent.getStringExtra("id")
         val assignedTaskId = intent.getStringExtra("assignedTaskId")
         val title = intent.getStringExtra("title")
@@ -58,19 +57,16 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
         val adminId = intent.getStringExtra("adminId")
         staffId = intent.getStringExtra("staffId")
 
-        // Debugging: Log retrieved data
         Log.d("StaffAssignedDetailActivity", "staffId: $staffId")
         Log.d("StaffAssignedDetailActivity", "title: $title")
         Log.d("StaffAssignedDetailActivity", "description: $description")
 
-        // Set data to views
         titleTextView.text = title ?: "No Title"
         descriptionTextView.text = description ?: "No Description"
         roomTextView.text = roomNumber ?: "No Room Number"
         assignedByTextView.text = assignedBy ?: "Unknown"
         locationTextView.text = location ?: "No Location"
 
-        // Load image using Glide
         if (photoUrl != null && photoUrl.isNotEmpty()) {
             Glide.with(this)
                 .load(photoUrl)
@@ -80,7 +76,6 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
             pictureImageView.setImageResource(R.drawable.image)
         }
 
-        // Complete Task Button Click Listener
         completeTaskButton.setOnClickListener {
             if (!assignedTaskId.isNullOrEmpty()) {
                 val taskData = mutableMapOf<String, Any>(
@@ -126,7 +121,6 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
             }
         }
 
-        // Pause Task Button Click Listener
         pauseTaskButton.setOnClickListener {
             val intent = Intent(this, StaffPauseTaskActivity::class.java).apply {
                 putExtra("id", id)
@@ -140,15 +134,22 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
                 putExtra("timestamp", timestamp)
                 putExtra("userId", userId)
                 putExtra("adminId", adminId)
-                putExtra("staffId", staffId) // Pass staffId here
+                putExtra("staffId", staffId)
             }
             startActivity(intent)
         }
 
-        // Back Button Click Listener
         findViewById<ImageButton>(R.id.back_button).setOnClickListener {
             finish()
         }
+        findViewById<Button>(R.id.cancelButton).setOnClickListener {
+            finish()
+        }
+        findViewById<Button>(R.id.startTask).setOnClickListener {
+            Toast.makeText(this, "Start the task", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
     }
 
     private fun getCurrentDate(): String {

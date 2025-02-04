@@ -1,6 +1,7 @@
 package com.faa.cmsportalcui.UserSide
 
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.faa.cmsportalcui.R
@@ -98,6 +99,8 @@ class UserFeedbackActivity : AppCompatActivity() {
     }
 
     private fun submitFeedback(userId: String, taskId: String, rating: Int, review: String) {
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar) // Get ProgressBar
+        progressBar.visibility = View.VISIBLE
         val feedbackData: Map<String, Any> = hashMapOf(
             "userId" to userId,
             "rating" to rating,
@@ -111,6 +114,7 @@ class UserFeedbackActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
+                    progressBar.visibility = View.GONE
                     Toast.makeText(this, "Task not found", Toast.LENGTH_SHORT).show()
                 } else {
                     val batch = db.batch()
@@ -121,15 +125,18 @@ class UserFeedbackActivity : AppCompatActivity() {
 
                     batch.commit()
                         .addOnSuccessListener {
+                            progressBar.visibility = View.GONE
                             Toast.makeText(this, "Feedback submitted successfully", Toast.LENGTH_SHORT).show()
                             finish()
                         }
                         .addOnFailureListener {
+                            progressBar.visibility = View.GONE
                             Toast.makeText(this, "Failed to submit feedback", Toast.LENGTH_SHORT).show()
                         }
                 }
             }
             .addOnFailureListener {
+                progressBar.visibility = View.GONE
                 Toast.makeText(this, "Error checking task", Toast.LENGTH_SHORT).show()
             }
     }

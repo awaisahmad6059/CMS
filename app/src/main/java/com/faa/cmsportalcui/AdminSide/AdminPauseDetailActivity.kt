@@ -19,22 +19,18 @@ class AdminPauseDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_pause_detail)
 
-        // Initialize Firestore
         firestore = FirebaseFirestore.getInstance()
 
-        // Handle back button click
         val backButton: ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener {
             finish()
         }
 
-        // Handle close button click
         val closeButton: Button = findViewById(R.id.closeButton)
         closeButton.setOnClickListener {
             finish()
         }
 
-        // Retrieve data from intent
         val id = intent.getStringExtra("id")
         val title = intent.getStringExtra("title")
         val currentTime = intent.getStringExtra("currentTime")

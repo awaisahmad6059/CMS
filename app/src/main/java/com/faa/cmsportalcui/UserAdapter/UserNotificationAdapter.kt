@@ -80,9 +80,13 @@ class UserNotificationAdapter(
         if (notification.isRead) {
             holder.titleTextView.setTypeface(null, Typeface.NORMAL)
             holder.titleTextView.setTextColor(Color.BLACK)
+            holder.checkBox.isChecked = true
+
         } else {
             holder.titleTextView.setTypeface(null, Typeface.BOLD)
             holder.titleTextView.setTextColor(Color.RED)
+            holder.checkBox.isChecked = false
+
         }
         holder.checkBox.isChecked = notification.isRead
     }

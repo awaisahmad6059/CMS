@@ -9,7 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Back Arrow -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:indeterminate="true" />
+
         <ImageButton
             android:id="@+id/back_button"
             android:layout_width="48dp"
@@ -30,7 +37,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp" />
 
-        <!-- Satisfaction Question -->
         <TextView
             android:id="@+id/question"
             android:layout_width="wrap_content"
@@ -43,7 +49,6 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
 
-        <!-- Rating Display -->
         <TextView
             android:id="@+id/rating_number"
             android:layout_width="wrap_content"
@@ -57,7 +62,6 @@
             android:layout_marginStart="8dp"
             android:textColor="@android:color/black" />
 
-        <!-- Star Rating -->
         <RatingBar
             android:id="@+id/rating_bar"
             android:layout_width="wrap_content"
@@ -72,9 +76,7 @@
             android:isIndicator="false"
             android:background="@android:color/transparent" />
 
-        <!-- Review Count -->
 
-        <!-- Rating Distribution -->
         <LinearLayout
             android:id="@+id/rating_distribution"
             android:layout_width="288dp"
@@ -84,7 +86,6 @@
             android:layout_marginTop="16dp"
             android:orientation="vertical">
 
-            <!-- 5 Stars -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
