@@ -6,10 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
 
         <ImageButton
             android:id="@+id/back_button"
@@ -53,31 +55,15 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="2dp" />
 
-        <TextView
-            android:id="@+id/specializationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp" />
-
-        <TextView
-            android:id="@+id/availabilityText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Availability"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/availabilityRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/specializationText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text=""-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginBottom="24dp" />-->
 
         <TextView
             android:id="@+id/taskDetailsText"
@@ -102,28 +88,21 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/plumbingLabel"
+                    android:id="@+id/experience"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Plumbing Issue"
+                    android:text="Experience"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/plumbingDescription"
+                    android:id="@+id/experienceDescription"
                     android:layout_width="wrap_content"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:text="Description: Leaking faucet" />
+                    android:text="" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/plumbingDetailsText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Details"
-                android:textColor="@color/black"
-                android:gravity="end" />
         </LinearLayout>
 
         <LinearLayout
@@ -139,28 +118,21 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/locationLabel"
+                    android:id="@+id/position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Location"
+                    android:text="Position"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/locationDescription"
+                    android:id="@+id/positionDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kitchen"
+                    android:text=""
                     android:textColor="@color/black" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/locationDetailsText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Details"
-                android:textColor="@color/black"
-                android:gravity="end" />
         </LinearLayout>
 
         <LinearLayout
@@ -176,28 +148,21 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/notesLabel"
+                    android:id="@+id/specification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Notes"
+                    android:text="Specification"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/notesDescription"
+                    android:id="@+id/specificationDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="Please finish the task by this Friday" />
+                    android:text="" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/notesEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:textColor="@color/black"
-                android:gravity="end" />
         </LinearLayout>
 
         <LinearLayout
@@ -224,7 +189,21 @@
                 android:text="Cancel"
                 android:backgroundTint="@color/ButtonWhite"
                 android:textColor="@android:color/black" />
+
         </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="0"/>
+
+
 
     </LinearLayout>
+
 </ScrollView>

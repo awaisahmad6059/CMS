@@ -37,7 +37,7 @@ class StaffActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_staff)
 
-        fabAddStaff = findViewById(R.id.fab_add_user)
+//        fabAddStaff = findViewById(R.id.fab_add_user)
         rvUsers = findViewById(R.id.rvUsers)
         backButton = findViewById(R.id.back_button)
         progressBar = findViewById(R.id.progressBar)
@@ -71,10 +71,10 @@ class StaffActivity : AppCompatActivity() {
 
         loadStaff()
 
-        fabAddStaff.setOnClickListener {
-            val intent = Intent(this, StaffProfileActivity::class.java)
-            startActivity(intent)
-        }
+//        fabAddStaff.setOnClickListener {
+//            val intent = Intent(this, StaffProfileActivity::class.java)
+//            startActivity(intent)
+//        }
 
         backButton.setOnClickListener {
             navigateToAdminDashboard()

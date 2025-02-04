@@ -71,71 +71,13 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="16dp"
-            android:background="#63AEFF"
-            android:paddingBottom="16dp">
-
-            <Button
-                android:id="@+id/all_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="All"
-                android:textSize="10sp"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/ButtonWhite"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_gravity="fill"/>
-
-            <Button
-                android:id="@+id/unread_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Unread"
-                android:textSize="10sp"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/ButtonWhite"
-                android:layout_marginEnd="8dp"
-                android:layout_gravity="fill"/>
-
-            <Button
-                android:id="@+id/read_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Read"
-                android:textSize="10sp"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/ButtonWhite"
-                android:layout_marginEnd="8dp"
-                android:layout_gravity="fill"/>
-
-            <Button
-                android:id="@+id/drafts_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Drafts"
-                android:textSize="10sp"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/ButtonWhite"
-                android:layout_marginEnd="8dp"
-                android:layout_gravity="fill"/>
-
-        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

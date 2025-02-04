@@ -16,5 +16,6 @@ data class PauseTask(
     val assignedBy: String = "", // New field
     val assignedTaskId: String = "", // New field
     val comment: String = "", // New field
-    val currentDate: String = "" // New field
+    val currentDate: String = "",
+    val profileImageUrl: String = ""  // New field
 )

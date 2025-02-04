@@ -28,6 +28,10 @@ class AdminChangePasswordActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             finish()
         }
+        val cancelButton: Button = findViewById(R.id.button_cancel)
+        cancelButton.setOnClickListener {
+            finish()
+        }
 
         val saveChangesButton: Button = findViewById(R.id.button_save_changes)
         saveChangesButton.setOnClickListener {

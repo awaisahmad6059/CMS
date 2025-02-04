@@ -2,7 +2,10 @@ package com.faa.cmsportalcui.AdminSide
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,15 +23,18 @@ class MaintananceActivity : AppCompatActivity() {
     private lateinit var adapter: MaintenanceRequestAdapter
     private val firestore = FirebaseFirestore.getInstance()
     private var requestsListener: ListenerRegistration? = null
+    private var requests = mutableListOf<MaintenanceRequest>() // Store full request list
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maintanance)
 
+
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = MaintenanceRequestAdapter(emptyList())
+        adapter = MaintenanceRequestAdapter(ArrayList(requests))
         recyclerView.adapter = adapter
 
         setupRealTimeUpdates()
@@ -43,6 +49,16 @@ class MaintananceActivity : AppCompatActivity() {
             val intent = Intent(this, AdminRequestActivity::class.java)
             startActivity(intent)
         }
+        val searchBar: EditText = findViewById(R.id.search_bar)
+        searchBar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterRequests(s.toString()) // Call the filter method when text changes
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     override fun onDestroy() {
@@ -59,12 +75,14 @@ class MaintananceActivity : AppCompatActivity() {
                 }
 
                 if (snapshot != null) {
-                    val requests = mutableListOf<MaintenanceRequest>()
+                    requests.clear() // Purani list clear karein
+
+                    val newRequests = mutableListOf<MaintenanceRequest>()
                     var completedRequests = 0
                     val totalRequests = snapshot.size()
 
                     if (totalRequests == 0) {
-                        updateRecyclerView(requests)
+                        updateRecyclerView(newRequests)
                         return@addSnapshotListener
                     }
 
@@ -99,11 +117,12 @@ class MaintananceActivity : AppCompatActivity() {
 
                                 checkIfRequestAssignedToStaff(id, userType, adminId) { isAssigned ->
                                     if (!isAssigned) {
-                                        requests.add(maintenanceRequest)
+                                        newRequests.add(maintenanceRequest)
                                     }
 
                                     completedRequests++
                                     if (completedRequests == totalRequests) {
+                                        requests = newRequests // Global list update karein
                                         updateRecyclerView(requests)
                                     }
                                 }
@@ -111,6 +130,7 @@ class MaintananceActivity : AppCompatActivity() {
                             .addOnFailureListener {
                                 completedRequests++
                                 if (completedRequests == totalRequests) {
+                                    requests = newRequests
                                     updateRecyclerView(requests)
                                 }
                             }
@@ -161,7 +181,15 @@ class MaintananceActivity : AppCompatActivity() {
     }
 
     private fun updateRecyclerView(requests: List<MaintenanceRequest>) {
-        adapter = MaintenanceRequestAdapter(requests)
+        adapter = MaintenanceRequestAdapter(ArrayList(requests))
         recyclerView.adapter = adapter
     }
+    private fun filterRequests(query: String) {
+        val filteredList = requests.filter { request ->
+            request.title.contains(query, ignoreCase = true) ||
+                    request.authorName.contains(query, ignoreCase = true)
+        }
+        adapter.updateList(filteredList) // RecyclerView update karein
+    }
+
 }

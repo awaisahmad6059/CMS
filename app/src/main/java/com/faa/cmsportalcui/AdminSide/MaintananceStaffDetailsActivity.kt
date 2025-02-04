@@ -3,14 +3,15 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.faa.cmsportalcui.AdminAdapter.AvailabilityAdapter
 import com.faa.cmsportalcui.AdminModel.Availability
@@ -33,6 +34,7 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
     private var userId: String? = null
     private var adminId: String? = null
 
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +42,15 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
 
         val profileImage: ImageView = findViewById(R.id.profileImage)
         val nameText: TextView = findViewById(R.id.nameText)
-        val specializationText: TextView = findViewById(R.id.specializationText)
+//        val specializationText: TextView = findViewById(R.id.specializationText)
+        val experienceText: TextView = findViewById(R.id.experienceDescription)
+        val positionText: TextView = findViewById(R.id.positionDescription)
+        val specificationText: TextView = findViewById(R.id.specificationDescription)
         val emailTxt: TextView = findViewById(R.id.email)
-        val availabilityRecyclerView: RecyclerView = findViewById(R.id.availabilityRecyclerView)
         val backButton: ImageButton = findViewById(R.id.back_button)
         val cancelBtn: Button = findViewById(R.id.cancelButton)
+        val progressBar: ProgressBar = findViewById(R.id.progressBar)
+
         val saveAssignButton: Button = findViewById(R.id.saveAssignButton)
         val progressToast = Toast.makeText(this, "Creating subcollection...", Toast.LENGTH_SHORT)
 
@@ -65,14 +71,23 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
         }
 
         staffId?.let {
-            loadStaffDetails(it, profileImage, nameText, specializationText, emailTxt, availabilityRecyclerView)
+            loadStaffDetails(it, profileImage, nameText, emailTxt,experienceText, positionText, specificationText)
         }
 
         saveAssignButton.setOnClickListener {
-            progressToast.show()
 
+            progressBar.visibility = View.VISIBLE
+
+            Thread {
+                for (progress in 1..100) {
+                    Thread.sleep(50)  // Simulate a delay
+                    runOnUiThread {
+                        progressBar.progress = progress
+                    }
+                }
+            }.start()
             if (id.isNullOrEmpty() || title.isNullOrEmpty() || description.isNullOrEmpty() || photoUrl.isNullOrEmpty() || timestamp.isNullOrEmpty()) {
-                progressToast.cancel()
+                progressBar.visibility = View.GONE
                 Toast.makeText(this, "Not Assign", Toast.LENGTH_SHORT).show()
                 goToAdminDashboard()
                 return@setOnClickListener
@@ -99,14 +114,12 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
                         .document(taskId)
                         .set(subcollectionData, SetOptions.merge()) // Use SetOptions.merge() to avoid overwriting other fields
                         .addOnSuccessListener {
-                            Log.d("MaintananceStaffDetailsActivity", "Subcollection document successfully created!")
-                            progressToast.cancel()
+                            progressBar.visibility = View.GONE
                             Toast.makeText(this, "Request assigned successfully", Toast.LENGTH_SHORT).show()
                             goToAdminDashboard()
                         }
                         .addOnFailureListener { e ->
-                            Log.w("MaintananceStaffDetailsActivity", "Error creating subcollection document", e)
-                            progressToast.cancel()
+                            progressBar.visibility = View.GONE
                             Toast.makeText(this, "Failed to assign request", Toast.LENGTH_SHORT).show()
                             goToAdminDashboard()
                         }
@@ -133,9 +146,14 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
         staffId: String,
         profileImage: ImageView,
         nameText: TextView,
-        specializationText: TextView,
         emailTxt: TextView,
-        availabilityRecyclerView: RecyclerView
+        experienceText: TextView,
+        positionText: TextView,
+
+        specificationText: TextView
+
+//        specializationText: TextView,
+
     ) {
         db.collection("staff").document(staffId).get()
             .addOnSuccessListener { document ->
@@ -146,17 +164,13 @@ class MaintananceStaffDetailsActivity : ComponentActivity() {
                             Glide.with(this).load(url).into(profileImage)
                         }
                         nameText.text = staff.name
-                        specializationText.text = staff.jobTitle
+//                        specializationText.text = staff.jobTitle
                         emailTxt.text = staff.email
+                        experienceText.text = staff.experience ?: "Not available"
+                        positionText.text = staff.position ?: "Not available"
+                        specificationText.text = staff.specification ?: "Not available"
 
-                        val availabilityList = staff.availability.entries.map {
-                            Availability(it.key)
-                        }
-                        val adapter = AvailabilityAdapter(availabilityList)
-                        availabilityRecyclerView.apply {
-                            layoutManager = LinearLayoutManager(this@MaintananceStaffDetailsActivity)
-                            this.adapter = adapter
-                        }
+
                     }
                 } else {
                     Log.d("MaintananceStaffDetailsActivity", "No such document")

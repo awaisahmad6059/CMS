@@ -7,11 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.faa.cmsportalcui.AdminModel.AdminCompleteTask
 import com.faa.cmsportalcui.R
-
 class AdminCompleteTaskAdapter(
-    private val taskList: List<AdminCompleteTask>,
+    private var taskList: List<AdminCompleteTask>,
     private val staffNames: Map<String, String>
 ) : RecyclerView.Adapter<AdminCompleteTaskAdapter.TaskViewHolder>() {
+
+    fun updateTaskList(newList: List<AdminCompleteTask>) {
+        taskList = newList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.complete_task_item, parent, false)
@@ -40,5 +44,4 @@ class AdminCompleteTaskAdapter(
             roomTextView.text = task.roomNumber
         }
     }
-
 }

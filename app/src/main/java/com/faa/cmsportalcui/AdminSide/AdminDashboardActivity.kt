@@ -188,16 +188,21 @@ class AdminDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationI
 //            .addOnFailureListener { exception ->
 //            }
 //    }
-    private fun fetchTotalCompleteTask() {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("completeTask").get()
-            .addOnSuccessListener { result ->
-                val totalTask = result.size()
-                totalCompleteTaskTextView.text = totalTask.toString()
+private fun fetchTotalCompleteTask() {
+    val db = FirebaseFirestore.getInstance()
+    db.collection("completeTask")
+        .addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.w("fetchTotalCompleteTask", "Listen failed.", e)
+                return@addSnapshotListener
             }
-            .addOnFailureListener { exception ->
-            }
-    }
+
+            // Update the UI with the total number of tasks
+            val totalTask = snapshot?.size() ?: 0
+            totalCompleteTaskTextView.text = totalTask.toString()
+        }
+}
+
 
     private fun fetchTotalRequestCount() {
         val db = FirebaseFirestore.getInstance()

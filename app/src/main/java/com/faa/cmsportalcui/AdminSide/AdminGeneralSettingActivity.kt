@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.faa.cmsportalcui.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AdminGeneralSettingActivity : AppCompatActivity() {
@@ -14,13 +15,14 @@ class AdminGeneralSettingActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
 
     private val adminId = "PLT9zgmym2RwqCQbQ4WG3WeDY2d2"
+    private val auth = FirebaseAuth.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_general_setting)
 
         val backButton: ImageButton = findViewById(R.id.back_button)
-        val buttonSaveChanges: Button = findViewById(R.id.button_save_changes)
 
         val mobileNumberTextView: TextView = findViewById(R.id.mobile_number_value)
         val emailTextView: TextView = findViewById(R.id.email_value)
@@ -31,23 +33,31 @@ class AdminGeneralSettingActivity : AppCompatActivity() {
 
         fetchAdminDetails(mobileNumberTextView, emailTextView)
 
-        buttonSaveChanges.setOnClickListener {
-            Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
-        }
+
     }
 
     private fun fetchAdminDetails(mobileNumberTextView: TextView, emailTextView: TextView) {
-        db.collection("admins").document(adminId).get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    mobileNumberTextView.text = document.getString("phoneNumber") ?: "N/A"
-                    emailTextView.text = document.getString("email") ?: "N/A"
-                } else {
-                    Toast.makeText(this, "No such admin found", Toast.LENGTH_SHORT).show()
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            val email = currentUser.email ?: "N/A"
+            emailTextView.text = email
+            db.collection("admins").document(adminId).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        mobileNumberTextView.text = document.getString("phoneNumber") ?: "N/A"
+//                    emailTextView.text = document.getString("email") ?: "N/A"
+                    } else {
+                        Toast.makeText(this, "No such admin found", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Error fetching admin data: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(
+                        this,
+                        "Error fetching admin data: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
     }
 }

@@ -38,6 +38,7 @@
         <item>A-Block</item>
         <item>B-lock</item>
         <item>C-Block</item>
+        <item>D-Block</item>
     </string-array>
     <string-array name="user_type">
         <item>Select Type </item>

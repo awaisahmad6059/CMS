@@ -24,6 +24,7 @@
             android:layout_centerVertical="true" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Requests"
@@ -32,80 +33,29 @@
             android:textStyle="bold"
             android:layout_centerInParent="true" />
 
+
     </RelativeLayout>
 
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs_layout"
+    <EditText
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/header_layout"
-        android:layout_marginTop="-2dp"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/blue"
-        app:tabIndicatorHeight="4dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/blue"
-        app:tabTextColor="@android:color/black">
+        android:layout_height="48dp"
+        android:layout_below="@+id/header_layout"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/search_background"
+        android:drawableStart="@drawable/search_ic"
+        android:hint="Search Requests"
+        android:inputType="text" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Open" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Closed" />
-    </com.google.android.material.tabs.TabLayout>
-
-    <LinearLayout
-        android:id="@+id/filters_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/tabs_layout"
-        android:padding="8dp">
-
-        <Spinner
-            android:id="@+id/spinner_status"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/filter_background"
-            android:padding="8dp"
-            android:layout_marginRight="8dp"
-            android:entries="@array/statuses" />
-
-        <Spinner
-            android:id="@+id/spinner_priority"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/filter_background"
-            android:padding="8dp"
-            android:layout_marginRight="8dp"
-
-            android:entries="@array/priorities" />
-
-        <Spinner
-            android:id="@+id/spinner_team"
-            android:layout_width="0dp"
-            android:layout_marginRight="8dp"
-
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/filter_background"
-            android:padding="8dp"
-            android:entries="@array/teams" />
-    </LinearLayout>
-
-    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/filters_layout"
+        android:layout_below="@+id/search_bar"
+        android:layout_marginTop="0dp"
         android:padding="8dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

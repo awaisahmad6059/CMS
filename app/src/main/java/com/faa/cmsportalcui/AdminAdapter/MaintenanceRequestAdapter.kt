@@ -14,7 +14,7 @@ import com.faa.cmsportalcui.AdminModel.MaintenanceRequest
 import com.faa.cmsportalcui.AdminSide.MaintananceDetailActivity
 
 class MaintenanceRequestAdapter(
-    private val requests: List<MaintenanceRequest>
+    private var requests: MutableList<MaintenanceRequest>
 ) : RecyclerView.Adapter<MaintenanceRequestAdapter.MaintenanceRequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaintenanceRequestViewHolder {
@@ -28,6 +28,12 @@ class MaintenanceRequestAdapter(
     }
 
     override fun getItemCount(): Int = requests.size
+    fun updateList(newList: List<MaintenanceRequest>) {
+        requests.clear()
+        requests.addAll(newList)
+        notifyDataSetChanged()
+    }
+
 
     class MaintenanceRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val profileImage: CircleImageView = itemView.findViewById(R.id.ProfileImage)
@@ -67,5 +73,8 @@ class MaintenanceRequestAdapter(
                 context.startActivity(intent)
             }
         }
+
     }
+
+
 }

@@ -7,5 +7,6 @@ data class Notification(
     var title: String = "",
     var description: String = "",
     val date: Any? = null,
-    var isRead: Boolean = false
+    var isRead: Boolean = false,
+    var message: String? = null
 )

@@ -2,7 +2,10 @@ package com.faa.cmsportalcui.AdminSide
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +22,14 @@ class AdminPauseTaskListActivity : AppCompatActivity() {
     private lateinit var pauseTaskAdapter: PauseTaskAdapter
     private val pauseTaskList = mutableListOf<PauseTask>()
     private var pauseTaskListener: ListenerRegistration? = null
+    private lateinit var searchBar: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_pause_task_list)
 
         val backButton: ImageButton = findViewById(R.id.back_button)
+        searchBar = findViewById(R.id.search_bar)
         backButton.setOnClickListener {
             finish()
         }
@@ -55,6 +60,15 @@ class AdminPauseTaskListActivity : AppCompatActivity() {
         recyclerView.adapter = pauseTaskAdapter
 
         fetchPauseTasks()
+        searchBar.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                pauseTaskAdapter.filterList(s.toString())
+            }
+        })
     }
 
     private fun fetchPauseTasks() {
@@ -72,14 +86,21 @@ class AdminPauseTaskListActivity : AppCompatActivity() {
 
                     for (document in snapshot) {
                         val pauseTask = document.toObject(PauseTask::class.java)
-                        pauseTaskList.add(pauseTask)
-                    }
 
-                    // Notify the adapter of data changes
-                    pauseTaskAdapter.notifyDataSetChanged()
+                        // Fetch staff profile image
+                        db.collection("staff").document(pauseTask.staffId)
+                            .get()
+                            .addOnSuccessListener { staffDoc ->
+                                if (staffDoc.exists()) {
+                                    val profileImageUrl = staffDoc.getString("profileImageUrl") ?: ""
+                                    pauseTaskList.add(pauseTask.copy(profileImageUrl = profileImageUrl))
+                                    pauseTaskAdapter.updateList(pauseTaskList)                                }
+                            }
+                    }
                 }
             }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
