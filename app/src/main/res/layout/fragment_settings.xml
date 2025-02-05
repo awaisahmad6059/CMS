@@ -17,6 +17,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp">
 
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/rounded_corner_background"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back_button_desc" />
 
         <TextView
             android:layout_width="0dp"

@@ -6,22 +6,10 @@
     android:background="@drawable/bluebackground"
     android:padding="16dp">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <ImageButton
-            android:id="@+id/back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/rounded_corner_background"
-            android:src="@drawable/back"
-            android:contentDescription="@string/back_button_desc"
-            android:layout_margin="8dp" />
-
-        <!-- Title -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -44,10 +32,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/account" />
 
-
-        <!-- Profile Photo -->
-
-        <!-- Edit Profile Photo Button -->
         <Button
             android:id="@+id/button_edit_photo"
             android:layout_width="wrap_content"
@@ -59,7 +43,6 @@
             android:backgroundTint="@color/ButtonWhite"
             android:textColor="@android:color/black" />
 
-        <!-- Full Name Label -->
         <TextView
             android:id="@+id/label_full_name"
             android:layout_width="wrap_content"
@@ -70,7 +53,6 @@
             android:layout_below="@id/button_edit_photo"
             android:layout_marginTop="16dp" />
 
-        <!-- Full Name EditText -->
         <EditText
             android:id="@+id/edit_full_name"
             android:layout_width="match_parent"
@@ -82,7 +64,6 @@
             android:padding="12dp"
             android:background="@drawable/rounded_corner_background" />
 
-        <!-- Description Label -->
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
@@ -93,7 +74,6 @@
             android:layout_below="@id/edit_full_name"
             android:layout_marginTop="16dp" />
 
-        <!-- Description EditText -->
         <EditText
             android:id="@+id/editdescription"
             android:layout_width="match_parent"
@@ -107,30 +87,6 @@
             android:minHeight="120dp"
             android:background="@drawable/rounded_corner_background" />
 
-        <!-- Email Label -->
-<!--        <TextView-->
-<!--            android:id="@+id/label_email"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="E mail"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:layout_below="@id/editdescription"-->
-<!--            android:layout_marginTop="16dp" />-->
-
-        <!-- Email EditText -->
-<!--        <EditText-->
-<!--            android:id="@+id/edit_email"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="E mail"-->
-<!--            android:inputType="textEmailAddress"-->
-<!--            android:layout_below="@id/label_email"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:padding="12dp"-->
-<!--            android:background="@drawable/rounded_corner_background" />-->
-
-        <!-- Phone Label -->
         <TextView
             android:id="@+id/label_phone"
             android:layout_width="wrap_content"
@@ -141,7 +97,6 @@
             android:layout_below="@id/editdescription"
             android:layout_marginTop="16dp" />
 
-        <!-- Phone EditText -->
         <EditText
             android:id="@+id/edit_phone"
             android:layout_width="match_parent"
@@ -153,7 +108,6 @@
             android:padding="12dp"
             android:background="@drawable/rounded_corner_background" />
 
-        <!-- Save Button -->
         <Button
             android:id="@+id/button_save"
             android:layout_width="match_parent"
@@ -163,6 +117,7 @@
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/ButtonBlue"
             android:textColor="@color/white" />
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="180dp"
@@ -170,7 +125,5 @@
             android:visibility="gone"
             android:layout_centerInParent="true"
             android:indeterminate="true" />
-
-
     </RelativeLayout>
 </ScrollView>

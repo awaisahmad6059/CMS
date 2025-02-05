@@ -50,7 +50,7 @@ class StaffEditProfileActivity : AppCompatActivity() {
                             val name = data["name"] as? String
                             val email = data["email"] as? String
                             val position = data["position"] as? String
-                            val specialization = data["specialization"] as? String
+                            val specialization = data["specification"] as? String
                             val phone = data["phone"] as? String
                             val experience = data["experience"] as? String
 

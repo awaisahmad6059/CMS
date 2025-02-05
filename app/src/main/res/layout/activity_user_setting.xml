@@ -5,17 +5,7 @@
     android:background="@drawable/bluebackground"
     android:padding="16dp">
 
-    <!-- Back Arrow -->
-    <ImageButton
-        android:id="@+id/back_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_corner_background"
-        android:src="@drawable/back"
-        android:contentDescription="@string/back_button_desc"
-        android:layout_margin="8dp" />
 
-    <!-- Title -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -27,7 +17,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 
-    <!-- ScrollView for content -->
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
