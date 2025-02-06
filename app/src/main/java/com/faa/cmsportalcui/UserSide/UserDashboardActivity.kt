@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.faa.cmsportalcui.R
+import com.faa.cmsportalcui.StaffFragment.StaffDashboardFragment
 import com.faa.cmsportalcui.UserFragment.UserDashboardFragment
 import com.faa.cmsportalcui.UserFragment.UserMaintenanceRequestFragment
 import com.faa.cmsportalcui.UserFragment.UserProfileFragment
@@ -50,9 +51,9 @@ class UserDashboardActivity : AppCompatActivity() {
         if (withAnimation) {
             transaction.setCustomAnimations(
                 R.anim.slide_in_up,   // Slide in from bottom
-                R.anim.fade_out,      // Fade out (current fragment)
-                R.anim.fade_in,       // Fade in (new fragment)
-                R.anim.slide_out_down // Slide out to bottom
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out_down
             )
         }
 
@@ -61,5 +62,12 @@ class UserDashboardActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (currentFragment is UserDashboardFragment) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

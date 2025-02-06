@@ -8,6 +8,7 @@ import com.faa.cmsportalcui.AdminFragment.SettingsFragment
 import com.faa.cmsportalcui.AdminFragment.StaffFragment
 import com.faa.cmsportalcui.AdminFragment.UserManagementFragment
 import com.faa.cmsportalcui.R
+import com.faa.cmsportalcui.StaffFragment.StaffDashboardFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AdminDashboardActivity : AppCompatActivity() {
@@ -46,5 +47,13 @@ class AdminDashboardActivity : AppCompatActivity() {
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (currentFragment is AdminDashboardFragment) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

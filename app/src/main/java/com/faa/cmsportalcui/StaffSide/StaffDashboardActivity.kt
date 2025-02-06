@@ -45,10 +45,10 @@ class StaffDashboardActivity : AppCompatActivity() {
 
         if (withAnimation) {
             transaction.setCustomAnimations(
-                R.anim.slide_in_up,   // Slide in from bottom
-                R.anim.fade_out,      // Fade out (current fragment)
-                R.anim.fade_in,       // Fade in (new fragment)
-                R.anim.slide_out_down // Slide out to bottom
+                R.anim.slide_in_up,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out_down
             )
         }
 
@@ -56,7 +56,17 @@ class StaffDashboardActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
+    override fun onBackPressed() {
+        // Check if the current fragment is the StaffDashboardFragment
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (currentFragment is StaffDashboardFragment) {
+            // If the current fragment is StaffDashboardFragment, close the activity instead of navigating back
+            finish()  // Close the activity
+        } else {
+            // If it's not the home fragment, follow the default back navigation behavior
+            super.onBackPressed()
+        }
+    }
 
 
 }
