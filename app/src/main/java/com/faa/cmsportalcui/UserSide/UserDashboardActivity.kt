@@ -27,7 +27,6 @@ class UserDashboardActivity : AppCompatActivity() {
             loadFragment(UserDashboardFragment(), userId, false)
         }
 
-        // Bottom navigation item selection listener
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> loadFragment(UserDashboardFragment(), userId, true)
@@ -62,8 +61,5 @@ class UserDashboardActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
-    }
+
 }

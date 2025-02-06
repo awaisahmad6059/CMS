@@ -26,10 +26,8 @@ class UserMaintenanceRequestFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_maintenance_request, container, false)
 
-        // Initialize views
         recyclerView = view.findViewById(R.id.requests_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -136,7 +134,6 @@ class UserMaintenanceRequestFragment : Fragment() {
     }
 
     private fun navigateToDashboardActivity() {
-        // Navigate to the Dashboard Activity
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, UserDashboardFragment())
             .commit()

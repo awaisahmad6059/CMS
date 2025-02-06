@@ -38,7 +38,6 @@ class UserManagementFragment : Fragment() {
         binding.rvUsers.adapter = userAdapter
 
 
-        // Adding text change listener for search
         binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val query = s.toString()  // Access the input text
