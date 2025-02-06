@@ -7,6 +7,10 @@ import com.faa.cmsportalcui.R
 import com.faa.cmsportalcui.StaffFragment.StaffCompleteTaskFragment
 import com.faa.cmsportalcui.StaffFragment.StaffDashboardFragment
 import com.faa.cmsportalcui.StaffFragment.StaffProfileDetailFragment
+import com.faa.cmsportalcui.UserFragment.UserDashboardFragment
+import com.faa.cmsportalcui.UserFragment.UserMaintenanceRequestFragment
+import com.faa.cmsportalcui.UserFragment.UserProfileFragment
+import com.faa.cmsportalcui.UserFragment.UserSettingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -57,13 +61,13 @@ class StaffDashboardActivity : AppCompatActivity() {
         transaction.commit()
     }
     override fun onBackPressed() {
-        // Check if the current fragment is the StaffDashboardFragment
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        if (currentFragment is StaffDashboardFragment) {
-            // If the current fragment is StaffDashboardFragment, close the activity instead of navigating back
-            finish()  // Close the activity
+
+        if (currentFragment is StaffCompleteTaskFragment || currentFragment is StaffProfileDetailFragment) {
+            loadFragment(StaffDashboardFragment(),staffId, false)
+        } else if (currentFragment is StaffDashboardFragment) {
+            finish()
         } else {
-            // If it's not the home fragment, follow the default back navigation behavior
             super.onBackPressed()
         }
     }

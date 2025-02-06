@@ -3,6 +3,10 @@ package com.faa.cmsportalcui.UserSide
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.faa.cmsportalcui.AdminFragment.AdminDashboardFragment
+import com.faa.cmsportalcui.AdminFragment.SettingsFragment
+import com.faa.cmsportalcui.AdminFragment.StaffFragment
+import com.faa.cmsportalcui.AdminFragment.UserManagementFragment
 import com.faa.cmsportalcui.R
 import com.faa.cmsportalcui.StaffFragment.StaffDashboardFragment
 import com.faa.cmsportalcui.UserFragment.UserDashboardFragment
@@ -50,7 +54,7 @@ class UserDashboardActivity : AppCompatActivity() {
 
         if (withAnimation) {
             transaction.setCustomAnimations(
-                R.anim.slide_in_up,   // Slide in from bottom
+                R.anim.slide_in_up,
                 R.anim.fade_out,
                 R.anim.fade_in,
                 R.anim.slide_out_down
@@ -64,7 +68,10 @@ class UserDashboardActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        if (currentFragment is UserDashboardFragment) {
+
+        if (currentFragment is UserMaintenanceRequestFragment || currentFragment is UserProfileFragment || currentFragment is UserSettingFragment) {
+            loadFragment(UserDashboardFragment(),userId, false)
+        } else if (currentFragment is UserDashboardFragment) {
             finish()
         } else {
             super.onBackPressed()

@@ -50,7 +50,10 @@ class AdminDashboardActivity : AppCompatActivity() {
     }
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        if (currentFragment is AdminDashboardFragment) {
+
+        if (currentFragment is UserManagementFragment || currentFragment is StaffFragment || currentFragment is SettingsFragment) {
+            loadFragment(AdminDashboardFragment(), false)
+        } else if (currentFragment is AdminDashboardFragment) {
             finish()
         } else {
             super.onBackPressed()
