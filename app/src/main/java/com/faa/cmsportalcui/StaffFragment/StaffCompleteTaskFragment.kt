@@ -1,4 +1,4 @@
-package com.faa.cmsportalcui.StaffSide
+package com.faa.cmsportalcui.StaffFragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faa.cmsportalcui.R
 import com.faa.cmsportalcui.StaffAdapter.CompletedTaskAdapter
 import com.faa.cmsportalcui.StaffModel.CompletedTask
+import com.faa.cmsportalcui.StaffSide.StaffAssignedMeActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 

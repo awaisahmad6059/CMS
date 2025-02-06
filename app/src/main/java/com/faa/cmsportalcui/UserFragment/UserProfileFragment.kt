@@ -158,7 +158,7 @@ class UserProfileFragment : Fragment() {
             firestore.collection("users").document(it).get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
-                        fullName.setText(document.getString("username"))
+                        fullName.setText(document.getString("fullName"))
                         description.setText(document.getString("description"))
                         phone.setText(document.getString("phone"))
                         val profileImageUrl = document.getString("profileImageUrl")

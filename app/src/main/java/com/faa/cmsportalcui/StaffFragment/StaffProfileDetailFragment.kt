@@ -1,4 +1,4 @@
-package com.faa.cmsportalcui.StaffSide
+package com.faa.cmsportalcui.StaffFragment
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.faa.cmsportalcui.Authentication.LoginActivity
-import com.faa.cmsportalcui.Authentication.WelcomeActivity
 import com.faa.cmsportalcui.R
+import com.faa.cmsportalcui.StaffSide.StaffEditProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso

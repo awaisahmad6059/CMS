@@ -1,28 +1,13 @@
 package com.faa.cmsportalcui.StaffSide
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.faa.cmsportalcui.R
-import com.faa.cmsportalcui.StaffAdapter.NotificationAdapter
-import com.faa.cmsportalcui.StaffAdapter.TaskAdapter
-import com.faa.cmsportalcui.StaffModel.Notification
-import com.faa.cmsportalcui.StaffModel.Task
-import com.faa.cmsportalcui.UserFragment.UserDashboardFragment
-import com.faa.cmsportalcui.UserFragment.UserMaintenanceRequestFragment
-import com.faa.cmsportalcui.UserFragment.UserProfileFragment
-import com.faa.cmsportalcui.UserFragment.UserSettingFragment
+import com.faa.cmsportalcui.StaffFragment.StaffCompleteTaskFragment
+import com.faa.cmsportalcui.StaffFragment.StaffDashboardFragment
+import com.faa.cmsportalcui.StaffFragment.StaffProfileDetailFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 
 
 class StaffDashboardActivity : AppCompatActivity() {

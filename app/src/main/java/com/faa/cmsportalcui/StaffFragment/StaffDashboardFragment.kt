@@ -1,4 +1,4 @@
-package com.faa.cmsportalcui.StaffSide
+package com.faa.cmsportalcui.StaffFragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,8 @@ import com.faa.cmsportalcui.StaffAdapter.NotificationAdapter
 import com.faa.cmsportalcui.StaffAdapter.TaskAdapter
 import com.faa.cmsportalcui.StaffModel.Notification
 import com.faa.cmsportalcui.StaffModel.Task
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.faa.cmsportalcui.StaffSide.StaffAssignedDetailActivity
+import com.faa.cmsportalcui.StaffSide.StaffAssignedMeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration

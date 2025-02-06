@@ -91,7 +91,7 @@ class UserDashboardFragment : Fragment() {
             .get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    val name = document.getString("username")
+                    val name = document.getString("fullName")
 //                    val desc = document.getString("description")
                     val profileImageUrl = document.getString("profileImageUrl")
 
