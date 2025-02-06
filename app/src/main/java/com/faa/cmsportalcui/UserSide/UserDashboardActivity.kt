@@ -21,35 +21,45 @@ class UserDashboardActivity : AppCompatActivity() {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        // Retrieve the user ID from the intent
         userId = intent.getStringExtra("user_id")
 
-        // Default fragment load
         if (savedInstanceState == null) {
-            loadFragment(UserDashboardFragment(), userId)
+            loadFragment(UserDashboardFragment(), userId, false)
         }
 
         // Bottom navigation item selection listener
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> loadFragment(UserDashboardFragment(), userId)
-                R.id.activities -> loadFragment(UserMaintenanceRequestFragment(), userId)
-                R.id.profile -> loadFragment(UserProfileFragment(), userId)
-                R.id.setting -> loadFragment(UserSettingFragment(), userId)
+                R.id.home -> loadFragment(UserDashboardFragment(), userId, true)
+                R.id.activities -> loadFragment(UserMaintenanceRequestFragment(), userId, true)
+                R.id.profile -> loadFragment(UserProfileFragment(), userId, true)
+                R.id.setting -> loadFragment(UserSettingFragment(), userId, true)
             }
             true
         }
     }
 
-    private fun loadFragment(fragment: Fragment, userId: String?) {
+
+    private fun loadFragment(fragment: Fragment, userId: String?, withAnimation: Boolean) {
         val bundle = Bundle().apply {
             putString("user_id", userId)
         }
         fragment.arguments = bundle
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
+        val transaction = supportFragmentManager.beginTransaction()
+
+        if (withAnimation) {
+            transaction.setCustomAnimations(
+                R.anim.slide_in_up,   // Slide in from bottom
+                R.anim.fade_out,      // Fade out (current fragment)
+                R.anim.fade_in,       // Fade in (new fragment)
+                R.anim.slide_out_down // Slide out to bottom
+            )
+        }
+
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     override fun onBackPressed() {

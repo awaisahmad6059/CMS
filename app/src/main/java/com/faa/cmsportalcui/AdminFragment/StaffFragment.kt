@@ -1,10 +1,13 @@
 package com.faa.cmsportalcui.AdminFragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
@@ -23,6 +26,7 @@ class StaffFragment : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     private lateinit var progressBar: ProgressBar
 
+
     private var id: String? = null
     private var description: String? = null
     private var commentText: String? = null
@@ -31,6 +35,7 @@ class StaffFragment : Fragment() {
     private var timestamp: String? = null
     private var userId: String? = null
     private var adminId: String? = null
+    private lateinit var etSearch: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +45,8 @@ class StaffFragment : Fragment() {
 
         rvUsers = binding.findViewById(R.id.rvUsers)
         progressBar = binding.findViewById(R.id.progressBar)
+        etSearch = binding.findViewById(R.id.etSearch)  // Reference to the search EditText
+
 
         arguments?.let {
             id = it.getString("id")
@@ -71,6 +78,16 @@ class StaffFragment : Fragment() {
 
         loadStaff()
 
+
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                staffAdapter.filter.filter(s.toString()) // Use getFilter().filter()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
 
         return binding
@@ -120,4 +137,5 @@ class StaffFragment : Fragment() {
             return fragment
         }
     }
+
 }

@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -16,14 +18,13 @@ import com.bumptech.glide.Glide
 import com.faa.cmsportalcui.AdminModel.Staff
 import com.faa.cmsportalcui.AdminSide.AdminDashboardActivity
 import com.faa.cmsportalcui.AdminSide.MaintananceStaffDetailsActivity
-import com.faa.cmsportalcui.AdminSide.StaffProfileActivity
 import com.faa.cmsportalcui.R
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
 class StaffAdapter(
     private val context: Context,
-    private val staffList: List<Staff>,
+    private var staffList: List<Staff>,
     private val id: String?,
     private val commentText: String?,
     private val description: String?,
@@ -33,7 +34,9 @@ class StaffAdapter(
     private val progressBar: ProgressBar,
     private val adminId: String?,
     private val userId: String?
-) : RecyclerView.Adapter<StaffAdapter.StaffViewHolder>() {
+) : RecyclerView.Adapter<StaffAdapter.StaffViewHolder>(), Filterable {
+
+    private var filteredList: List<Staff> = staffList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StaffViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.staff_item, parent, false)
@@ -41,7 +44,7 @@ class StaffAdapter(
     }
 
     override fun onBindViewHolder(holder: StaffViewHolder, position: Int) {
-        val staff = staffList[position]
+        val staff = filteredList[position]
 
         holder.tvName.text = staff.name
         holder.staffEmail.text = staff.email
@@ -66,20 +69,36 @@ class StaffAdapter(
             holder.itemView.context.startActivity(intent)
         }
 
-        holder.editButton.setOnClickListener {
-            val intent = Intent(holder.itemView.context, StaffProfileActivity::class.java).apply {
-                putExtra("staffId", staff.id)
-            }
-            holder.itemView.context.startActivity(intent)
-        }
-
         holder.itemView.setOnLongClickListener {
             showDeleteConfirmationDialog(staff.id, position)
             true
         }
     }
 
-    override fun getItemCount() = staffList.size
+    override fun getItemCount() = filteredList.size
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint?.toString()?.lowercase() ?: ""
+                filteredList = if (charString.isEmpty()) {
+                    staffList
+                } else {
+                    staffList.filter {
+                        it.name.lowercase().contains(charString)
+                    }
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredList = results?.values as List<Staff>
+                notifyDataSetChanged()
+            }
+        }
+    }
 
     private fun showDeleteConfirmationDialog(staffId: String, position: Int) {
         AlertDialog.Builder(context)
@@ -113,38 +132,6 @@ class StaffAdapter(
         }
     }
 
-    private fun createSubcollectionForStaff(staffId: String) {
-        val firestore = FirebaseFirestore.getInstance()
-        val subcollectionData = hashMapOf(
-            "id" to id,
-            "title" to description,
-            "description" to commentText,
-            "photoUrl" to photoUrl,
-            "profileImageUrl" to profileImageUrl,
-            "timestamp" to timestamp
-        )
-
-        progressBar.visibility = View.VISIBLE
-
-        val randomId = generateRandomNumericId()
-        firestore.collection("staff").document(staffId)
-            .collection("assignedTasks")
-            .document(randomId)
-            .set(subcollectionData)
-            .addOnSuccessListener {
-                Log.d("StaffAdapter", "Subcollection document successfully created!")
-                progressBar.visibility = View.GONE
-                Toast.makeText(context, "Request assigned successfully", Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, AdminDashboardActivity::class.java)
-                context.startActivity(intent)
-            }
-            .addOnFailureListener { e ->
-                Log.w("StaffAdapter", "Error creating subcollection document", e)
-                progressBar.visibility = View.GONE
-                Toast.makeText(context, "Failed to assign request", Toast.LENGTH_SHORT).show()
-            }
-    }
-
     private fun generateRandomNumericId(): String {
         return Random.nextInt(10000, 99999).toString()
     }
@@ -153,6 +140,5 @@ class StaffAdapter(
         val ivProfileImage: ImageView = itemView.findViewById(R.id.ivProfileImage)
         val tvName: TextView = itemView.findViewById(R.id.tvName)
         val staffEmail: TextView = itemView.findViewById(R.id.staffemail)
-        val editButton: ImageView = itemView.findViewById(R.id.editButton)
     }
 }

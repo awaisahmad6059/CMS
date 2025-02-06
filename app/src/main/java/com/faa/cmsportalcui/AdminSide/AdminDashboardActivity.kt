@@ -17,22 +17,34 @@ class AdminDashboardActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        loadFragment(AdminDashboardFragment())
+        loadFragment(AdminDashboardFragment(), false)
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> loadFragment(AdminDashboardFragment())
-                R.id.user -> loadFragment(UserManagementFragment())
-                R.id.staff -> loadFragment(StaffFragment())
-                R.id.settings -> loadFragment(SettingsFragment())
+                R.id.home -> loadFragment(AdminDashboardFragment(), true)
+                R.id.user -> loadFragment(UserManagementFragment(), true)
+                R.id.staff -> loadFragment(StaffFragment(), true)
+                R.id.settings -> loadFragment(SettingsFragment(), true)
             }
             true
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
+
+    private fun loadFragment(fragment: Fragment, withAnimation: Boolean) {
+        val transaction = supportFragmentManager.beginTransaction()
+
+        if (withAnimation) {
+            transaction.setCustomAnimations(
+                R.anim.slide_in_up,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out_down
+            )
+        }
+
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

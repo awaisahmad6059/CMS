@@ -51,8 +51,13 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
 
         adduserBtn = rootView.findViewById(R.id.btn_add_staff)
         adduserBtn.setOnClickListener {
-            startActivity(Intent(requireActivity(), StaffActivity::class.java))
+            val staffFragment = StaffFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, staffFragment)
+                .addToBackStack(null)
+                .commit()
         }
+
 
         assignTaskBtn = rootView.findViewById(R.id.btn_assign_task)
         assignTaskBtn.setOnClickListener {

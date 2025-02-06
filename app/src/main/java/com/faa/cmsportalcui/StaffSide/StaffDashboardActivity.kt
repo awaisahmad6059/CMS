@@ -22,29 +22,41 @@ class StaffDashboardActivity : AppCompatActivity() {
 
         staffId = intent.getStringExtra("staff_id")
         if (savedInstanceState == null) {
-            loadFragment(StaffDashboardFragment(), staffId)
+            loadFragment(StaffDashboardFragment(), staffId, false)
         }
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> loadFragment(StaffDashboardFragment(), staffId)
-                R.id.complete -> loadFragment(StaffCompleteTaskFragment(), staffId)
-                R.id.profile -> loadFragment(StaffProfileDetailFragment(), staffId)
+                R.id.home -> loadFragment(StaffDashboardFragment(), staffId, true)
+                R.id.complete -> loadFragment(StaffCompleteTaskFragment(), staffId, true)
+                R.id.profile -> loadFragment(StaffProfileDetailFragment(), staffId, true)
             }
             true
         }
 
 
     }
-    private fun loadFragment(fragment: Fragment, staffId: String?) {
+    private fun loadFragment(fragment: Fragment, staffId: String?, withAnimation: Boolean) {
         val bundle = Bundle().apply {
             putString("staff_id", staffId)
         }
         fragment.arguments = bundle
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
+        val transaction = supportFragmentManager.beginTransaction()
+
+        if (withAnimation) {
+            transaction.setCustomAnimations(
+                R.anim.slide_in_up,   // Slide in from bottom
+                R.anim.fade_out,      // Fade out (current fragment)
+                R.anim.fade_in,       // Fade in (new fragment)
+                R.anim.slide_out_down // Slide out to bottom
+            )
+        }
+
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
+
 
     override fun onBackPressed() {
         super.onBackPressed()
