@@ -54,10 +54,10 @@ class UserDashboardActivity : AppCompatActivity() {
 
         if (withAnimation) {
             transaction.setCustomAnimations(
-                R.anim.slide_in_up,
-                R.anim.fade_out,
-                R.anim.fade_in,
-                R.anim.slide_out_down
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
             )
         }
 

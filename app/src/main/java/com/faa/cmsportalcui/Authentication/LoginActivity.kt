@@ -127,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
                     val staffDoc = querySnapshot.documents[0]
-                    val staffId = staffDoc.id // Staff ID is stored as document ID
+                    val staffId = staffDoc.id
                     navigateToDashboard(StaffDashboardActivity::class.java, staffId, "staff_id")
                 } else {
                     Toast.makeText(this, "User not found in any role", Toast.LENGTH_SHORT).show()

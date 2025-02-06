@@ -179,7 +179,6 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
                     return@addSnapshotListener
                 }
 
-                // Update the UI with the total number of tasks
                 val totalTask = snapshot?.size() ?: 0
                 totalCompleteTaskTextView.text = totalTask.toString()
             }
@@ -215,6 +214,7 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
                 }
             }
             .addOnFailureListener { exception ->
+                Log.e("fetchTotalRequestCount", "Error fetching requests", exception)
                 exception.printStackTrace()
             }
     }
@@ -247,16 +247,18 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
                                 callback(false)
                             }
                         }
-                        .addOnFailureListener {
+                        .addOnFailureListener { e ->
                             completedChecks++
                             if (completedChecks == staffCollection.size()) {
                                 callback(false)
                             }
+                            Log.e("checkIfRequestAssignedToStaff", "Error checking assigned tasks", e)
                         }
                 }
             }
-            .addOnFailureListener {
+            .addOnFailureListener { e ->
                 callback(false)
+                Log.e("checkIfRequestAssignedToStaff", "Error fetching staff collection", e)
             }
     }
 
