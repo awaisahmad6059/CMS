@@ -19,6 +19,8 @@ class StaffAssignedMeActivity : AppCompatActivity() {
     private lateinit var assignedMeAdapter: AssignedMeAdapter
     private val tasks = mutableListOf<AssignedMe>()
     private val completedTaskIds = mutableSetOf<String>()
+    private val equipmentRequestIds = mutableSetOf<String>()
+    private val pausetaskIds  = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +76,11 @@ class StaffAssignedMeActivity : AppCompatActivity() {
         val staffId = intent.getStringExtra("staffId")
         if (staffId != null) {
             fetchCompletedTaskIds {
-                fetchAssignedTasks(staffId)
+                fetchEquipmentRequestIds {
+                    fetchPausetaskIds {
+                        fetchAssignedTasks(staffId)
+                    }
+                }
             }
         } else {
             Log.e("StaffAssignedMeActivity", "Staff ID is missing")
@@ -86,6 +92,39 @@ class StaffAssignedMeActivity : AppCompatActivity() {
         }
     }
 
+    private fun fetchEquipmentRequestIds(callback: () -> Unit) {
+        firestore.collection("equipmentsrequest")
+            .whereNotIn("status", listOf("approved"))  // Exclude "approved" status from the results
+            .get()
+            .addOnSuccessListener { requestSnapshot ->
+                equipmentRequestIds.clear()
+                for (document in requestSnapshot) {
+                    equipmentRequestIds.add(document.id) // Only adding the request IDs that are not approved
+                }
+                callback()
+            }
+            .addOnFailureListener { exception ->
+                Log.e("StaffAssignedMeActivity", "Error fetching equipment requests: ${exception.message}")
+                callback()
+            }
+    }
+
+
+    private fun fetchPausetaskIds(callback: () -> Unit) {
+        firestore.collection("pauseTask")
+            .get()
+            .addOnSuccessListener { result ->
+                pausetaskIds.clear()
+                for (document in result) {
+                    pausetaskIds.add(document.id)
+                }
+                callback()
+            }
+            .addOnFailureListener { exception ->
+                Log.e("StaffAssignedMeActivity", "Error fetching completed tasks: ${exception.message}")
+                callback()
+            }
+    }
     private fun fetchCompletedTaskIds(callback: () -> Unit) {
         firestore.collection("completeTask")
             .get()
@@ -112,7 +151,7 @@ class StaffAssignedMeActivity : AppCompatActivity() {
                 for (document in result) {
                     val task = document.toObject(AssignedMe::class.java)
                     task.assignedTaskId = document.id
-                    if (!completedTaskIds.contains(task.assignedTaskId)) {
+                    if (!completedTaskIds.contains(task.assignedTaskId) && !equipmentRequestIds.contains(task.assignedTaskId) && !pausetaskIds.contains(task.assignedTaskId)) {
                         tasks.add(task)
                     }
                 }

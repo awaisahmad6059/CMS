@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.faa.cmsportalcui.R
 import com.faa.cmsportalcui.StaffFragment.StaffCompleteTaskFragment
 import com.faa.cmsportalcui.StaffFragment.StaffDashboardFragment
+import com.faa.cmsportalcui.StaffFragment.StaffEquipmentFragment
 import com.faa.cmsportalcui.StaffFragment.StaffProfileDetailFragment
 import com.faa.cmsportalcui.UserFragment.UserDashboardFragment
 import com.faa.cmsportalcui.UserFragment.UserMaintenanceRequestFragment
@@ -33,6 +34,7 @@ class StaffDashboardActivity : AppCompatActivity() {
                 R.id.home -> loadFragment(StaffDashboardFragment(), staffId, true)
                 R.id.complete -> loadFragment(StaffCompleteTaskFragment(), staffId, true)
                 R.id.profile -> loadFragment(StaffProfileDetailFragment(), staffId, true)
+                R.id.equipments -> loadFragment(StaffEquipmentFragment(), staffId, true)
             }
             true
         }

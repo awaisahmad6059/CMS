@@ -164,7 +164,7 @@
                     <LinearLayout
                         android:id="@+id/completetask"
                         android:layout_width="0dp"
-                        android:layout_height="120dp"
+                        android:layout_height="150dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:background="@drawable/border"
@@ -193,7 +193,7 @@
                     <LinearLayout
                         android:id="@+id/equipments"
                         android:layout_width="0dp"
-                        android:layout_height="120dp"
+                        android:layout_height="150dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:background="@drawable/border"
@@ -211,6 +211,22 @@
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/total_equipments_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/total_equipments_approve"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/total_equipments_reject"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"

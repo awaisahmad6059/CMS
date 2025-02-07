@@ -20,8 +20,11 @@ class StaffPauseTaskActivity : AppCompatActivity() {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var reqIdText: TextView
+    private lateinit var reqTitleText: TextView
+    private lateinit var reqTimeText: TextView
     private lateinit var commentDescription: EditText
     private lateinit var submitButton: Button
+    private lateinit var requestBtn: Button
     private lateinit var backButton: ImageButton
 
     private var staffId: String? = null
@@ -32,13 +35,14 @@ class StaffPauseTaskActivity : AppCompatActivity() {
 
         firestore = FirebaseFirestore.getInstance()
 
-        // Initialize views
         reqIdText = findViewById(R.id.reqIdText)
+        reqTitleText = findViewById(R.id.taskTitleLabel)
+        reqTimeText = findViewById(R.id.taskStartTime)
         commentDescription = findViewById(R.id.commentDescription)
         submitButton = findViewById(R.id.submitButton)
         backButton = findViewById(R.id.back_button)
+        requestBtn = findViewById(R.id.requestBtn)
 
-        // Retrieve data from the intent
         val id = intent.getStringExtra("id")
         val assignedTaskId = intent.getStringExtra("assignedTaskId")
         val title = intent.getStringExtra("title")
@@ -50,21 +54,20 @@ class StaffPauseTaskActivity : AppCompatActivity() {
         val timestamp = intent.getStringExtra("timestamp")
         val userId = intent.getStringExtra("userId")
         val adminId = intent.getStringExtra("adminId")
-        staffId = intent.getStringExtra("staffId") // Retrieve staffId here
+        staffId = intent.getStringExtra("staffId")
 
-        // Debugging: Log retrieved data
         Log.d("StaffPauseTaskActivity", "staffId: $staffId")
         Log.d("StaffPauseTaskActivity", "title: $title")
 
-        // Show staffId in a Toast when the activity is opened
         if (staffId != null) {
             Toast.makeText(this, "Staff ID: $staffId", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Staff ID is null", Toast.LENGTH_SHORT).show()
         }
 
-        // Set task ID to the TextView
         reqIdText.text = id ?: "No ID"
+        reqTitleText.text = "Title: ${title ?: ""}"
+        reqTimeText.text = timestamp ?: ""
 
         submitButton.setOnClickListener {
             val comment = commentDescription.text.toString().trim()
@@ -105,7 +108,6 @@ class StaffPauseTaskActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         Toast.makeText(this, "Task Paused Successfully", Toast.LENGTH_SHORT).show()
 
-                        // Navigate to StaffPauseSentActivity
                         if (staffId != null) {
                             val intent = Intent(this, StaffPauseSentActivity::class.java)
                             intent.putExtra("staff_id", staffId)
@@ -127,6 +129,25 @@ class StaffPauseTaskActivity : AppCompatActivity() {
                     }
             }
         }
+        requestBtn.setOnClickListener {
+            val intent = Intent(this, StaffEquipmentRequestActivity::class.java)
+            intent.putExtra("id", id.orEmpty())
+            intent.putExtra("assignedTaskId", assignedTaskId.orEmpty())
+            intent.putExtra("title", title.orEmpty())
+            intent.putExtra("description", description.orEmpty())
+            intent.putExtra("roomNumber", roomNumber.orEmpty())
+            intent.putExtra("assignedBy", assignedBy.orEmpty())
+            intent.putExtra("location", location.orEmpty())
+            intent.putExtra("photoUrl", photoUrl.orEmpty())
+            intent.putExtra("timestamp", timestamp.orEmpty())
+            intent.putExtra("staffId", staffId.orEmpty())
+            intent.putExtra("comment", commentDescription.text.toString().trim())
+            intent.putExtra("currentDate", getCurrentDate())
+            intent.putExtra("currentTime", getCurrentTime())
+
+            startActivity(intent)
+        }
+
 
         // Back Button Click Listener
         backButton.setOnClickListener {

@@ -2,6 +2,7 @@ package com.faa.cmsportalcui.AdminFragment
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
+import com.faa.cmsportalcui.AdminSide.AdminEquipmentsApprovalActivity
 import com.faa.cmsportalcui.AdminSide.AdminPauseTaskListActivity
 import com.faa.cmsportalcui.AdminSide.AdminProfileActivity
 import com.faa.cmsportalcui.AdminSide.CompleteTaskActivity
@@ -75,6 +77,9 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
         rootView.findViewById<LinearLayout>(R.id.completetask).setOnClickListener {
             startActivity(Intent(requireActivity(), CompleteTaskActivity::class.java))
         }
+        rootView.findViewById<LinearLayout>(R.id.equipments).setOnClickListener {
+            startActivity(Intent(requireActivity(), AdminEquipmentsApprovalActivity::class.java))
+        }
 
         drawerLayout = rootView.findViewById(R.id.drawer_layout)
         navView = rootView.findViewById(R.id.nav_view)
@@ -100,6 +105,7 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
         fetchAdminDetails()
         fetchTotalRequestCount()
         fetchTotalCompleteTask()
+        fetchTotalEquipmentsTask()
         fetchTotalPauseTaskCount()
 
         return rootView
@@ -107,7 +113,8 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
 
 
 
-     fun onBackPressed() {
+
+    fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
@@ -278,5 +285,46 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
                 }
             }
     }
+    private fun fetchTotalEquipmentsTask() {
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("equipmentsrequest")
+            .addSnapshotListener { snapshot, exception ->
+                if (exception != null) {
+                    Log.e("fetchTotalEquipmentsTaskCount", "Error fetching equipment tasks", exception)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    var pendingCount = 0
+                    var approvedCount = 0
+                    var rejectedCount = 0
+
+                    for (document in snapshot.documents) {
+                        val status = document.getString("status")
+
+                        when (status) {
+                            "Pending" -> pendingCount++
+                            "approved" -> approvedCount++
+                            "rejected" -> rejectedCount++
+                        }
+                    }
+
+                    view?.findViewById<TextView>(R.id.total_equipments_count)?.apply {
+                        text = "Pen: $pendingCount"
+                        setTextColor(Color.BLACK)
+                    }
+                    view?.findViewById<TextView>(R.id.total_equipments_approve)?.apply {
+                        text = "Aprove: $approvedCount"
+                        setTextColor(Color.GREEN)
+                    }
+                    view?.findViewById<TextView>(R.id.total_equipments_reject)?.apply {
+                        text = "Rej: $rejectedCount"
+                        setTextColor(Color.RED)
+                    }
+                }
+            }
+    }
+
 
 }

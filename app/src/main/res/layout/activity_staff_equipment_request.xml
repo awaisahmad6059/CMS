@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_corner_background"
+                android:contentDescription="@string/back_button_desc"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:text="Confirm Equipment Request"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/taskInfoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Info"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/taskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/taskStartTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="time"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/equipmentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected Equipment"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp" />
+
+        <EditText
+            android:id="@+id/equipmentrequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Equipments"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:background="@drawable/rounded_corner_background"
+            android:padding="12dp"
+            android:gravity="top"
+            android:minHeight="80dp"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/reasonLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reason for requesting"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp" />
+
+        <EditText
+            android:id="@+id/reasonEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select reason"
+            android:background="@drawable/rounded_corner_background"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:padding="12dp"
+            android:gravity="top"
+            android:minHeight="80dp"
+            android:inputType="textMultiLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="16dp">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel Request"
+                android:backgroundTint="@color/ButtonBlue"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Submit Request"
+                android:backgroundTint="@color/ButtonWhite"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

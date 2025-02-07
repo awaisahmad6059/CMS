@@ -180,57 +180,71 @@ class StaffDashboardFragment : Fragment() {
     }
 
     private fun setupRealTimeTaskUpdates(staffId: String) {
-        firestore.collection("pauseTask")
-            .whereEqualTo("staffId", staffId)
+        firestore.collection("equipmentsrequest") // Collection name
+            .whereNotIn("status", listOf("approved"))  // Filter out Pending or Rejected status
             .get()
-            .addOnSuccessListener { pausedTasksSnapshot ->
-                val pausedTaskIds = mutableSetOf<String>()
-                for (document in pausedTasksSnapshot) {
-                    pausedTaskIds.add(document.id)
+            .addOnSuccessListener { requestSnapshot ->
+                val filteredTaskIds = mutableSetOf<String>()
+                for (document in requestSnapshot) {
+                    filteredTaskIds.add(document.id)
                 }
 
-                firestore.collection("completeTask")
+                firestore.collection("pauseTask")
                     .whereEqualTo("staffId", staffId)
                     .get()
-                    .addOnSuccessListener { completedTasksSnapshot ->
-                        val completedTaskIds = mutableSetOf<String>()
-                        for (document in completedTasksSnapshot) {
-                            completedTaskIds.add(document.id)
+                    .addOnSuccessListener { pausedTasksSnapshot ->
+                        val pausedTaskIds = mutableSetOf<String>()
+                        for (document in pausedTasksSnapshot) {
+                            pausedTaskIds.add(document.id)
                         }
 
-                        val filteredTaskIds = pausedTaskIds + completedTaskIds
-
-                        tasksListener = firestore.collection("staff")
-                            .document(staffId)
-                            .collection("assignedTasks")
-                            .addSnapshotListener { snapshot, e ->
-                                if (e != null) {
-                                    Log.e("StaffDashboardFragment", "Error fetching assigned tasks", e)
-                                    return@addSnapshotListener
+                        firestore.collection("completeTask")
+                            .whereEqualTo("staffId", staffId)
+                            .get()
+                            .addOnSuccessListener { completedTasksSnapshot ->
+                                val completedTaskIds = mutableSetOf<String>()
+                                for (document in completedTasksSnapshot) {
+                                    completedTaskIds.add(document.id)
                                 }
 
-                                if (snapshot != null) {
-                                    val taskList = mutableListOf<Task>()
-                                    for (document in snapshot.documents) {
-                                        val task = document.toObject(Task::class.java)
-                                        if (task != null) {
-                                            task.assignedTaskId = document.id
+                                // Combine paused and completed task IDs
+                                val allFilteredTaskIds = filteredTaskIds + pausedTaskIds + completedTaskIds
 
-                                            if (!filteredTaskIds.contains(task.assignedTaskId)) {
-                                                taskList.add(task)
+                                tasksListener = firestore.collection("staff")
+                                    .document(staffId)
+                                    .collection("assignedTasks")
+                                    .addSnapshotListener { snapshot, e ->
+                                        if (e != null) {
+                                            Log.e("StaffDashboardFragment", "Error fetching assigned tasks", e)
+                                            return@addSnapshotListener
+                                        }
+
+                                        if (snapshot != null) {
+                                            val taskList = mutableListOf<Task>()
+                                            for (document in snapshot.documents) {
+                                                val task = document.toObject(Task::class.java)
+                                                if (task != null) {
+                                                    task.assignedTaskId = document.id
+
+                                                    if (!allFilteredTaskIds.contains(task.assignedTaskId)) {
+                                                        taskList.add(task)
+                                                    }
+                                                }
                                             }
+                                            taskAdapter.updateTasks(taskList)
                                         }
                                     }
-                                    taskAdapter.updateTasks(taskList)
-                                }
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("StaffDashboardFragment", "Error fetching completed tasks", e)
                             }
                     }
                     .addOnFailureListener { e ->
-                        Log.e("StaffDashboardFragment", "Error fetching completed tasks", e)
+                        Log.e("StaffDashboardFragment", "Error fetching paused tasks", e)
                     }
             }
             .addOnFailureListener { e ->
-                Log.e("StaffDashboardFragment", "Error fetching paused tasks", e)
+                Log.e("StaffDashboardFragment", "Error fetching equipment requests", e)
             }
     }
 
