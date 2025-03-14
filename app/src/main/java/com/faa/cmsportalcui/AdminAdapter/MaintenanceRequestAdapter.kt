@@ -1,6 +1,7 @@
 package com.faa.cmsportalcui.AdminAdapter
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,17 @@ import com.faa.cmsportalcui.R
 import de.hdodenhof.circleimageview.CircleImageView
 import android.widget.TextView
 import android.widget.Button
+import androidx.cardview.widget.CardView
 import com.faa.cmsportalcui.AdminModel.MaintenanceRequest
 import com.faa.cmsportalcui.AdminSide.MaintananceDetailActivity
 
 class MaintenanceRequestAdapter(
     private var requests: MutableList<MaintenanceRequest>
 ) : RecyclerView.Adapter<MaintenanceRequestAdapter.MaintenanceRequestViewHolder>() {
+
+    // To track the color index for the entire adapter
+    private var colorIndex = 0
+    private val colors = listOf("#a2c9fe", "#F9F497", "#C6FDC5", "#DCDDFD")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaintenanceRequestViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.maintanance_item, parent, false)
@@ -28,23 +34,25 @@ class MaintenanceRequestAdapter(
     }
 
     override fun getItemCount(): Int = requests.size
+
     fun updateList(newList: List<MaintenanceRequest>) {
         requests.clear()
         requests.addAll(newList)
         notifyDataSetChanged()
     }
 
-
-    class MaintenanceRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MaintenanceRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val profileImage: CircleImageView = itemView.findViewById(R.id.ProfileImage)
         private val requestId: TextView = itemView.findViewById(R.id.request_id)
         private val requestTitle: TextView = itemView.findViewById(R.id.request_title)
         private val viewButton: Button = itemView.findViewById(R.id.view_button)
+        private val cardView: CardView = itemView.findViewById(R.id.cardView)
 
         fun bind(request: MaintenanceRequest) {
             requestId.text = request.id
             requestTitle.text = request.title
 
+            // Set the profile image
             val profileImageUrl = request.profileImageUrl
             if (profileImageUrl.isNotEmpty()) {
                 Glide.with(itemView.context)
@@ -55,7 +63,13 @@ class MaintenanceRequestAdapter(
                 profileImage.setImageResource(R.drawable.account)
             }
 
-            viewButton.setOnClickListener {
+            // Set the background color from the color list
+            cardView.setCardBackgroundColor(Color.parseColor(colors[colorIndex]))
+
+            // Update the color index to the next one, and reset if necessary
+            colorIndex = (colorIndex + 1) % colors.size
+
+            itemView.setOnClickListener {
                 val context = itemView.context
                 val intent = Intent(context, MaintananceDetailActivity::class.java).apply {
                     putExtra("id", request.id)
@@ -73,8 +87,5 @@ class MaintenanceRequestAdapter(
                 context.startActivity(intent)
             }
         }
-
     }
-
-
 }
