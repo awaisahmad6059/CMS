@@ -90,7 +90,7 @@ class UserSettingFragment : Fragment() {
         firestore.collection("users").document(userId).get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    val username = document.getString("username") ?: ""
+                    val username = document.getString("fullName") ?: ""
                     val phone = document.getString("phone") ?: ""
 
                     nameValue.text = username

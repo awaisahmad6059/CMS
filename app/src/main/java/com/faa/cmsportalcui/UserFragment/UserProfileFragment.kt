@@ -132,6 +132,7 @@ class UserProfileFragment : Fragment() {
     private fun updateUserDetails(userId: String, name: String, desc: String, phone: String, imageUrl: String?) {
         val userMap = hashMapOf(
             "fullName" to name,
+            "username" to name,
             "description" to desc,
             "phone" to phone,
             "profileImageUrl" to imageUrl

@@ -199,7 +199,7 @@ class UserProfileActivity : AppCompatActivity() {
     private fun navigateToDashboard(userId: String, name: String, desc: String,phone: String, profileImageUrl: String?) {
         val intent = Intent(this, UserDashboardActivity::class.java)
         intent.putExtra("user_id", userId)
-        intent.putExtra("userName", name)
+        intent.putExtra("username", name)
         intent.putExtra("userDesc", desc)
         intent.putExtra("phone", phone)
         intent.putExtra("profileImageUrl", profileImageUrl)

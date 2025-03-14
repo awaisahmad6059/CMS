@@ -3,12 +3,10 @@ package com.faa.cmsportalcui.UserSide
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.faa.cmsportalcui.Authentication.LoginActivity
-import com.faa.cmsportalcui.Authentication.WelcomeActivity
 import com.faa.cmsportalcui.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,7 +23,6 @@ class UserSettingActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
-    private var userId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,64 +36,53 @@ class UserSettingActivity : AppCompatActivity() {
         mobileNumberValue = findViewById(R.id.mobile_number_value)
         emailValue = findViewById(R.id.email_value)
 
-        userId = intent.getStringExtra("user_id")
-
         loadUserData()
 
-        val backButton: ImageButton = findViewById(R.id.back_button)
-        backButton.setOnClickListener {
-            finish()
-        }
-
         logoutBtn.setOnClickListener {
-            val mAuth = FirebaseAuth.getInstance()
-            mAuth.signOut()
+            auth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
-
         }
 
         passwordSection.setOnClickListener {
-            startActivity(Intent(this@UserSettingActivity, UserChangePasswordActivity::class.java).apply {
-                putExtra("user_id", userId)
-            })
+            startActivity(Intent(this, UserChangePasswordActivity::class.java))
         }
 
         notificationsSection.setOnClickListener {
-            startActivity(Intent(this@UserSettingActivity, UserNotificationActivity::class.java).apply {
-                putExtra("user_id", userId)
-            })
+            startActivity(Intent(this, UserNotificationActivity::class.java))
         }
 
         needHelpSection.setOnClickListener {
-            startActivity(Intent(this@UserSettingActivity, UserHelpAndSupportActivity::class.java).apply {
-                putExtra("user_id", userId)
-            })
+            startActivity(Intent(this, UserHelpAndSupportActivity::class.java))
         }
     }
 
     private fun loadUserData() {
-        val userId = this.userId ?: return
+        val user = auth.currentUser
+        if (user != null) {
+            val userId = user.uid  // Get the logged-in user's ID
+            emailValue.text = user.email ?: "No Email"  // Show the email from Firebase Auth
 
-        // Get the authenticated user's email
-        val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: "No email found"
+            firestore.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val fullName = document.getString("fullName") ?: "No Name"
+                        val phone = document.getString("phone") ?: "No Phone"
 
-        firestore.collection("users").document(userId).get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    val username = document.getString("username") ?: ""
-                    val phone = document.getString("phone") ?: ""
-
-                    nameValue.text = username
-                    mobileNumberValue.text = phone
-                    emailValue.text = userEmail // Display the email fetched from FirebaseAuth
+                        nameValue.text = fullName
+                        mobileNumberValue.text = phone
+                    } else {
+                        nameValue.text = "No Name Found"
+                    }
                 }
-            }
-            .addOnFailureListener { e ->
-                // Handle failure (optional)
-            }
+                .addOnFailureListener {
+                    nameValue.text = "Error Fetching Name"
+                }
+        } else {
+            nameValue.text = "User Not Logged In"
+        }
     }
-
 }

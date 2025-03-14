@@ -163,7 +163,7 @@ class UserRequestActivity : AppCompatActivity() {
     private fun generateRequestId(userId: String, callback: (String) -> Unit) {
         val userDocRef = firestore.collection("users").document(userId)
         userDocRef.get().addOnSuccessListener { document ->
-            val username = document.getString("username") ?: return@addOnSuccessListener
+            val username = document.getString("fullName") ?: return@addOnSuccessListener
             val baseId = username.toLowerCase(Locale.getDefault())
             val randomThreeDigitNumber = (100..999).random()
 
