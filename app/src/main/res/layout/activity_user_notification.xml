@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/bluebackground"
+    android:background="@color/background"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Back Arrow -->
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="48dp"
@@ -15,7 +14,6 @@
         android:contentDescription="@string/back_button_desc"
         android:layout_margin="16dp" />
 
-    <!-- Title -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
