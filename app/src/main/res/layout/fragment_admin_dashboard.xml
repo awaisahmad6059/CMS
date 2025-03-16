@@ -17,24 +17,22 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
 
-            <!-- Top Bar -->
             <RelativeLayout
                 android:id="@+id/topBar"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:background="@color/blue"
                 android:padding="16dp">
-
-                <ImageButton
+                <ImageView
                     android:id="@+id/menu_button"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/rounded_corner_background"
+                    android:layout_margin="10dp"
                     android:contentDescription="@string/menu_button_desc"
-                    android:src="@drawable/drawayer" />
+                    android:src="@drawable/drawyer" />
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -91,7 +89,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!-- Request Box -->
                     <LinearLayout
                         android:id="@+id/pendingrequest"
                         android:layout_width="0dp"
@@ -100,56 +97,92 @@
                         android:orientation="vertical"
                         android:background="@drawable/border"
                         android:elevation="6dp"
-                        android:padding="16dp"
+                        android:padding="12dp"
                         android:layout_marginEnd="8dp"
-                        android:gravity="center">
+                        android:gravity="start">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="New\nRequests"
                             android:textSize="18sp"
                             android:textColor="@color/black"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp" />
 
-                        <TextView
-                            android:id="@+id/total_pending_request_count"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/total_pending_request_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="20sp"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_marginEnd="8dp" />
+
+                            <View
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                 />
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="52dp"
+                                android:src="@drawable/newrequest" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
-                    <!-- Notification Box -->
                     <LinearLayout
                         android:id="@+id/pauserequests"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
                         android:background="@drawable/border"
                         android:elevation="6dp"
-                        android:padding="16dp"
-                        android:layout_marginStart="8dp"
-                        android:gravity="center">
+                        android:gravity="start"
+                        android:orientation="vertical"
+                        android:padding="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pause\nRequests"
-                            android:textSize="18sp"
                             android:textColor="@color/black"
-                            android:textStyle="bold" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="16dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
                         <TextView
                             android:id="@+id/total_pause_request_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textSize="18sp"
                             android:textColor="@color/black"
+                            android:layout_marginEnd="8dp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
+                            <View
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                />
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="52dp"
+                                android:src="@drawable/pauserequest" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -175,17 +208,23 @@
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:elevation="6dp"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Complete \nTasks"
+                        android:text="Complete \n\nTasks"
                         android:textSize="18sp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginBottom="34dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
                     <TextView
                         android:id="@+id/totalcompletetask"
                         android:layout_width="wrap_content"
@@ -193,7 +232,18 @@
                         android:text="0"
                         android:textSize="18sp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="8dp" />
+                        <View
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="52dp"
+                            android:src="@drawable/completerequest" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -204,7 +254,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:elevation="6dp"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:orientation="vertical"
                     android:padding="16dp">
 
@@ -214,7 +264,10 @@
                         android:text="Equipments\n Requested"
                         android:textSize="18sp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="8dp" />
+
+
                     <TextView
                         android:id="@+id/total_equipments_count"
                         android:layout_width="wrap_content"
@@ -222,7 +275,8 @@
                         android:text="0"
                         android:textSize="18sp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="8dp" />
                     <TextView
                         android:id="@+id/total_equipments_approve"
                         android:layout_width="wrap_content"
@@ -230,7 +284,13 @@
                         android:text="0"
                         android:textSize="18sp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="8dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
                     <TextView
                         android:id="@+id/total_equipments_reject"
                         android:layout_width="wrap_content"
@@ -238,7 +298,18 @@
                         android:text="0"
                         android:textSize="18sp"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="8dp" />
+                        <View
+                            android:layout_width="37dp"
+                            android:layout_height="match_parent"
+                            />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="42dp"
+                            android:src="@drawable/equipmentrequest" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

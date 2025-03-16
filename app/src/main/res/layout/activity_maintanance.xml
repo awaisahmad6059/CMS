@@ -49,6 +49,12 @@
         android:drawableStart="@drawable/search_ic"
         android:hint="Search Requests"
         android:inputType="text" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

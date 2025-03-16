@@ -19,7 +19,6 @@ class MaintenanceRequestAdapter(
     private var requests: MutableList<MaintenanceRequest>
 ) : RecyclerView.Adapter<MaintenanceRequestAdapter.MaintenanceRequestViewHolder>() {
 
-    // To track the color index for the entire adapter
     private var colorIndex = 0
     private val colors = listOf("#a2c9fe", "#F9F497", "#C6FDC5", "#DCDDFD")
 
@@ -52,7 +51,6 @@ class MaintenanceRequestAdapter(
             requestId.text = request.id
             requestTitle.text = request.title
 
-            // Set the profile image
             val profileImageUrl = request.profileImageUrl
             if (profileImageUrl.isNotEmpty()) {
                 Glide.with(itemView.context)
@@ -63,10 +61,8 @@ class MaintenanceRequestAdapter(
                 profileImage.setImageResource(R.drawable.account)
             }
 
-            // Set the background color from the color list
             cardView.setCardBackgroundColor(Color.parseColor(colors[colorIndex]))
 
-            // Update the color index to the next one, and reset if necessary
             colorIndex = (colorIndex + 1) % colors.size
 
             itemView.setOnClickListener {

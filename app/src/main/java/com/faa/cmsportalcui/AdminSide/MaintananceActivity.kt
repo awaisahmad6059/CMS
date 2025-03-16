@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,7 @@ class MaintananceActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MaintenanceRequestAdapter
+    private lateinit var progressBar: ProgressBar
     private val firestore = FirebaseFirestore.getInstance()
     private var requestsListener: ListenerRegistration? = null
     private var requests = mutableListOf<MaintenanceRequest>() // Store full request list
@@ -36,6 +39,8 @@ class MaintananceActivity : AppCompatActivity() {
 
         adapter = MaintenanceRequestAdapter(ArrayList(requests))
         recyclerView.adapter = adapter
+        progressBar = findViewById(R.id.progress_bar)
+
 
         setupRealTimeUpdates()
 
@@ -67,8 +72,12 @@ class MaintananceActivity : AppCompatActivity() {
     }
 
     private fun setupRealTimeUpdates() {
+        progressBar.visibility = View.VISIBLE // Show progress bar
+
         requestsListener = firestore.collectionGroup("requests")
             .addSnapshotListener { snapshot, e ->
+                progressBar.visibility = View.GONE // Hide progress bar once data is loaded
+
                 if (e != null) {
                     Log.e("MaintananceActivity", "Error fetching requests", e)
                     return@addSnapshotListener

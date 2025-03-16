@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -97,7 +98,7 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
         navView.setNavigationItemSelectedListener(this)
 
 
-        val menuButton: ImageButton = rootView.findViewById(R.id.menu_button)
+        val menuButton: ImageView = rootView.findViewById(R.id.menu_button)
         menuButton.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
