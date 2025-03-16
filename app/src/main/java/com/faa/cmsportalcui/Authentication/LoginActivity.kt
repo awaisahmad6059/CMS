@@ -22,7 +22,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var inputPassword: EditText
     private lateinit var btnLogin: Button
     private lateinit var createNewAccount: TextView
-    private lateinit var backButton: ImageView
     private lateinit var progressDialog: ProgressDialog
 
     private lateinit var mAuth: FirebaseAuth
@@ -36,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
         inputPassword = findViewById(R.id.et_password)
         btnLogin = findViewById(R.id.btn_sign_in)
         createNewAccount = findViewById(R.id.tv_sign_up)
-        backButton = findViewById(R.id.back_button)
 
         mAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -55,10 +53,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        backButton.setOnClickListener {
-            startActivity(Intent(this, AuthenticationActivity::class.java))
-            finish()
-        }
+
 
         createNewAccount.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))

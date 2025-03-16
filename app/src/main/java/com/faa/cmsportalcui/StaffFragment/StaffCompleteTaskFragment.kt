@@ -21,7 +21,6 @@ class StaffCompleteTaskFragment : Fragment() {
 
     private var staffId: String? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var addTask: Button
     private lateinit var firestore: FirebaseFirestore
     private lateinit var completedTaskAdapter: CompletedTaskAdapter
     private var tasksListener: ListenerRegistration? = null
@@ -40,7 +39,6 @@ class StaffCompleteTaskFragment : Fragment() {
         staffId = arguments?.getString("staff_id")
 
         recyclerView = view.findViewById(R.id.recyclerViewCompletedTasks)
-        addTask = view.findViewById(R.id.addCompletedTaskButton)
 
         firestore = FirebaseFirestore.getInstance()
 
@@ -50,12 +48,7 @@ class StaffCompleteTaskFragment : Fragment() {
 
         setupRealTimeTaskUpdates()
 
-        addTask.setOnClickListener {
-            val intent = Intent(requireActivity(), StaffAssignedMeActivity::class.java).apply {
-                putExtra("staffId", staffId)
-            }
-            startActivity(intent)
-        }
+
 
 
     }

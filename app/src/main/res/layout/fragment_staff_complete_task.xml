@@ -30,26 +30,11 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/addCompletedTaskButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/screenLabel" />
 
     <!-- Add Completed Task Button -->
-    <Button
-        android:id="@+id/addCompletedTaskButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Add Completed Task"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/ButtonBlue"
-        android:textColor="@color/white"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

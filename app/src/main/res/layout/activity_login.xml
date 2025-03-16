@@ -8,15 +8,6 @@
     android:background="@color/background"
     tools:context=".Authentication.SignUpActivity">
 
-    <!-- Back button -->
-    <ImageButton
-        android:id="@+id/back_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_corner_background"
-        android:src="@drawable/back"
-        android:contentDescription="@string/back_button_desc"
-        android:layout_margin="16dp" />
 
     <!-- Title -->
     <TextView

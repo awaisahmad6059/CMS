@@ -18,7 +18,6 @@ class StaffCompleteTaskActivity : AppCompatActivity() {
 
     private var staffId: String? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var addTask: Button
     private lateinit var backBtn: ImageView
     private lateinit var firestore: FirebaseFirestore
     private lateinit var completedTaskAdapter: CompletedTaskAdapter
@@ -31,7 +30,6 @@ class StaffCompleteTaskActivity : AppCompatActivity() {
         staffId = intent.getStringExtra("staffId")
 
         recyclerView = findViewById(R.id.recyclerViewCompletedTasks)
-        addTask = findViewById(R.id.addCompletedTaskButton)
         backBtn = findViewById(R.id.back_button)
 
         firestore = FirebaseFirestore.getInstance()
@@ -42,11 +40,7 @@ class StaffCompleteTaskActivity : AppCompatActivity() {
 
         setupRealTimeTaskUpdates()
 
-        addTask.setOnClickListener {
-            startActivity(Intent(this@StaffCompleteTaskActivity, StaffAssignedMeActivity::class.java).apply {
-                putExtra("staffId", staffId)
-            })
-        }
+
 
         backBtn.setOnClickListener {
             val intent = Intent(this, StaffDashboardActivity::class.java)
