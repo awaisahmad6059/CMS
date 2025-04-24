@@ -14,8 +14,6 @@ class AdminSecuritySettingActivity : AppCompatActivity() {
 
         val backButton: ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener {
-            val intent = Intent(this, SettingActivity::class.java)
-            startActivity(intent)
             finish()
         }
 

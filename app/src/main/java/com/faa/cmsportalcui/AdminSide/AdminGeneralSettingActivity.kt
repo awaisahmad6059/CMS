@@ -14,7 +14,7 @@ class AdminGeneralSettingActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
 
-    private val adminId = "PLT9zgmym2RwqCQbQ4WG3WeDY2d2"
+    private val adminId = "Ae01ooy19BMfZO8y80BwG6jOuP33"
     private val auth = FirebaseAuth.getInstance()
 
 

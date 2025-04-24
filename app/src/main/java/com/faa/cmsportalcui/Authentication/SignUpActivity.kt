@@ -3,24 +3,14 @@ package com.faa.cmsportalcui.Authentication
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.faa.cmsportalcui.R
-import com.faa.cmsportalcui.StaffSide.StaffDashboardActivity
-import com.faa.cmsportalcui.UserSide.UserDashboardActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUpActivity : AppCompatActivity() {
+
     private lateinit var alreadyHaveAccount: TextView
     private lateinit var inputEmail: EditText
     private lateinit var inputPassword: EditText
@@ -30,10 +20,8 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var back_button: ImageView
     private lateinit var progressDialog: ProgressDialog
     private lateinit var mAuth: FirebaseAuth
-    private var mUser: FirebaseUser? = null
     private lateinit var firestore: FirebaseFirestore
     private lateinit var spinnerUserType: Spinner
-    private var userType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,17 +34,17 @@ class SignUpActivity : AppCompatActivity() {
         inputUsername = findViewById(R.id.et_username)
         btnRegister = findViewById(R.id.btn_sign_up)
         back_button = findViewById(R.id.back_button)
-        progressDialog = ProgressDialog(this)
         spinnerUserType = findViewById(R.id.spinner_usertype)
+        progressDialog = ProgressDialog(this)
         mAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
         back_button.setOnClickListener {
-            startActivity(Intent(this@SignUpActivity, AuthenticationActivity::class.java))
+            startActivity(Intent(this, AuthenticationActivity::class.java))
         }
 
         alreadyHaveAccount.setOnClickListener {
-            startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
 
         btnRegister.setOnClickListener {
@@ -78,66 +66,49 @@ class SignUpActivity : AppCompatActivity() {
 
         if (!email.matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))) {
             inputEmail.error = "Enter a correct email"
+            return
         } else if (password.isEmpty() || password.length < 6) {
             inputPassword.error = "Enter a proper password"
+            return
         } else if (password != confirmPassword) {
             inputConfirmPassword.error = "Password doesn't match"
-        } else {
-            progressDialog.setMessage("Please wait while registration...")
-            progressDialog.setTitle("Registration")
-            progressDialog.setCanceledOnTouchOutside(false)
-            progressDialog.show()
+            return
+        }
 
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+        progressDialog.setMessage("Please wait while registering...")
+        progressDialog.setTitle("Registration")
+        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog.show()
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                progressDialog.dismiss()
                 if (task.isSuccessful) {
                     val firebaseUser = mAuth.currentUser
-                    val userId = firebaseUser?.uid ?: ""
-                    val staffId = if (selectedUserType == "staff") generateRandomStaffId() else ""
-
-                    val userData = hashMapOf(
-                        "email" to email,
-                        "password" to password,
-                        "name" to username,
-                        "userType" to selectedUserType
-                    )
-
-                    if (selectedUserType == "user") {
-                        firestore.collection("users").document(userId)
-                            .set(userData)
-                            .addOnSuccessListener {
-                                progressDialog.dismiss()
-                                Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@SignUpActivity, UserDashboardActivity::class.java)
-                                intent.putExtra("user_id", userId)
-                                startActivity(intent)
-                                finish()
-                            }
-                            .addOnFailureListener {
-                                progressDialog.dismiss()
-                                Toast.makeText(this, "Registration failed: ${it.message}", Toast.LENGTH_SHORT).show()
-                            }
-                    } else if (selectedUserType == "staff") {
-                        firestore.collection("staff").document(staffId)
-                            .set(userData)
-                            .addOnSuccessListener {
-                                progressDialog.dismiss()
-                                Toast.makeText(this, "Staff registered successfully", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@SignUpActivity, StaffDashboardActivity::class.java)
-                                intent.putExtra("staff_id", staffId)
-                                startActivity(intent)
-                                finish()
-                            }
-                            .addOnFailureListener {
-                                progressDialog.dismiss()
-                                Toast.makeText(this, "Registration failed: ${it.message}", Toast.LENGTH_SHORT).show()
-                            }
+                    firebaseUser?.sendEmailVerification()?.addOnCompleteListener { verifyTask ->
+                        if (verifyTask.isSuccessful) {
+                            Toast.makeText(this, "Verification email sent. Please verify and then login.", Toast.LENGTH_LONG).show()
+                            mAuth.signOut()
+                            saveUserLocally(email, username, selectedUserType)
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Failed to send verification email: ${verifyTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
-
                 } else {
-                    progressDialog.dismiss()
                     Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun saveUserLocally(email: String, username: String, userType: String) {
+        val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        prefs.edit().apply {
+            putString("email", email)
+            putString("username", username)
+            putString("userType", userType)
+            apply()
         }
     }
 
@@ -146,6 +117,4 @@ class SignUpActivity : AppCompatActivity() {
         val randomNumber = (1000..9999).random()
         return "$prefix$randomNumber"
     }
-
-
 }

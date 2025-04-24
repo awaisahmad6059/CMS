@@ -96,7 +96,7 @@ class StaffAssignedDetailActivity : AppCompatActivity() {
                 val determinedUserType = when {
                     !adminId.isNullOrEmpty() -> {
                         taskData["adminId"] = adminId
-                        "admins"
+                        "admin"
                     }
                     !userId.isNullOrEmpty() -> {
                         taskData["userId"] = userId

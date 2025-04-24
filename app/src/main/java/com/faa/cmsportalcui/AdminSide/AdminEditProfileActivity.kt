@@ -108,8 +108,7 @@ class AdminEditProfileActivity : AppCompatActivity() {
             storageRef.putFile(selectedImageUri!!)
                 .addOnProgressListener { snapshot ->
                     val progress = (100.0 * snapshot.bytesTransferred / snapshot.totalByteCount).toInt()
-                    // Update progress (you can show the progress as needed)
-                    // Example: update a progress bar in UI with progress
+
                 }
                 .addOnSuccessListener {
                     storageRef.downloadUrl.addOnSuccessListener { uri ->

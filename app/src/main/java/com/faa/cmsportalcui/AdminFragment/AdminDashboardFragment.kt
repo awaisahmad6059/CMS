@@ -150,7 +150,7 @@ class AdminDashboardFragment : Fragment(), NavigationView.OnNavigationItemSelect
 
     private fun fetchAdminDetails() {
         val db = FirebaseFirestore.getInstance()
-        val adminId = "PLT9zgmym2RwqCQbQ4WG3WeDY2d2"
+        val adminId = "Ae01ooy19BMfZO8y80BwG6jOuP33"
 
         db.collection("admins")
             .document(adminId)

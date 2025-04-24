@@ -36,7 +36,7 @@ class CompletedTaskAdapter(private val tasks: List<CompletedTask>) :
                     .into(holder.userImageView)
             }
         } else {
-            getAdminProfileImageUrl("PLT9zgmym2RwqCQbQ4WG3WeDY2d2") { url ->
+            getAdminProfileImageUrl("Ae01ooy19BMfZO8y80BwG6jOuP33") { url ->
                 Glide.with(holder.itemView.context)
                     .load(url)
                     .placeholder(R.drawable.account)

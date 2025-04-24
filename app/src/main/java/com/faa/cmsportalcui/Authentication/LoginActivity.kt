@@ -2,10 +2,10 @@ package com.faa.cmsportalcui.Authentication
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,35 +39,25 @@ class LoginActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
+        prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
         progressDialog = ProgressDialog(this)
-
 
         btnLogin.setOnClickListener {
             val email = inputEmail.text.toString().trim()
             val password = inputPassword.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
             } else {
                 loginUser(email, password)
             }
         }
-
-
 
         createNewAccount.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
             finish()
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        // Already checked in onCreate
-    }
-
-
 
     private fun loginUser(email: String, password: String) {
         progressDialog.setMessage("Logging in...")
@@ -77,32 +68,32 @@ class LoginActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 if (task.isSuccessful) {
                     val currentUser = mAuth.currentUser
-                    if (currentUser != null) {
-                        redirectToDashboard(currentUser.uid, email)
+                    if (currentUser != null && currentUser.isEmailVerified) {
+                        redirectToDashboard(currentUser.uid, currentUser.email ?: "")
+                    } else {
+                        Toast.makeText(this, "Please verify your email first", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Login failed: ${task.exception?.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
+
     private fun redirectToDashboard(userId: String, email: String) {
         firestore.collection("admins").document(userId).get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
+            .addOnSuccessListener { adminDoc ->
+                if (adminDoc.exists()) {
                     navigateToDashboard(AdminDashboardActivity::class.java, userId, "admin_id")
                 } else {
                     checkUserOrStaff(userId, email)
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Error fetching user data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error checking admin status", Toast.LENGTH_SHORT).show()
             }
     }
+
 
     private fun checkUserOrStaff(userId: String, email: String) {
         firestore.collection("users").document(userId).get()
@@ -110,10 +101,56 @@ class LoginActivity : AppCompatActivity() {
                 if (userDoc.exists()) {
                     navigateToDashboard(UserDashboardActivity::class.java, userId, "user_id")
                 } else {
-                    checkStaffByEmail(email)
+                    firestore.collection("staff").document(userId).get()
+                        .addOnSuccessListener { staffDoc ->
+                            if (staffDoc.exists()) {
+                                navigateToDashboard(StaffDashboardActivity::class.java, userId, "staff_id")
+                            } else {
+                                saveStaffIfEmailMatches(email, userId)
+                            }
+                        }
                 }
             }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error checking user/staff info", Toast.LENGTH_SHORT).show()
+            }
     }
+
+    private fun saveStaffIfEmailMatches(email: String, userId: String) {
+        firestore.collection("staff").whereEqualTo("email", email).get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val staffId = querySnapshot.documents[0].id
+                    navigateToDashboard(StaffDashboardActivity::class.java, staffId, "staff_id")
+                } else {
+                    // Save new staff only if not exists
+                    val username = prefs.getString("username", "") ?: ""
+                    val userType = prefs.getString("userType", "") ?: "staff" // default to staff
+
+                    if (userType == "staff") {
+                        val staffData = hashMapOf(
+                            "email" to email,
+                            "name" to username,
+                            "userType" to userType
+                        )
+                        firestore.collection("staff").document(userId)
+                            .set(staffData)
+                            .addOnSuccessListener {
+                                navigateToDashboard(StaffDashboardActivity::class.java, userId, "staff_id")
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Failed to save staff: ${it.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    } else {
+                        Toast.makeText(this, "User not found in any role", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to check staff by email", Toast.LENGTH_SHORT).show()
+            }
+    }
+
 
     private fun checkStaffByEmail(email: String) {
         firestore.collection("staff")
@@ -138,5 +175,11 @@ class LoginActivity : AppCompatActivity() {
         intent.putExtra(key, userId)
         startActivity(intent)
         finish()
+    }
+
+    private fun generateRandomStaffId(): String {
+        val prefix = "staff"
+        val randomNumber = (1000..9999).random()
+        return "$prefix$randomNumber"
     }
 }
