@@ -26,7 +26,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/search_background"
-        android:hint="Search Staff"
+        android:hint=" Search Staff"
         android:padding="8dp"
         android:layout_marginBottom="8dp"
         android:drawableStart="@drawable/search_ic"

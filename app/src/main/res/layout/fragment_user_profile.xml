@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences|textPersonName"
             android:layout_below="@id/label_full_name"
             android:layout_marginTop="8dp"
             android:padding="12dp"
@@ -82,7 +82,7 @@
             android:layout_below="@id/description"
             android:layout_marginTop="8dp"
             android:gravity="top"
-            android:inputType="text"
+            android:inputType="textCapSentences|textMultiLine"
             android:padding="12dp"
             android:minHeight="120dp"
             android:background="@drawable/rounded_corner_background" />

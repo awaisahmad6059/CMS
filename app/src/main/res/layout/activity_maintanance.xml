@@ -47,7 +47,7 @@
         android:layout_weight="1"
         android:background="@drawable/search_background"
         android:drawableStart="@drawable/search_ic"
-        android:hint="Search Requests"
+        android:hint=" Search Requests"
         android:inputType="text" />
     <ProgressBar
         android:id="@+id/progress_bar"

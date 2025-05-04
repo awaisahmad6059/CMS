@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/search_background"
         android:drawableStart="@drawable/search_ic"
-        android:hint="Search by name"
+        android:hint=" Search by name"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

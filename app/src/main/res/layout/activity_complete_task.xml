@@ -10,8 +10,8 @@
     <!-- Back button -->
     <ImageButton
         android:id="@+id/back_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:layout_margin="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -43,7 +43,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/search_background"
         android:drawableStart="@drawable/search_ic"
-        android:hint="Search for a task"
+        android:hint=" Search for a task"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

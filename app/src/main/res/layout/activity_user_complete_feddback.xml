@@ -45,7 +45,7 @@
         android:layout_margin="16dp"
         android:background="@drawable/search_background"
         android:drawableStart="@drawable/search_ic"
-        android:hint="Search requests" />
+        android:hint=" Search requests" />
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -10,10 +10,9 @@
     <!-- Back Button -->
     <ImageButton
         android:id="@+id/back_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
-        android:layout_marginStart="12dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_margin="12dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_background"
         android:contentDescription="@string/back_button_desc"
@@ -27,10 +26,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="62dp"
         android:text="Equipments Requests\n      Approvals"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@id/back_button"
         app:layout_constraintStart_toEndOf="@id/back_button"
         app:layout_constraintTop_toTopOf="parent" />
