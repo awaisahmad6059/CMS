@@ -2,13 +2,8 @@ package com.faa.cmsportalcui.AdminSide
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.faa.cmsportalcui.R
 
 class FeedbackActivity : AppCompatActivity() {
@@ -27,13 +22,19 @@ class FeedbackActivity : AppCompatActivity() {
         val itemId = intent.getStringExtra("id")
         val assignedBy = intent.getStringExtra("assignedBy")
         val review = intent.getStringExtra("review")
+        val rating = intent.getFloatExtra("rating", 0f)
 
         val itemIdTextView = findViewById<TextView>(R.id.item_id)
         val assignedByTextView = findViewById<TextView>(R.id.item_user)
         val reviewTextView = findViewById<TextView>(R.id.item_description)
+        val ratingTextView = findViewById<TextView>(R.id.rating_number)
+        val ratingBar = findViewById<RatingBar>(R.id.rating_bar)
 
         itemIdTextView.text = itemId ?: "N/A"
         assignedByTextView.text = assignedBy ?: "N/A"
         reviewTextView.text = review ?: "No review provided."
+
+        ratingTextView.text = rating.toString()
+        ratingBar.rating = rating
     }
 }

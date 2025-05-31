@@ -42,6 +42,7 @@ class AdminFeedbackListAdapter(
                 putExtra("id", feedback.id)
                 putExtra("assignedBy", feedback.assignedBy)
                 putExtra("review", feedback.review)
+                putExtra("rating", feedback.rating)
             }
             context.startActivity(intent)
         }
