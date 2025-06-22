@@ -108,6 +108,7 @@ class AddNotificationActivity : AppCompatActivity() {
             }
     }
 
+
     private fun showCancelConfirmationDialog() {
         AlertDialog.Builder(this)
             .setTitle("Cancel")
